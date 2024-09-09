@@ -30,6 +30,8 @@ jupyterhub:
       - name: custom-templates
         emptyDir: {}
     extraVolumeMounts:
+      - name: custom-templates
+        mountPath: /etc/jupyterhub/custom
     extraConfig:
       templates: |
         c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/ncar-hub-homepage/templates']
