@@ -10,8 +10,29 @@ jupyterhub:
     services:
       dask-gateway:
         display: false
-
+    initContainers:
+      - name: git-clone-templates
+        image: alpine/git
+        args:
+          - clone
+          - --single-branch
+          - --branch=master
+          - --depth=1
+          - --
+          - https://github.com/NicholasCote/ncar-hub-homepage.git
+          - /etc/jupyterhub/custom
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+          - name: custom-templates
+            mountPath: /etc/jupyterhub/custom
+    extraVolumes:
+      - name: custom-templates
+        emptyDir: {}
+    extraVolumeMounts:
     extraConfig:
+      templates: |
+        c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/ncar-hub-homepage/templates']
       # Register Dask Gateway service and setup singleuser environment.
       00-add-dask-gateway-values: |
         # 1. Sets `DASK_GATEWAY__PROXY_ADDRESS` in the singleuser environment.
