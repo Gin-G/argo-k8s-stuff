@@ -16,7 +16,7 @@ jupyterhub:
         args:
           - clone
           - --single-branch
-          - --branch=master
+          - --branch=main
           - --depth=1
           - --
           - https://github.com/NicholasCote/ncar-hub-homepage.git
