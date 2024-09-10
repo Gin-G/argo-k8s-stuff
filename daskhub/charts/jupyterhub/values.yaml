@@ -182,7 +182,7 @@ proxy:
     rollingUpdate:
   # service relates to the proxy-public service
   service:
-    type: NodePort
+    type: ClusterIP
     labels: {}
     annotations: {}
     nodePorts:
