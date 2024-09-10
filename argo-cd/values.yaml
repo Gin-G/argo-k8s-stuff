@@ -42,7 +42,7 @@ crds:
 global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
-  domain: argocd.example.com
+  domain: argocd.localhost
 
   # -- Common labels for the all resources
   additionalLabels: {}
@@ -2154,7 +2154,7 @@ server:
   # Argo CD server ingress configuration
   ingress:
     # -- Enable an ingress resource for the Argo CD server
-    enabled: false
+    enabled: true
     # -- Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
     ## Additional configuration might be required in related configuration sections
     controller: generic
@@ -2162,7 +2162,9 @@ server:
     labels: {}
     # -- Additional ingress annotations
     ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
-    annotations: {}
+    annotations: {
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    }
       # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 
@@ -2171,7 +2173,7 @@ server:
 
     # -- Argo CD server hostname
     # @default -- `""` (defaults to global.domain)
-    hostname: ""
+    hostname: "argo-cd.localhost"
 
     # -- The path to Argo CD server
     path: /
