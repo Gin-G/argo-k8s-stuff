@@ -42,7 +42,7 @@ crds:
 global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
-  domain: argocd.localhost
+  domain: argo-cd.ging-laptop
 
   # -- Common labels for the all resources
   additionalLabels: {}
@@ -2173,7 +2173,7 @@ server:
 
     # -- Argo CD server hostname
     # @default -- `""` (defaults to global.domain)
-    hostname: "argo-cd.localhost"
+    hostname: "argo-cd.ging-laptop"
 
     # -- The path to Argo CD server
     path: /
