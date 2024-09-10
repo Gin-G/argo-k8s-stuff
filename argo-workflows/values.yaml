@@ -617,9 +617,11 @@ server:
   # ref: https://kubernetes.io/docs/user-guide/ingress/
   ingress:
     # -- Enable an ingress resource
-    enabled: false
+    enabled: true
     # -- Additional ingress annotations
-    annotations: {}
+    annotations: {
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    }
     # -- Additional ingress labels
     labels: {}
     # -- Defines which ingress controller will implement the resource
@@ -628,7 +630,7 @@ server:
     # -- List of ingress hosts
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
-    hosts: []
+    hosts: ["argoworkflow.ging-laptop.nick-knows.net"]
       # - argoworkflows.example.com
 
     # -- List of ingress paths
