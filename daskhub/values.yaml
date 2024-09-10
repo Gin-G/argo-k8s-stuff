@@ -135,7 +135,13 @@ jupyterhub:
                   - "MKNOD"
                   - "SYS_CHROOT"
                   - "SETFCAP"
-
+  ingress:
+    enabled: true
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    hosts:
+      - jupyterhub.ging-laptop.nick-knows.net
+      
 dask-gateway:
   enabled: true  # Enabling dask-gateway will install Dask Gateway as a dependency.
   # Futher Dask Gateway configuration goes here
