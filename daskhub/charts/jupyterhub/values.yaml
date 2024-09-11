@@ -35,7 +35,7 @@ hub:
   config:
     JupyterHub:
       admin_access: true
-      authenticator_class: dummy
+      authenticator_class: firstuseauthenticator.FirstUseAuthenticator
   service:
     type: ClusterIP
     annotations: {}

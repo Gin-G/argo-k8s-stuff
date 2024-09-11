@@ -10,31 +10,31 @@ jupyterhub:
     services:
       dask-gateway:
         display: false
-    #initContainers:
-    #  - name: git-clone-templates
-    #    image: alpine/git
-    #    args:
-    #      - clone
-    #      - --single-branch
-    #      - --branch=main
-    #      - --depth=1
-    #      - --
-    #      - https://github.com/NicholasCote/ncar-hub-homepage.git
-    #      - /etc/jupyterhub/custom
-    #    securityContext:
-    #      runAsUser: 0
-    #    volumeMounts:
-    #      - name: custom-templates
-    #        mountPath: /etc/jupyterhub/custom
-    #extraVolumes:
-    #  - name: custom-templates
-    #    emptyDir: {}
-    #extraVolumeMounts:
-    #  - name: custom-templates
-    #    mountPath: /etc/jupyterhub/custom
+    initContainers:
+      - name: git-clone-templates
+        image: alpine/git
+        args:
+          - clone
+          - --single-branch
+          - --branch=main
+          - --depth=1
+          - --
+          - https://github.com/NicholasCote/ncar-hub-homepage.git
+          - /etc/jupyterhub/custom
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+          - name: custom-templates
+            mountPath: /etc/jupyterhub/custom
+    extraVolumes:
+      - name: custom-templates
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: custom-templates
+        mountPath: /etc/jupyterhub/custom
     extraConfig:
-    #  templates: |
-    #    c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/ncar-hub-homepage/templates']
+      templates: |
+        c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/templates']
       # Register Dask Gateway service and setup singleuser environment.
       00-add-dask-gateway-values: |
         # 1. Sets `DASK_GATEWAY__PROXY_ADDRESS` in the singleuser environment.
@@ -79,15 +79,15 @@ jupyterhub:
 
   singleuser:
     image:
-      name: docker.io/ncote/cisl-cloud-gpu-tf  # Image to use for singleuser environment. Must include dask-gateway.
-      tag: "2024-06-24.20"
+      name: docker.io/ncote/jhub-base  # Image to use for singleuser environment. Must include dask-gateway.
+      tag: "2024-09-10"
     defaultUrl: "/lab"  # Use jupyterlab by defualt.
     extraAnnotations:
       container.apparmor.security.bet.kubernetes.io/notebook: 'unconfined'
     profileList:
-      - display_name: TensorFlow
-        description: TensorFlow image
-        slug: gpu
+      - display_name: Base
+        description: Base image
+        slug: base
         default: true
         profile_options:
           requests:
@@ -99,42 +99,42 @@ jupyterhub:
                 kubespawner_override:
                   mem_guarantee: 8G
                   cpu_guarantee: 2
-        kubespawner_override:
-          environment:
-            NVIDIA_DRIVER_CAPABILITIES: all
-            NVIDIA_VISIBLE_DEVICES: all
-          extra_pod_config:
-            runtimeClassName: nvidia
-          extra_resource_limits:
-            nvidia.com/gpu: "1"
-      - display_name: Podman
-        description: Podman image
-        slug: podman
-        profile_options:
-          requests:
-            display_name: Resource Selection
-            choices:
-              mem_1:
-                default: true
-                display_name: ~8 GB
-                kubespawner_override:
-                  mem_guarantee: 8G
-                  cpu_guarantee: 2
-        kubespawner_override:
-          image: docker.io/escomp/test-ctsm-cislcloud
-          extra_resource_limits:
-            github.com/fuse: 1
-          extra_container_config:
-            securityContext:
-              allowPrivilegeEscalation: true
-              seLinuxOptions:
-                type: spc_t
-              capabilities:
-                add:
-                  - "SYS_ADMIN"
-                  - "MKNOD"
-                  - "SYS_CHROOT"
-                  - "SETFCAP"
+      #  kubespawner_override:
+      #    environment:
+      #      NVIDIA_DRIVER_CAPABILITIES: all
+      #      NVIDIA_VISIBLE_DEVICES: all
+      #    extra_pod_config:
+      #      runtimeClassName: nvidia
+      #    extra_resource_limits:
+      #      nvidia.com/gpu: "1"
+      #- display_name: Podman
+      #  description: Podman image
+      #  slug: podman
+      #  profile_options:
+      #    requests:
+      #      display_name: Resource Selection
+      #      choices:
+      #        mem_1:
+      #          default: true
+      #          display_name: ~8 GB
+      #          kubespawner_override:
+      #            mem_guarantee: 8G
+      #            cpu_guarantee: 2
+        #kubespawner_override:
+          #image: docker.io/escomp/test-ctsm-cislcloud
+          #extra_resource_limits:
+            #github.com/fuse: 1
+          #extra_container_config:
+            #securityContext:
+              #allowPrivilegeEscalation: true
+              #seLinuxOptions:
+              #  type: spc_t
+              #capabilities:
+              #  add:
+                #  - "SYS_ADMIN"
+                #  - "MKNOD"
+                #  - "SYS_CHROOT"
+                #  - "SETFCAP"
   ingress:
     enabled: true
     annotations:
