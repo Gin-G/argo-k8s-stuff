@@ -34,8 +34,25 @@ hub:
   revisionHistoryLimit:
   config:
     JupyterHub:
-      admin_access: true
-      authenticator_class: firstuseauthenticator.FirstUseAuthenticator
+      admin_access: false
+      # https://native-authenticator.readthedocs.io/en/latest/quickstart.html
+      authenticator_class: nativeauthenticator.NativeAuthenticator 
+    Authenticator:
+      admin_users:
+        - ncote
+      allowed_users:
+        - cnick
+        - nick
+        - cote
+        - barts
+    NativeAuthenticator:
+      enable_signup: true
+      minimum_password_length: 8
+      check_common_password: true
+      ask_email_on_signup: true
+      allow_2fa: false
+      allowed_failed_logins: 3
+      seconds_before_next_try: 1200
   service:
     type: ClusterIP
     annotations: {}

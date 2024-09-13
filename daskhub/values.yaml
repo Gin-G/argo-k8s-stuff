@@ -33,8 +33,9 @@ jupyterhub:
       - name: custom-templates
         mountPath: /etc/jupyterhub/custom
     extraConfig:
-      templates: |
-        c.JupyterHub.template_paths = ['/etc/jupyterhub/custom/templates']
+      00_nativeauthenticator_templates: |
+        import os, nativeauthenticator
+        c.JupyterHub.template_paths = [f"{os.path.dirname(nativeauthenticator.__file__)}/templates/","/etc/jupyterhub/custom/templates"]
       # Register Dask Gateway service and setup singleuser environment.
       00-add-dask-gateway-values: |
         # 1. Sets `DASK_GATEWAY__PROXY_ADDRESS` in the singleuser environment.
@@ -99,6 +100,22 @@ jupyterhub:
                 kubespawner_override:
                   mem_guarantee: 8G
                   cpu_guarantee: 2
+      - display_name: CTSM
+        description: CTSM image
+        slug: ctsm
+        default: false
+        profile_options:
+          requests:
+            display_name: Resource Selection
+            choices:
+              mem_1:
+                default: true
+                display_name: ~8 GB
+                kubespawner_override:
+                  mem_guarantee: 8G
+                  cpu_guarantee: 2
+        kubespawner_override:
+          image: docker.io/escomp/test_20240912_1
       #  kubespawner_override:
       #    environment:
       #      NVIDIA_DRIVER_CAPABILITIES: all
