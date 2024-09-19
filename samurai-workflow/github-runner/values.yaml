@@ -1,0 +1,12 @@
+replicaCount: 1
+
+webapp:
+  name: samurai-gh-runner
+  group: samurai-gh-runner
+  container: 
+    imagePullPolicy: Always
+    port: 80
+    memory: 10G
+    cpu: 2    
+    image: docker.io/ncote/github-runner:2024-08-08
+  repo: Gin-G/samurai-ncote

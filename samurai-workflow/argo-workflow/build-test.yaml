@@ -1,0 +1,70 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: git-docker-test-
+  namespace: samurai-workflow
+spec:
+  serviceAccountName: argo-workflow  # Add this line to specify the service account
+  entrypoint: git-docker-workflow
+  templates:
+  - name: git-docker-workflow
+    steps:
+    - - name: clone
+        template: git-clone
+    - - name: remove-files
+        template: remove-unnecessary-files
+    - - name: docker-build
+        template: build-docker-image
+    - - name: docker-test
+        template: test-docker-image
+
+  - name: git-clone
+    container:
+      image: alpine/git
+      command: [sh, -c]
+      args: 
+        - git clone https://github.com/Gin-G/samurai-ncote.git /workspace && cd /workspace
+      volumeMounts:
+      - name: workspace
+        mountPath: /workspace
+
+  - name: remove-unnecessary-files
+    container:
+      image: alpine
+      command: [sh, -c]
+      args:
+        - cd /workspace && rm -rf /opt/hostedtoolcache
+      volumeMounts:
+      - name: workspace
+        mountPath: /workspace
+
+  - name: build-docker-image
+    container:
+      image: gcr.io/kaniko-project/executor:latest
+      args:
+        - "--context=git://github.com/Gin-G/samurai-ncote.git"
+        - "--context-sub-path=docker/"
+        - "--destination=docker.io/ncote/samurai:latest"
+        - "--dockerfile=Dockerfile"
+      volumeMounts:
+      - name: workspace
+        mountPath: /workspace
+      - name: docker-config
+        mountPath: /kaniko/.docker
+        readOnly: true
+      env:
+        - name: DOCKER_CONFIG
+          value: /kaniko/.docker/config.json
+
+  - name: test-docker-image
+    container:
+      image: docker.io/ncote/samurai:latest
+      imagePullPolicy: Always
+
+  volumes:
+  - name: workspace
+    emptyDir: {}
+  - name: docker-config
+    secret:
+      secretName: docker-registry-secret
+      defaultMode: 0400
