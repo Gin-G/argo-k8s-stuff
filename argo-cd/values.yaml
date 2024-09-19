@@ -1,7 +1,10 @@
 ## Argo CD configuration
 ## Ref: https://github.com/argoproj/argo-cd
 ##
-
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
 # -- Provide a name in place of `argocd`
 nameOverride: argocd
 # -- String to fully override `"argo-cd.fullname"`
