@@ -157,7 +157,7 @@ jupyterhub:
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: web
     hosts:
-      - jupyterhub.ging-laptop.nick-knows.net
+      - jupyterhub.gingmachine
       
 dask-gateway:
   enabled: true  # Enabling dask-gateway will install Dask Gateway as a dependency.

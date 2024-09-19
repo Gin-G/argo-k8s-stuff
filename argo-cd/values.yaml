@@ -2173,7 +2173,7 @@ server:
 
     # -- Argo CD server hostname
     # @default -- `""` (defaults to global.domain)
-    hostname: "argocd.ging-laptop.nick-knows.net"
+    hostname: "argocd.gingmachine"
 
     # -- The path to Argo CD server
     path: /
