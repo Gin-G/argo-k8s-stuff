@@ -366,7 +366,7 @@ ingress:
   # -- Set to 'true' if an Ingress Resource should be created. This depends on a
   # pre-provisioned Ingress Controller being available.
   #
-  create: false
+  create: true
 
   # -- Set to true if you want to create an OpenShift Route instead of an Ingress
   #
@@ -382,7 +382,7 @@ ingress:
   # contains multiple ingress controllers, this setting allows you to control
   # which of them is used for Atlassian application traffic.
   #
-  className: "nginx"
+  #className: "nginx"
 
   # -- Set to 'true' if the Ingress Resource is to use the K8s 'ingress-nginx'
   # controller.
@@ -393,7 +393,7 @@ ingress:
   # to be used, in which case the appropriate annotations for that controller must
   # be specified below under 'ingress.annotations'.
   #
-  nginx: true
+  nginx: false
 
   # -- The max body size to allow. Requests exceeding this size will result
   # in an HTTP 413 error being returned to the client.
@@ -424,7 +424,7 @@ ingress:
   # Service.
   #
   host:
-
+    - jira.gingmachine
   # -- The base path for the Ingress Resource. For example '/jira'. Based on a
   # 'ingress.host' value of 'company.k8s.com' this would result in a URL of
   # 'company.k8s.com/jira'. Default value is 'jira.service.contextPath'
@@ -435,12 +435,14 @@ ingress:
   # If using an ingress-nginx controller be sure that the annotations you add
   # here are compatible with those already defined in the 'ingess.yaml' template
   #
-  annotations: {}
+  annotations: {
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+  }
 
   # -- Set to 'true' if browser communication with the application should be TLS
   # (HTTPS) enforced.
   #
-  https: true
+  https: false
 
   # -- The name of the K8s Secret that contains the TLS private key and corresponding
   # certificate. When utilised, TLS termination occurs at the ingress point where
