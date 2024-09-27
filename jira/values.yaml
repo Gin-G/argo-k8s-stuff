@@ -382,7 +382,7 @@ ingress:
   # contains multiple ingress controllers, this setting allows you to control
   # which of them is used for Atlassian application traffic.
   #
-  #className: "nginx"
+  className: "traefik"
 
   # -- Set to 'true' if the Ingress Resource is to use the K8s 'ingress-nginx'
   # controller.
