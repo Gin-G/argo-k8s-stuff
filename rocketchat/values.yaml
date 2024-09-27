@@ -23,8 +23,8 @@ minAvailable: 1
 
 smtp:
   enabled: false
-  username:
-  password:
+  username: admin
+  password: password
   host:
   port: 587
 
