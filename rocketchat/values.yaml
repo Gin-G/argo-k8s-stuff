@@ -194,13 +194,16 @@ serviceAccount:
 ### ref : http://kubernetes.io/docs/user-guide/ingress/
 ###
 ingress:
-  enabled: false
+  enabled: true
   pathType: Prefix
   # ingressClassName: "nginx"
   annotations:
-    {}
+    {
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    }
     # kubernetes.io/ingress.class: "nginx"
   path: /
+  hosts: rocketchat.gingmachine
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
