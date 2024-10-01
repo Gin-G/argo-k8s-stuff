@@ -1,1 +1,4 @@
 *samurai-workflow/argo-workflow/config.json*
+role.yaml
+rolebinding.yaml
+secret.yaml
