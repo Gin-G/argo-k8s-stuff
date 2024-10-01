@@ -1,10 +1,17 @@
+env:
+  - name: GITHUB_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: ncote-github-token
+        key: token
+
 ## githubConfigUrl is the GitHub url for where you want to configure runners
 ## ex: https://github.com/myorg/myrepo or https://github.com/myorg
 githubConfigUrl: ""
 
 ## githubConfigSecret is the k8s secrets to use when auth with GitHub API.
 ## You can choose to use GitHub App or a PAT token
-githubConfigSecret:
+githubConfigSecret: pre-defined-secret
   ### GitHub Apps Configuration
   ## NOTE: IDs MUST be strings, use quotes
   #github_app_id: ""
@@ -12,7 +19,7 @@ githubConfigSecret:
   #github_app_private_key: |
 
   ### GitHub PAT Configuration
-  github_token: "pre-defined-secret"
+  #github_token: $GITHUB_TOKEN
 ## If you have a pre-define Kubernetes secret in the same namespace the gha-runner-scale-set is going to deploy,
 ## you can also reference it via `githubConfigSecret: pre-defined-secret`.
 ## You need to make sure your predefined secret has all the required secret data set properly.
