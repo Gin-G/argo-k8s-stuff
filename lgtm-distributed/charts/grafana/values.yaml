@@ -17,7 +17,7 @@ global:
   imagePullSecrets: []
 
 rbac:
-  create: true
+  create: false
   ## Use an existing ClusterRole/Role (depending on rbac.namespaced false/true)
   # useExistingRole: name-of-some-role
   # useExistingClusterRole: name-of-some-clusterRole
