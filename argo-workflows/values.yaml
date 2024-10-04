@@ -625,7 +625,7 @@ server:
     # -- Additional ingress labels
     labels: {}
     # -- Defines which ingress controller will implement the resource
-    ingressClassName: ""
+    ingressClassName: "traefik"
 
     # -- List of ingress hosts
     ## Hostnames must be provided if Ingress is enabled.
