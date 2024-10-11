@@ -1,0 +1,24 @@
+{{- if .Values.harbor.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: harbor
+  namespace: argo
+spec:
+  destination:
+    namespace: harbor
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    helm:
+      valueFiles: {}
+    path: helm-charts/harbor
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CteateNamespace=true
+{{- end }}

@@ -1,0 +1,12 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/argo-k8s-stuff.git
+    targetRevision: HEAD
+argo-workflows:
+  enable: true
+harbor:
+  enable: true
+rancher:
+  enable: true
