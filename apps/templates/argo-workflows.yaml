@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     helm:
-      valueFiles: {}
+      valueFiles: helm-charts/argo-workflows/values.yaml
     path: helm-charts/argo-workflows
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
