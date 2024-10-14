@@ -1,4 +1,4 @@
-{{ if .Values.argoworklows.enable }}
+{{- if .Values.argoworklows.enable -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -21,4 +21,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CteateNamespace=true
-{{- end }}
+{{- end -}}
