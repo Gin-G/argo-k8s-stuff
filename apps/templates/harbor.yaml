@@ -10,7 +10,8 @@ spec:
   project: default
   source:
     helm:
-      valueFiles: helm-charts/harbor/values.yaml
+      valueFiles: 
+        - helm-charts/harbor/values.yaml
     path: helm-charts/harbor
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
