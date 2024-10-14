@@ -11,7 +11,7 @@ spec:
   source:
     helm:
       valueFiles: 
-        - helm-charts/harbor/values.yaml
+        - values.yaml
     path: helm-charts/harbor
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
