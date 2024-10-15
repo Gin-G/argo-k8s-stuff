@@ -2,7 +2,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/argo-k8s-stuff
+    repoURL: https://github.com/Gin-G/argo-k8s-stuff
     targetRevision: main
 argoworkflows:
   enable: true
