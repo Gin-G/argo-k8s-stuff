@@ -1,4 +1,4 @@
-{{- if .Values.argoworkflows.enable }}
+{{- if .Values.argo-workflows.enable }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -21,5 +21,5 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CteateNamespace=true
+      - CreateNamespace=true
 {{- end }}
