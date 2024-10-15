@@ -1,4 +1,4 @@
-{{- if .Values.argo-workflows.enable }}
+{{- if (index .Values "argo-workflows" "enable") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
