@@ -7,6 +7,6 @@ spec:
 "argo-workflows":
   enable: true
 harbor:
-  enable: false
+  enable: true
 rancher:
   enable: true
