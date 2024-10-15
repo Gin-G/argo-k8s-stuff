@@ -2,8 +2,8 @@ spec:
   destination:
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/argo-k8s-stuff.git
-    targetRevision: HEAD
+    repoURL: https://github.com/argo-k8s-stuff
+    targetRevision: main
 argoworkflows:
   enable: true
 harbor:
