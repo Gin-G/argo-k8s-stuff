@@ -1,0 +1,25 @@
+{{- if (index .Values "nick-knows" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+  namespace: argo
+spec:
+  destination:
+    namespace: argo
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    helm:
+      valueFiles: 
+        - values.yaml
+    path: helm-charts/argo-workflows
+    repoURL: {{ .Values.nick-knows.source.repoURL }}
+    targetRevision: {{ .Values.nick-knows.source.targetRevision }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
