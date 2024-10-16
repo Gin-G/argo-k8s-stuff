@@ -6,7 +6,7 @@ metadata:
   namespace: argo
 spec:
   destination:
-    namespace: argo
+    namespace: nickknows
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
@@ -14,8 +14,8 @@ spec:
       valueFiles: 
         - values.yaml
     path: helm-charts/argo-workflows
-    repoURL: {{ (index .Values "nick-knows" "source" "repoURL" }}
-    targetRevision: {{ (index .Values "nick-knows" "source" "targetRevision" }}
+    repoURL: {{ (index .Values "nick-knows" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "nick-knows" "source" "targetRevision") }}
   syncPolicy:
     automated:
       prune: true
