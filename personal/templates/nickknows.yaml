@@ -14,8 +14,8 @@ spec:
       valueFiles: 
         - values.yaml
     path: helm-charts/argo-workflows
-    repoURL: {{ .Values.nick-knows.source.repoURL }}
-    targetRevision: {{ .Values.nick-knows.source.targetRevision }}
+    repoURL: {{ (index .Values "nick-knows" "source" "repoURL" }}
+    targetRevision: {{ (index .Values "nick-knows" "source" "targetRevision" }}
   syncPolicy:
     automated:
       prune: true
