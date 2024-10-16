@@ -13,7 +13,7 @@ spec:
     helm:
       valueFiles: 
         - values.yaml
-    path: helm-charts/argo-workflows
+    path: helm_knows/
     repoURL: {{ (index .Values "nick-knows" "source" "repoURL") }}
     targetRevision: {{ (index .Values "nick-knows" "source" "targetRevision") }}
   syncPolicy:
