@@ -6,3 +6,8 @@ spec:
   source:
     repoURL: https://github.com/Gin-G/NickKnows
     targetRevision: main
+skitunes:
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/SkiTunes
+    targetRevision: main
