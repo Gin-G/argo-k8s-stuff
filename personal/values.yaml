@@ -2,7 +2,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
 "nick-knows":
-  enable: false
+  enable: true
   source:
     repoURL: https://github.com/Gin-G/NickKnows
     targetRevision: main
