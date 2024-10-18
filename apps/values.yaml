@@ -8,5 +8,7 @@ spec:
   enable: true
 harbor:
   enable: true
+openbao:
+  enable: true
 rancher:
   enable: true
