@@ -6,6 +6,8 @@ spec:
     targetRevision: main
 "argo-workflows":
   enable: true
+"external-secrets":
+  enable: true
 harbor:
   enable: true
 openbao:
