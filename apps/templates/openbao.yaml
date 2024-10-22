@@ -17,7 +17,7 @@ spec:
         valueFiles: 
           - $sourceRepo/values/openbao-values.yaml
         releaseName: openbao
-      targetRevision: {{ (index .Values "argo-workflows" "targetRevision") }}
+      targetRevision: {{ (index .Values "openbao" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
