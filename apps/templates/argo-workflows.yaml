@@ -14,7 +14,7 @@ spec:
       chart: argo-workflows
       helm:
         valueFiles: 
-          - $sourceRepo/helm-charts/argo-workflows/values.yaml
+          - $sourceRepo/values/argo-workflows-values.yaml
         releaseName: argo-workflows
       targetRevision: 0.42.5
     - repoURL: {{ .Values.spec.source.repoURL }}
