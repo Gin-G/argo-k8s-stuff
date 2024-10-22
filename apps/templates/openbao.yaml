@@ -4,28 +4,36 @@ kind: Application
 metadata:
   name: openbao
   namespace: argo
+  annotations:
+    avp.kubernetes.io/path: "openbao-secret:openbao-host"    # Add this annotation
 spec:
   destination:
     namespace: openbao
     server: {{ .Values.spec.destination.server }}
   project: default
-  
   sources:
     - repoURL: https://openbao.github.io/openbao-helm
       chart: openbao
       helm:
         valueFiles: 
           - $sourceRepo/values/openbao-values.yaml
-        releaseName: openbao
         values: |
           server:
             ingress:
               hosts:
-                - host: <openbao-secret:openbao-host>
+                - host: $ARGOCD_APP_NAME  # This will be replaced by the secret value
+        releaseName: openbao
       targetRevision: {{ (index .Values "openbao" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
+  plugin:
+    env:
+      - name: ARGOCD_APP_NAME
+        valueFrom:
+          secretKeyRef:
+            name: openbao-secret
+            key: openbao-host
   syncPolicy:
     automated:
       prune: true
