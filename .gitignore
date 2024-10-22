@@ -2,3 +2,4 @@
 role.yaml
 rolebinding.yaml
 secret.yaml
+*secrets/*
