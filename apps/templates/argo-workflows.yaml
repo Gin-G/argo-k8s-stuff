@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   sources:
-    - repoURL: oci://ghcr.io/argoproj/argo-helm
+    - repoURL: https://argoproj.github.io/argo-helm
       helm:
         valueFiles: 
           - $sourceRepo/helm-charts/argo-workflows/values.yaml
