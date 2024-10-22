@@ -6,6 +6,7 @@ spec:
     targetRevision: main
 "argo-workflows":
   enable: true
+  targetRevision: 0.42.5
 "external-secrets":
   enable: true
 harbor:

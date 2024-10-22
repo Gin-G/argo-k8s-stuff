@@ -16,7 +16,7 @@ spec:
         valueFiles: 
           - $sourceRepo/values/argo-workflows-values.yaml
         releaseName: argo-workflows
-      targetRevision: 0.42.5
+      targetRevision: {{ (index .Values "argo-workflows" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
