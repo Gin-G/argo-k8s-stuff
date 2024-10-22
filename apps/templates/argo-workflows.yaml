@@ -11,6 +11,7 @@ spec:
   project: default
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-workflows
       helm:
         valueFiles: 
           - $sourceRepo/helm-charts/argo-workflows/values.yaml
