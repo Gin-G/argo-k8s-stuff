@@ -13,5 +13,6 @@ harbor:
   enable: true
 openbao:
   enable: true
+  targetRevision: 0.6.0
 rancher:
   enable: true
