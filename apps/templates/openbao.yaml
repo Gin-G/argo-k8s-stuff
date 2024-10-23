@@ -19,7 +19,7 @@ spec:
           server:
             ingress:
               hosts:
-                - host: $kube:openbao/openbao-secret:openbao-host
+                - host: $openbao-secret:openbao-host
         releaseName: openbao
       targetRevision: {{ (index .Values "openbao" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
