@@ -11,6 +11,8 @@ spec:
   project: default
   sources:
     - repoURL: https://openbao.github.io/openbao-helm
+      plugin:
+        name: argocd-vault-plugin
       chart: openbao
       helm:
         valueFiles: 

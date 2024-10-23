@@ -12,6 +12,8 @@ spec:
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
       chart: argo-workflows
+      plugin:
+        name: argocd-vault-plugin
       helm:
         valueFiles: 
           - $sourceRepo/values/argo-workflows-values.yaml

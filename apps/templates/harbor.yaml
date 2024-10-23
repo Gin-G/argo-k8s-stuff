@@ -14,6 +14,8 @@ spec:
       valueFiles: 
         - values.yaml
     path: helm-charts/harbor
+    plugin:
+      name: argocd-vault-plugin
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
   syncPolicy:
