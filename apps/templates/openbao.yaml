@@ -15,11 +15,17 @@ spec:
       helm:
         valueFiles: 
           - $sourceRepo/values/openbao-values.yaml
-        values: |
-          server:
-            ingress:
-              hosts:
-                - host: "${openbao-secret:openbao-host}"
+      plugin:
+        env:
+          - name: HELM_VALUES
+            value: |
+              envs:
+                - name: FQDN
+                  value: <path:kv/openbao#host>
+              server:
+                ingress:
+                  hosts:
+                    - host: $FQDN
         releaseName: openbao
       targetRevision: {{ (index .Values "openbao" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
