@@ -1,3 +1,4 @@
+{{- if (index .Values "openbao" "enable") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -10,23 +11,10 @@ spec:
   project: default
   sources:
     - repoURL: https://openbao.github.io/openbao-helm
-      plugin:
-        name: argocd-vault-plugin
       chart: openbao
       helm:
         valueFiles: 
           - $sourceRepo/values/openbao-values.yaml
-      plugin:
-        env:
-          - name: HELM_VALUES
-            value: |
-              envs:
-                - name: FQDN
-                  value: <path:kv/openbao#host>
-              server:
-                ingress:
-                  hosts:
-                    - host: $FQDN
         releaseName: openbao
       targetRevision: {{ (index .Values "openbao" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
@@ -38,3 +26,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+{{- end }}
