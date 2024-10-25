@@ -3,6 +3,7 @@
 
 # Available parameters and their default values for the OpenBao chart.
 
+
 global:
   # -- enabled is the master enabled switch. Setting this to true or false
   # will enable or disable all the components within this chart by default.
@@ -369,6 +370,14 @@ server:
   # See openbao.mode in _helpers.tpl for implementation details.
   enabled: "-"
 
+
+  env:
+  - name: OPENBAO_HOSTNAME
+    valueFrom:
+      secretKeyRef:
+        name: openbao-secret
+        key: openbao-host
+
   # Resource requests, limits, etc. for the server cluster placement. This
   # should map directly to the value of the resources field for a PodSpec.
   # By default no direct resource request is made.
@@ -432,7 +441,7 @@ server:
     # configure the ingress to point to the OpenBao active service.
     activeService: true
     hosts:
-      - host: '${{secrets:openbao-secret:openbao-host}}'
+      - host: $OPENBAO_HOSTNAME
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
