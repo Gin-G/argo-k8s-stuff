@@ -432,7 +432,10 @@ server:
     # configure the ingress to point to the OpenBao active service.
     activeService: true
     hosts:
-      - host: openbao.gingmachine
+      - host: 
+          $secretRef:
+            name: openbao-secret
+            key: openbao-host
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
