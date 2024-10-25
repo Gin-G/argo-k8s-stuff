@@ -433,7 +433,7 @@ server:
     activeService: true
     hosts:
       - host: 
-          $secretRef:
+          secretRef:
             name: openbao-secret
             key: openbao-host
         paths: []
