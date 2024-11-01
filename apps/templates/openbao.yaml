@@ -8,14 +8,27 @@ spec:
   destination:
     namespace: openbao
     server: {{ .Values.spec.destination.server }}
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      name: openbao-agent-injector-cfg    # include the specific resource name
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
   project: default
   sources:
-    - repoURL: {{ .Values.spec.source.repoURL }}
-      path: helm-charts/openbao
+    - repoURL: https://openbao.github.io/openbao-helm
+      chart: openbao
       helm:
         valueFiles: 
-          - secrets://https://github.com/Gin-G/argo-k8s-stuff/raw/refs/heads/main/values/openbao-values.yaml
+          - $sourceRepo/values/openbao-values.yaml
+        releaseName: openbao
+        fileParameters:
+          - name: server.ingress.hosts.host
+            path: secrets+literal://vals!ref+vault://kv/openbao?role-id=myrole#/host
+      targetRevision: {{ (index .Values "openbao" "targetRevision") }}
+    - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
