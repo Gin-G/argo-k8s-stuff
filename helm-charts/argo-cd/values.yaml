@@ -2446,7 +2446,25 @@ repoServer:
       value: /gitops-tools/helm-plugins/
     - name: HELM_SECRETS_CURL_PATH
       value: /gitops-tools/curl
-    - name: HELM_SECRETS_SOPS_PATH
+    - name: HELM_SECRETS_SOPS_PATH$ sops encrypt --hc-vault-transit $VAULT_ADDR/v1/sops/keys/openbao openbao-secrets.yaml 
+host: ENC[AES256_GCM,data:+5KOMWJuhRIlucLVZAyjfIp54Q==,iv:xpjs/d7itx47mUSCAwWhz/LTnB28RRn/WWVtbYp51rU=,tag:uqwlM6PA7Sr3ZUCtUA72qQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault:
+        - vault_address: http://openbao.gingmachine
+          engine_path: sops
+          key_name: openbao
+          created_at: "2024-11-01T21:28:01Z"
+          enc: vault:v1:qpq1d3xaSU3vOV9DvKdj5e9eZnAHwwBVFKHF421b7TcSX1YJUyd0zLDBxYEZGaEEgmI8FHzyQf8B/bGA
+    age: []
+    lastmodified: "2024-11-01T21:28:01Z"
+    mac: ENC[AES256_GCM,data:kJOZdgOLxp1jUKdPQyWRBbG1a5kHzXz0Q7DTm3GvGLUISDbqb2Exmf8JUsPX56X6tMrZau5YLBO2Ux/0d8KatX4gqCrSCOr3U3LVMnrfJrYas0G12ufg2VuyYy0qydf77Ylxbc/QIDo5FJnv4bPOlqEUURocUZmXUtAXfIwi8Sc=,iv:6kJyDcDbn/VXxlD+Nzta5ugOls9r7NbHBGtgzs0YVwI=,tag:sDHEkZYzgt3IoLTDFAsyYw==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.9.1
+
       value: /gitops-tools/sops
     - name: HELM_SECRETS_VALS_PATH
       value: /gitops-tools/vals
