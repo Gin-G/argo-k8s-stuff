@@ -21,7 +21,6 @@ spec:
       helm:
         valueFiles: 
           - secrets://values/openbao-values.yaml
-        releaseName: openbao
       targetRevision: {{ .Values.spec.source.targetRevision }}
   syncPolicy:
     automated:
