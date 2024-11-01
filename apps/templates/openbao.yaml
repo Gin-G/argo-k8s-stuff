@@ -8,12 +8,6 @@ spec:
   destination:
     namespace: openbao
     server: {{ .Values.spec.destination.server }}
-  ignoreDifferences:
-    - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
-      name: openbao-agent-injector-cfg    # include the specific resource name
-      jsonPointers:
-        - /webhooks/0/clientConfig/caBundle
   project: default
   sources:
     - repoURL: {{ .Values.spec.source.repoURL }}
