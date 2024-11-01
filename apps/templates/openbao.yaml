@@ -14,7 +14,7 @@ spec:
       path: helm-charts/openbao
       helm:
         valueFiles: 
-          - secrets://https://raw.githubusercontent.com/NicholasCote/argo-k8s-stuff/values/openbao-values.yaml
+          - secrets://https://github.com/Gin-G/argo-k8s-stuff/raw/refs/heads/main/values/openbao-values.yaml
       targetRevision: {{ .Values.spec.source.targetRevision }}
   syncPolicy:
     automated:
