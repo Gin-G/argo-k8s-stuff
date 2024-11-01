@@ -16,16 +16,13 @@ spec:
         - /webhooks/0/clientConfig/caBundle
   project: default
   sources:
-    - repoURL: https://openbao.github.io/openbao-helm
-      chart: openbao
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      path: helm-charts/openbao
       helm:
         valueFiles: 
           - secrets://values/openbao-values.yaml
         releaseName: openbao
-      targetRevision: {{ (index .Values "openbao" "targetRevision") }}
-    - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
-      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
