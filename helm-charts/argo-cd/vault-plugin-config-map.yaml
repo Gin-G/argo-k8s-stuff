@@ -7,25 +7,6 @@ data:
     apiVersion: argoproj.io/v1alpha1
     kind: ConfigManagementPlugin
     metadata:
-      name: argocd-vault-plugin
-    spec:
-      allowConcurrency: true
-      discover:
-        find:
-          command:
-            - sh
-            - "-c"
-            - "find . -name '*.yaml' | xargs -I {} grep \"<path\\|avp\\.kubernetes\\.io\" {} | grep ."
-      generate:
-        command:
-          - argocd-vault-plugin
-          - generate
-          - "."
-      lockRepo: false
-    ---
-    apiVersion: argoproj.io/v1alpha1
-    kind: ConfigManagementPlugin
-    metadata:
       name: argocd-vault-plugin-helm
     spec:
       allowConcurrency: true
