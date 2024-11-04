@@ -2453,7 +2453,7 @@ repoServer:
     - name: HELM_SECRETS_KUBECTL_PATH
       value: /gitops-tools/kubectl
     - name: HELM_SECRETS_BACKEND
-      value: vals
+      value: sops
     # https://github.com/jkroepke/helm-secrets/wiki/Security-in-shared-environments
     - name: HELM_SECRETS_VALUES_ALLOW_SYMLINKS
       value: "false"
