@@ -21,7 +21,7 @@ spec:
     helm:
       valueFiles: 
         - values/openbao-values.yaml
-        - secrets://values/openbao-values.enc.yaml
+        - secrets://../../values/openbao-values.enc.yaml
     path: helm-charts/openbao
   syncPolicy:
     automated:
