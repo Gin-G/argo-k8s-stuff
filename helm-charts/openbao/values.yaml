@@ -443,7 +443,7 @@ server:
     # configure the ingress to point to the OpenBao active service.
     activeService: true
     hosts:
-      - host: <host>
+      - host: []
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []

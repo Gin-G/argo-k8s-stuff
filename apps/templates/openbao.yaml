@@ -22,6 +22,15 @@ spec:
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     path: helm-charts/openbao
+    plugin:
+      name: argocd-vault-plugin-helm
+      env:
+        - name: HELM_VALUES
+          value: |
+            server:
+              ingress:
+                hosts:
+                  host: <path:/kv/openbao#host>
   syncPolicy:
     automated:
       prune: true
