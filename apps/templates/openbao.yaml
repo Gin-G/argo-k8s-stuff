@@ -20,7 +20,7 @@ spec:
     targetRevision: {{ .Values.spec.source.targetRevision }}
     path: helm-charts/openbao
     plugin:
-      name: argocd-vault-plugin-helm
+      name: argocd-vault-plugin
       env:
         - name: HELM_VALUES
           value: |

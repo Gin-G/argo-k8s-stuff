@@ -2530,6 +2530,11 @@ repoServer:
           - name: custom-tools
             subPath: argocd-vault-plugin
             mountPath: /usr/local/bin/argocd-vault-plugin
+
+          # Important: Mount tools into $PATH
+          - name: custom-tools
+            subPath: argocd-vault-plugin-helm
+            mountPath: /usr/local/bin/argocd-vault-plugin-helm
     - name: download-tools
       image: alpine:latest
       imagePullPolicy: IfNotPresent
