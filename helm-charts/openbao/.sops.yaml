@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: 'openbao-values.enc.yaml'
+    encrypted_regex: '^(dex.config|policy.csv|domain)$'
+    age: age1s8854yssyr32zq9dpeevu26zhss6j89tm5zxrj84ch78y5dfxu2she0nku
