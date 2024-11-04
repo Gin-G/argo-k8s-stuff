@@ -421,7 +421,9 @@ server:
     enabled: true
     labels: {}
       # traffic: external
-    annotations: {}
+    annotations: {
+      avp.kubernetes.io/path: "kv/openbao"
+    }
       # |
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
@@ -441,7 +443,7 @@ server:
     # configure the ingress to point to the OpenBao active service.
     activeService: true
     hosts:
-      - host: <kv/openbao/host>
+      - host: <host>
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
