@@ -16,6 +16,12 @@ data:
             - sh
             - "-c"
             - "find . -name 'Chart.yaml' && find . -name 'values.yaml'"
+      init:
+        command:
+          - bash
+          - "-c"
+          - |
+            helm repo add bitnami https://charts.bitnami.com/bitnami
       generate:
         command:
           - bash
