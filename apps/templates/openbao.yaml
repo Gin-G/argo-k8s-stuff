@@ -24,7 +24,7 @@ spec:
         releaseName: openbao
         fileParameters:
           - name: server.ingress.hosts.host
-            path: secrets+literal://vals!ref+vault://kv/openbao#/host?address=http:10.43.145.94:8200&
+            path: secrets+literal://vals!ref+vault://kv/openbao#/host?address=http:10.43.145.94:8200
       targetRevision: {{ (index .Values "openbao" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
