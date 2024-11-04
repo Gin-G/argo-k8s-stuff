@@ -18,7 +18,6 @@ spec:
   source:
     helm:
       valueFiles: 
-        - openbao-values.yaml
         - secrets://openbao-values.enc.yaml
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
