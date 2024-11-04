@@ -19,7 +19,7 @@ spec:
     helm:
       valueFiles: 
         - openbao-values.yaml
-        - secrets://values/openbao-values.enc.yaml
+        - secrets://openbao-values.enc.yaml
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     path: helm-charts/openbao
