@@ -24,10 +24,9 @@ spec:
       env:
         - name: HELM_VALUES
           value: |
-            server:
-              ingress:
-                hosts:
-                  host: <path:/kv/openbao#host>
+              envs:
+                - name: PASS
+                  value: <path:kv-v2/data/argocd#password> # (4)
   syncPolicy:
     automated:
       prune: true

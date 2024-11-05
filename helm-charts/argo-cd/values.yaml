@@ -2439,58 +2439,14 @@ repoServer:
 
   # -- Additional command line arguments to pass to repo server
   extraArgs: []
-
+  env: []
   # -- Environment variables to pass to repo server
-  env: 
-    - name: HELM_PLUGINS
-      value: /gitops-tools/helm-plugins/
-    - name: HELM_SECRETS_CURL_PATH
-      value: /gitops-tools/curl
-    - name: HELM_SECRETS_SOPS_PATH
-      value: /gitops-tools/sops
-    - name: HELM_SECRETS_VALS_PATH
-      value: /gitops-tools/vals
-    - name: HELM_SECRETS_KUBECTL_PATH
-      value: /gitops-tools/kubectl
-    - name: HELM_SECRETS_BACKEND
-      value: sops
-    # https://github.com/jkroepke/helm-secrets/wiki/Security-in-shared-environments
-    - name: HELM_SECRETS_VALUES_ALLOW_SYMLINKS
-      value: "false"
-    - name: HELM_SECRETS_VALUES_ALLOW_ABSOLUTE_PATH
-      value: "true"
-    - name: HELM_SECRETS_VALUES_ALLOW_PATH_TRAVERSAL
-      value: "false"
-    - name: HELM_SECRETS_WRAPPER_ENABLED
-      value: "true"
-    - name: HELM_SECRETS_DECRYPT_SECRETS_IN_TMP_DIR
-      value: "true"
-    - name: HELM_SECRETS_HELM_PATH
-      value: /usr/local/bin/helm
-
-    - name: SOPS_AGE_KEY_FILE
-      # Multiple keys can be separated by space
-      value: /helm-secrets-private-key/key.txt
   volumes:
-    - name: gitops-tools
-      emptyDir: {}
-    # kubectl create secret generic helm-secrets-private-keys --from-file=key.asc=assets/gpg/private2.gpg
-    - name: helm-secrets-private-key
-      secret:
-        secretName: helm-secrets-private-key
     - configMap:
         name: cmp-plugin
       name: cmp-plugin
     - name: custom-tools
       emptyDir: {}
-  volumeMounts:
-    - mountPath: /gitops-tools
-      name: gitops-tools
-    - mountPath: /usr/local/sbin/helm
-      subPath: helm
-      name: gitops-tools
-    - mountPath: /helm-secrets-private-key/
-      name: helm-secrets-private-key
   initContainers:
     - name: download-tools
       image: registry.access.redhat.com/ubi8
