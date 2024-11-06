@@ -4,3 +4,5 @@ rolebinding.yaml
 secret.yaml
 *secrets/*
 key.txt
+add-rancher.yaml
+namespace.yaml
