@@ -1,0 +1,22 @@
+{{- if (index .Values "gh-arc" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gh-arc
+  namespace: argo
+spec:
+  destination:
+    namespace: gh-arc
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    - repoURL: https://actions-runner-controller.github.io/actions-runner-controller
+      chart: actions-runner-controller
+      targetRevision: {{ (index .Values "gh-arc" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

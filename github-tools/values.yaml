@@ -1,0 +1,9 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/Gin-G/argo-k8s-stuff
+    targetRevision: main
+"gh-arc":
+  enable: true
+  targetRevision: 0.23.7
