@@ -16,7 +16,7 @@ spec:
         - /webhooks/0/clientConfig/caBundle
   project: default
   sources:
-    - repoURL: https://argoproj.github.io/argo-helm
+    - repoURL: https://openbao.github.io/openbao-helm 
       chart: openbao
       helm:
         valueFiles: 
