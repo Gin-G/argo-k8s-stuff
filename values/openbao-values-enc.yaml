@@ -1,4 +1,0 @@
-server:
-  ingress:
-    hosts:
-      host: openbao.gingmachine

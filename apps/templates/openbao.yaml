@@ -15,17 +15,17 @@ spec:
       jsonPointers:
         - /webhooks/0/clientConfig/caBundle
   project: default
-  source:
-    repoURL: {{ .Values.spec.source.repoURL }}
-    targetRevision: {{ .Values.spec.source.targetRevision }}
-    path: helm-charts/openbao
-    plugin:
-      env:
-        - name: HELM_VALUES
-          value: |
-              envs:
-                - name: PASS
-                  value: <path:kv-v2/data/argocd#password> # (4)
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: openbao
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/openbao-values.yaml
+        releaseName: openbao
+      targetRevision: {{ (index .Values "argo-workflows" "targetRevision") }}
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
