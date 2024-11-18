@@ -10,7 +10,7 @@ spec:
 "external-secrets":
   enable: true
 harbor:
-  enable: true
+  enable: false
 openbao:
   enable: true
   targetRevision: 0.6.0
