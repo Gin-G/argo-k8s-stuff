@@ -6,7 +6,7 @@ metadata:
   namespace: argo
 spec:
   destination:
-    namespace: gh-arc
+    namespace: arc-systems
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
