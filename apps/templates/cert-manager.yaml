@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://charts.jetstack.io
     chart: cert-manager
-    targetRevision: {{ (index .Values "openbao" "targetRevision") }}
+    targetRevision: {{ (index .Values "cert-manager" "targetRevision") }}
   syncPolicy:
     automated:
       prune: true
