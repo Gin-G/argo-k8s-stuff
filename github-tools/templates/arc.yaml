@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+    repoURL: oci://ghcr.io/actions/actions-runner-controller-charts/
     chart: gha-runner-scale-set-controller
     targetRevision: {{ (index .Values "gh-arc" "targetRevision") }}
   syncPolicy:
