@@ -1,0 +1,30 @@
+{{- if (index .Values "gh-arc" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gh-arc
+  namespace: argo
+spec:
+  destination:
+    namespace: arc-systems
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: helm-charts/gha-runner-scale-set
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      values: |
+        githubConfigUrl: https://github.com/Gin-G/arc-k8s-container-build
+        githubConfigSecret: pre-defined-secret
+        controllerServiceAccount:
+          namespace: arc-systems
+          name: gh-arc-gha-rs-controller
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+{{- end }}
