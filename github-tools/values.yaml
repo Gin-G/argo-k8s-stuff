@@ -6,4 +6,4 @@ spec:
     targetRevision: main
 "gh-arc":
   enable: true
-  targetRevision: 0.23.7
+  targetRevision: 0.9.3
