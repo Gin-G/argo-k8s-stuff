@@ -9,4 +9,4 @@ spec:
 "ncote-scale-set":
   enable: false
 "hpc-benchmarks":
-  enable: true
+  enable: false
