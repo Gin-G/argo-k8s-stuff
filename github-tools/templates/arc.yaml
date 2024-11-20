@@ -11,6 +11,7 @@ spec:
   project: default
   source:
     repoURL: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+    chart: gha-runner-scale-set-controller
     targetRevision: {{ (index .Values "gh-arc" "targetRevision") }}
   syncPolicy:
     automated:
