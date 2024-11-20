@@ -8,7 +8,7 @@ spec:
   enable: true
   targetRevision: 0.42.5
 "cert-manager":
-  enable: false
+  enable: true
   targetRevision: 1.16.1
 "external-secrets":
   enable: true
