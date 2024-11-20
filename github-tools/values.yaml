@@ -6,4 +6,5 @@ spec:
     targetRevision: main
 "gh-arc":
   enable: true
-  targetRevision: 0.9.3
+"ncote-scale-set":
+  enable: true

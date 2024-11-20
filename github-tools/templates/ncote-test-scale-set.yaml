@@ -1,4 +1,4 @@
-{{- if (index .Values "gh-arc" "enable") }}
+{{- if (index .Values "ncote-scale-set" "enable") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -26,5 +26,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
 {{- end }}
