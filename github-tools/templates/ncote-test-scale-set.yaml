@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gh-arc
+  name: gh-arc-ncote-scale-set
   namespace: argo
 spec:
   destination:
