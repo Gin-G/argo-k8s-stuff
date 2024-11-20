@@ -8,3 +8,5 @@ spec:
   enable: true
 "ncote-scale-set":
   enable: false
+"hpc-benchmarks":
+  enable: true
