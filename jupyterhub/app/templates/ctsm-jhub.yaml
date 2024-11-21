@@ -12,7 +12,7 @@ spec:
       helm:
         valueFiles: 
           - $values/jupyterhub/ctsm-jhub-values.yaml
-    - repoURL: 'https://github.com/gin-g/argo-k8s-stuff'
+    - repoURL: https://github.com/Gin-G/argo-k8s-stuff
       targetRevision: main
       ref: values
   destination:
