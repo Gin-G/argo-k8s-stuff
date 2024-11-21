@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: oci://registry-1.docker.io/bitnamicharts
+    repoURL: registry-1.docker.io/bitnamicharts
     chart: postgresql
     targetRevision: {{ (index .Values "postgres" "targetRevision") }}
   syncPolicy:
