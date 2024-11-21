@@ -1,0 +1,22 @@
+{{- if (index .Values "backstage" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backstage
+  namespace: argo
+spec:
+  destination:
+    namespace: backstage
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://backstage.github.io/charts
+    path: backstage
+    targetRevision: {{ (index .Values "backstage" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

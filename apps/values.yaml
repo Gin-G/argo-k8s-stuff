@@ -7,6 +7,9 @@ spec:
 "argo-workflows":
   enable: true
   targetRevision: 0.42.5
+backstage:
+  enable: false
+  targetRevision: 2.2.0
 "cert-manager":
   enable: true
   targetRevision: 1.16.1
