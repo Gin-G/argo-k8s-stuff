@@ -9,4 +9,4 @@ backstage:
   targetRevision: 2.2.0
 postgres:
   enable: true
-  targetRevision: 16.6.0
+  targetRevision: 16.2.2
