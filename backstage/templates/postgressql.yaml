@@ -1,0 +1,22 @@
+{{- if (index .Values "postgres" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres
+  namespace: argo
+spec:
+  destination:
+    namespace: postgres
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: oci://registry-1.docker.io/bitnamicharts
+    chart: postgresql
+    targetRevision: {{ (index .Values "postgres" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

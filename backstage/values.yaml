@@ -1,0 +1,12 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/Gin-G/argo-k8s-stuff
+    targetRevision: main
+backstage:
+  enable: true
+  targetRevision: 2.2.0
+postgres:
+  enable: true
+  targetRevision: 16.6.0
