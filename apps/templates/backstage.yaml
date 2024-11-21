@@ -13,6 +13,15 @@ spec:
     repoURL: https://backstage.github.io/charts
     chart: backstage
     targetRevision: {{ (index .Values "backstage" "targetRevision") }}
+    helm:
+      values: |
+        ingress:
+          enabled: true
+          annotations: {
+            traefik.ingress.kubernetes.io/router.entrypoints: web
+          }
+          host: backstage.gingmachine
+
   syncPolicy:
     automated:
       prune: true
