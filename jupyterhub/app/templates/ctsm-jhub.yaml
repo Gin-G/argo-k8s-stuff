@@ -16,7 +16,7 @@ spec:
       targetRevision: main
       ref: values
   destination:
-    server: https://ml-cluster.k8s.ucar.edu:6443
+    server: https://kubernetes.default.svc
     namespace: '{{ .Values.jhubs.ctsm.namespace }}'
   syncPolicy:
     automated:
