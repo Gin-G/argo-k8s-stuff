@@ -1,4 +1,4 @@
 jhubs:
   ctsm:
     name: ctsm-hub
-    namespace: ncote-test
+    namespace: jupyter
