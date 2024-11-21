@@ -8,7 +8,7 @@ spec:
   enable: true
   targetRevision: 0.42.5
 backstage:
-  enable: false
+  enable: true
   targetRevision: 2.2.0
 "cert-manager":
   enable: true
