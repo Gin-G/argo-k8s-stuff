@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: '{{ .Release.Name }}-{{ .Values.jhubs.ctsm.name }}'
+  namespace: argo
+spec:
+  project: default
+  sources:
+    - repoURL: https://hub.jupyter.org/helm-chart
+      path: jupyterhub
+      targetRevision: 3.3.8
+      helm:
+        valueFiles: 
+          - $values/jupyterhub/ctsm-jhub-values.yaml
+    - repoURL: 'https://github.com/gin-g/argo-k8s-stuff'
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://ml-cluster.k8s.ucar.edu:6443
+    namespace: '{{ .Values.jhubs.ctsm.namespace }}'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

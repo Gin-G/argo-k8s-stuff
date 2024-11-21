@@ -1,0 +1,4 @@
+apiVersion: v2
+name: ctsm-jhub
+description: Argo CD App for deploying CTSM JupyterHub
+version: 0.1.0

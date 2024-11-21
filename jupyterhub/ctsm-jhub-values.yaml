@@ -1,0 +1,27 @@
+jupyterhub:
+  singleuser:
+    image:
+      name: docker.io/escomp/test-ctsm-cislcloud-v4
+      tag: "latest"
+  ingress:
+    enabled: true
+    hosts: 
+      - ctsm-jhub.gingmachine
+  hub:
+    config:
+      JupyterHub:
+        authenticator_class: nativeauthenticator.NativeAuthenticator
+      Authenticator:
+        admin_users:
+          - ncote
+          - kcote
+          - varshareddy
+          - bdobbins
+          - slevis
+      NativeAuthenticator:
+        enable_signup: true
+        minimum_password_length: 8
+        check_common_password: true
+        ask_email_on_signup: true
+        allowed_failed_logins: 3
+        seconds_before_next_try: 1200

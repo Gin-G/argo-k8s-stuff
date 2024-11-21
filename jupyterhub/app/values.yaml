@@ -1,0 +1,4 @@
+jhubs:
+  ctsm:
+    name: ctsm-hub
+    namespace: ncote-test
