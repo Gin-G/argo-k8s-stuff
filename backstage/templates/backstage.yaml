@@ -21,7 +21,8 @@ spec:
             traefik.ingress.kubernetes.io/router.entrypoints: web
           }
           host: backstage.gingmachine
-
+        postgresql:
+          enabled: true
   syncPolicy:
     automated:
       prune: true

@@ -8,5 +8,5 @@ backstage:
   enable: true
   targetRevision: 2.2.0
 postgres:
-  enable: true
+  enable: false
   targetRevision: 16.2.2
