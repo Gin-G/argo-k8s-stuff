@@ -1,0 +1,22 @@
+{{- if (index .Values "lgtm" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lgtm
+  namespace: argo
+spec:
+  destination:
+    namespace: lgtm
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: lgtm-distributed
+    targetRevision: {{ (index .Values "lgtm" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
