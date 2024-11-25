@@ -1,0 +1,9 @@
+grafana:
+  ingress:
+    enable: true
+    annotations: {
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    }
+    hosts: grafana.gingmachine
+    ingressClassName: traefik
+    path: /grafana

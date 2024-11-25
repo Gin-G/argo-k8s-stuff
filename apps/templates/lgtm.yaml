@@ -9,10 +9,16 @@ spec:
     namespace: lgtm
     server: {{ .Values.spec.destination.server }}
   project: default
-  source:
-    repoURL: https://grafana.github.io/helm-charts
-    chart: lgtm-distributed
-    targetRevision: {{ (index .Values "lgtm" "targetRevision") }}
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: lgtm-distributed
+      targetRevision: {{ (index .Values "lgtm" "targetRevision") }}
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/lgtm-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
