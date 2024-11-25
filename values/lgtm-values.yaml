@@ -6,4 +6,3 @@ grafana:
     }
     hosts: grafana.gingmachine
     ingressClassName: traefik
-    path: /grafana
