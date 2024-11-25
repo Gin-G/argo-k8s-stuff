@@ -23,5 +23,8 @@ lgtm:
 openbao:
   enable: true
   targetRevision: 0.6.0
+prometheus:
+  enable: true
+  targetRevision: 0.14.0
 rancher:
   enable: false

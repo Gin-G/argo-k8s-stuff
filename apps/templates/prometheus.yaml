@@ -1,0 +1,22 @@
+{{- if (index .Values "prometheus" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argo
+spec:
+  destination:
+    namespace: prometheus
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: {{ (index .Values "prometheus" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
