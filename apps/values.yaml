@@ -24,7 +24,7 @@ openbao:
   enable: true
   targetRevision: 0.6.0
 prometheus:
-  enable: true
+  enable: false
   targetRevision: 66.2.2
 rancher:
   enable: false
