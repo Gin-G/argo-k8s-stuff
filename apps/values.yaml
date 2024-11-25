@@ -10,6 +10,9 @@ spec:
 backstage:
   enable: true
   targetRevision: 2.2.0
+buildkit:
+  enable: true
+  targetRevision: 0.8.0
 "cert-manager":
   enable: true
   targetRevision: 1.16.1

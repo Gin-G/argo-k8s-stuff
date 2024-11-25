@@ -1,0 +1,22 @@
+{{- if (index .Values "buildkit" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: buildkit
+  namespace: argo
+spec:
+  destination:
+    namespace: arc-systems
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://andrcuns.github.io/charts
+    chart: buildkit-service
+    targetRevision: {{ (index .Values "buildkit" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
