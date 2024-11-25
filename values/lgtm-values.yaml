@@ -7,3 +7,10 @@ grafana:
     hosts: 
       - grafana.gingmachine
     ingressClassName: traefik
+  persistence:
+    enabled: true
+    type: pvc
+    storageClassName: local-path
+
+loki:
+  
