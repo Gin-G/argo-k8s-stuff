@@ -12,3 +12,5 @@ nickknows:
   enable: true
 "hpc-benchmarks":
   enable: false
+skitunes:
+  enable: true

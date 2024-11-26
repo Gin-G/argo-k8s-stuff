@@ -1,0 +1,29 @@
+{{- if (index .Values "skitunes" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gh-arc-skitunes-scale-set
+  namespace: argo
+spec:
+  destination:
+    namespace: arc-systems
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: helm-charts/gha-runner-scale-set
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      values: |
+        githubConfigUrl: https://github.com/Gin-G/SkiTunes
+        githubConfigSecret: pre-defined-secret
+        controllerServiceAccount:
+          namespace: arc-systems
+          name: gh-arc-gha-rs-controller
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
