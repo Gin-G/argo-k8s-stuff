@@ -8,6 +8,15 @@ spec:
   destination:
     namespace: arc-systems
     server: {{ .Values.spec.destination.server }}
+  ignoreDifferences:
+    - group: v1
+      kind: ServiceAccount
+      name: gh-arc-gha-rs-no-permission
+      namespace: arc-systems
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: gh-arc-gha-rs-manager
+      namespace: arc-systems
   project: default
   source:
     path: helm-charts/gha-runner-scale-set-controller
