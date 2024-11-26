@@ -9,11 +9,16 @@ spec:
     namespace: argo
     server: {{ .Values.spec.destination.server }}
   project: default
-  source:
-    repoURL: https://argoproj.github.io/argo-helm
-    chart: argo-rollouts
-    helm:
-    targetRevision: {{ (index .Values "argo-rollouts" "targetRevision") }}
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-rollouts
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/argo-rollouts-values.yaml
+      targetRevision: {{ (index .Values "argo-rollouts" "targetRevision") }}
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true

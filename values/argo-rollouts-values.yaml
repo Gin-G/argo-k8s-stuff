@@ -1,0 +1,9 @@
+dashboard:
+  enabled: true
+  ingress:
+    enabled: true
+    annotations: {
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    }
+    ingressClassName: "traefik"
+    hosts: ["argorollouts.gingmachine"]
