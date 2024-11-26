@@ -7,18 +7,22 @@ metadata:
 spec:
   destination:
     namespace: arc-systems
-    server: {{ .Values.spec.destination.server }}
-  ignoreDifferences:
-    - kind: ServiceAccount
+    server: {{ .Values.spec.destination.server }}  
+    ignoreDifferences:
+    - group: v1
+      kind: ServiceAccount
+      name: gh-arc-gha-rs-no-permission
+      namespace: arc-systems
       jsonPointers:
-      - /arc-systems/gh-arc-gha-rs-no-permission
-    - kind: RoleBinding
-      jsonPointers:
-      - /arc-systems/gh-arc-gha-rs-manager
+      - /metadata/annotations
+      - /metadata/labels
     - group: rbac.authorization.k8s.io
-      kind: Role
+      kind: RoleBinding
+      name: gh-arc-gha-rs-manager
+      namespace: arc-systems
       jsonPointers:
-      - /arc-systems/gh-arc-gha-rs-manager
+      - /metadata/annotations
+      - /metadata/labels
   project: default
   source:
     path: helm-charts/gha-runner-scale-set-controller
