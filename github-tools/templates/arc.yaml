@@ -11,6 +11,9 @@ spec:
     ignoreDifferences:
     - kind: ServiceAccount
       name: gh-arc-gha-rs-no-permission
+    - group: rbac.authorization.k8s.io
+      kind: Role
+      name: gh-arc-gha-rs-manager
   project: default
   source:
     path: helm-charts/gha-runner-scale-set-controller
