@@ -15,7 +15,7 @@ spec:
     - kind: RoleBinding
       jsonPointers:
       - /arc-systems/gh-arc-gha-rs-manager
-    - group: rbac
+    - group: rbac.authorization.k8s.io
       kind: Role
       jsonPointers:
       - /arc-systems/gh-arc-gha-rs-manager
