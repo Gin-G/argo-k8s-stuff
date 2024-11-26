@@ -15,6 +15,10 @@ spec:
     - kind: RoleBinding
       jsonPointers:
       - /arc-systems/gh-arc-gha-rs-manager
+    - group: rbac
+      kind: Role
+      jsonPointers:
+      - /arc-systems/gh-arc-gha-rs-manager
   project: default
   source:
     path: helm-charts/gha-runner-scale-set-controller
