@@ -9,7 +9,8 @@ spec:
     namespace: arc-systems
     server: {{ .Values.spec.destination.server }}  
     ignoreDifferences:
-    - kind: ServiceAccount
+    - group: "*"
+      kind: ServiceAccount
       name: gh-arc-gha-rs-no-permission
   project: default
   source:
