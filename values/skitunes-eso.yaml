@@ -1,0 +1,25 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: flask-secret
+  namespace: skitunes
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: openbao-backend
+    kind: SecretStore
+  target:
+    name: flask-secret
+  data:
+  - secretKey: flask-secret
+    remoteRef:
+      key: skitunes       # Just the path without data/ prefix for v1
+      property: flask-secret
+  - secretKey: flask-secret
+    remoteRef:
+      key: skitunes       # Just the path without data/ prefix for v1
+      property: db-username
+  - secretKey: flask-secret
+    remoteRef:
+      key: skitunes       # Just the path without data/ prefix for v1
+      property: db-password
