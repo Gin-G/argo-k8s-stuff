@@ -10,16 +10,9 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   sources:
-    - helm:
-        valueFiles: 
-          - values.yaml
-          - $sourceRepo/values/skitunes-eso.yaml
-      path: helm-chart/
+    - path: helm-chart/
       repoURL: {{ (index .Values "skitunes" "source" "repoURL") }}
       targetRevision: {{ (index .Values "skitunes" "source" "targetRevision") }}
-    - repoURL: https://github.com/Gin-G/argo-k8s-stuff
-      targetRevision: main
-      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
