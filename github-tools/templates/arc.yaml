@@ -9,13 +9,9 @@ spec:
     namespace: arc-systems
     server: {{ .Values.spec.destination.server }}  
     ignoreDifferences:
-    - group: v1
+    - group: ""
       kind: ServiceAccount
       name: gh-arc-gha-rs-no-permission
-      namespace: arc-systems
-      jsonPointers:
-      - /metadata/annotations
-      - /metadata/labels
     - group: rbac.authorization.k8s.io
       kind: RoleBinding
       name: gh-arc-gha-rs-manager
