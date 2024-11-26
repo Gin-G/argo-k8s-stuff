@@ -15,6 +15,12 @@ spec:
       kind: Role
       name: gh-arc-gha-rs-manager
       namespace: arc-systems
+      jqPathExpressions:
+      - .metadata.deletionTimestamp
+      - .metadata.finalizers
+      - .metadata.resourceVersion
+      - .metadata.managedFields
+      - .metadata.uid
   project: default
   source:
     path: helm-charts/gha-runner-scale-set-controller
