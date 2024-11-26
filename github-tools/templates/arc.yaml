@@ -9,8 +9,17 @@ spec:
     namespace: arc-systems
     server: {{ .Values.spec.destination.server }}  
     ignoreDifferences:
-    - kind: ServiceAccount
+    - group: v1
+      kind: ServiceAccount
       name: gh-arc-gha-rs-no-permission
+      namespace: arc-systems
+      jqPathExpressions:
+      - .metadata.deletionTimestamp
+      - .metadata.finalizers
+      - .metadata.resourceVersion
+      - .metadata.creationTimestamp
+      - .metadata.uid
+
     - group: rbac.authorization.k8s.io
       kind: Role
       name: gh-arc-gha-rs-manager
@@ -19,7 +28,18 @@ spec:
       - .metadata.deletionTimestamp
       - .metadata.finalizers
       - .metadata.resourceVersion
-      - .metadata.managedFields
+      - .metadata.creationTimestamp
+      - .metadata.uid
+
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: gh-arc-gha-rs-manager
+      namespace: arc-systems
+      jqPathExpressions:
+      - .metadata.deletionTimestamp
+      - .metadata.finalizers
+      - .metadata.resourceVersion
+      - .metadata.creationTimestamp
       - .metadata.uid
   project: default
   source:
