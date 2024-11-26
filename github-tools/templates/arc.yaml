@@ -14,6 +14,7 @@ spec:
     - group: rbac.authorization.k8s.io
       kind: Role
       name: gh-arc-gha-rs-manager
+      namespace: arc-systems
   project: default
   source:
     path: helm-charts/gha-runner-scale-set-controller
