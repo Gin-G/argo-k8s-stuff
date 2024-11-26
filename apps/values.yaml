@@ -7,6 +7,9 @@ spec:
 "argo-workflows":
   enable: true
   targetRevision: 0.42.5
+"argo-rollouts":
+  enable: true
+  targetRevision: 2.38.0
 backstage:
   enable: true
   targetRevision: 2.2.0

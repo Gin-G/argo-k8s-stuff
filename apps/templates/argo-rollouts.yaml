@@ -1,0 +1,23 @@
+{{- if (index .Values "argo-rollouts" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-rollouts
+  namespace: argo
+spec:
+  destination:
+    namespace: argo
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-rollouts
+    helm:
+    targetRevision: {{ (index .Values "argo-rollouts" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
