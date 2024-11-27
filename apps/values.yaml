@@ -4,6 +4,9 @@ spec:
   source:
     repoURL: https://github.com/Gin-G/argo-k8s-stuff
     targetRevision: main
+"argo-cd":
+  enable: true
+  targetRevision: 7.7.5
 "argo-workflows":
   enable: true
   targetRevision: 0.42.5

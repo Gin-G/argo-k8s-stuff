@@ -1,0 +1,29 @@
+{{- if (index .Values "argo-cd" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  namespace: argo
+spec:
+  destination:
+    namespace: argo
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-cd
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/argo-cd-values.yaml
+        releaseName: argo-cd
+      targetRevision: {{ (index .Values "argo-cd" "targetRevision") }}
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
