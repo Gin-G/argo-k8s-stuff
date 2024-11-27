@@ -1796,7 +1796,7 @@ server:
   ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#the-extensions-resource
   extensions:
     # -- Enable support for Argo CD extensions
-    enabled: false
+    enabled: true
 
     ## Argo CD extension installer image
     image:
@@ -1869,16 +1869,25 @@ server:
   ## If your target Kubernetes cluster(s) require a custom credential (exec) plugin
   ## you could use this (and the same in the application controller pod) to provide such executable
   ## Ref: https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
-  initContainers: []
-  #  - name: download-tools
-  #    image: alpine:3
-  #    command: [sh, -c]
-  #    args:
-  #      - wget -qO kubelogin.zip https://github.com/Azure/kubelogin/releases/download/v0.0.25/kubelogin-linux-amd64.zip &&
-  #        unzip kubelogin.zip && mv bin/linux_amd64/kubelogin /custom-tools/
-  #    volumeMounts:
-  #      - mountPath: /custom-tools
-  #        name: custom-tools
+
+  initContainers:
+    - name: rollout-extension
+      image: quay.io/argoprojlabs/argocd-extension-installer:v0.0.1
+      env:
+      - name: EXTENSION_URL
+        value: https://github.com/argoproj-labs/rollout-extension/releases/download/v0.3.4/extension.tar
+      volumeMounts:
+        - name: extensions
+          mountPath: /tmp/extensions/
+      securityContext:
+        runAsUser: 1000
+        allowPrivilegeEscalation: false
+  volumeMounts:
+    - name: extensions
+      mountPath: /tmp/extensions/
+  volumes:
+    - name: extensions
+      emptyDir: {}
 
   # -- Additional volumeMounts to the server main container
   volumeMounts: []
@@ -2462,30 +2471,30 @@ repoServer:
       volumeMounts:
         - mountPath: /custom-tools
           name: custom-tools
-      containers:
-      - name: avp
-        command: [/var/run/argocd/argocd-cmp-server]
-        image: registry.access.redhat.com/ubi8
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 999
-        volumeMounts:
-          - mountPath: /var/run/argocd
-            name: var-files
-          - mountPath: /home/argocd/cmp-server/plugins
-            name: plugins
-          - mountPath: /tmp
-            name: tmp
+  containers:
+  - name: avp
+    command: [/var/run/argocd/argocd-cmp-server]
+    image: registry.access.redhat.com/ubi8
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 999
+    volumeMounts:
+      - mountPath: /var/run/argocd
+        name: var-files
+      - mountPath: /home/argocd/cmp-server/plugins
+        name: plugins
+      - mountPath: /tmp
+        name: tmp
 
-          # Register plugins into sidecar
-          - mountPath: /home/argocd/cmp-server/config/plugin.yaml
-            subPath: avp.yaml
-            name: cmp-plugin
+      # Register plugins into sidecar
+      - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+        subPath: avp.yaml
+        name: cmp-plugin
 
-          # Important: Mount tools into $PATH
-          - name: custom-tools
-            subPath: argocd-vault-plugin
-            mountPath: /usr/local/bin/argocd-vault-plugin
+      # Important: Mount tools into $PATH
+      - name: custom-tools
+        subPath: argocd-vault-plugin
+        mountPath: /usr/local/bin/argocd-vault-plugin
 
   # -- envFrom to pass to repo server
   # @default -- `[]` (See [values.yaml])
