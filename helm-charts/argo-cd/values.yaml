@@ -1796,7 +1796,7 @@ server:
   ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#the-extensions-resource
   extensions:
     # -- Enable support for Argo CD extensions
-    enabled: false
+    enabled: true
 
     ## Argo CD extension installer image
     image:
@@ -1811,7 +1811,11 @@ server:
     # -- Extensions for Argo CD
     # @default -- `[]` (See [values.yaml])
     ## Ref: https://github.com/argoproj-labs/argocd-extension-metrics#install-ui-extension
-    extensionList: []
+    extensionList:
+      - name: rollout-extension
+        env:
+           name: EXTENSION_URL
+           value: https://github.com/argoproj-labs/rollout-extension/releases/download/v0.3.4/extension.tar
     #  - name: extension-metrics
     #    env:
     #      - name: EXTENSION_URL
