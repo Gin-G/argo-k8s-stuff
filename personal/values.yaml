@@ -11,3 +11,8 @@ skitunes:
   source:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: main
+skitunes-dev:
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/SkiTunes
+    targetRevision: db-switch

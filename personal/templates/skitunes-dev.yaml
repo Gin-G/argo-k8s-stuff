@@ -1,0 +1,22 @@
+{{- if (index .Values "skitunes-dev" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: skitunes-dev
+  namespace: argo
+spec:
+  destination:
+    namespace: skitunes
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - path: helm-chart/
+      repoURL: {{ (index .Values "skitunes-dev" "source" "repoURL") }}
+      targetRevision: {{ (index .Values "skitunes-dev" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
