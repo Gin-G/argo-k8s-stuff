@@ -1,0 +1,7 @@
+ingress:
+  enabled: true
+  annotations: {
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+  }
+  ingressClassName: "traefik"
+  hosts: ["prometheus.gingmachine"]

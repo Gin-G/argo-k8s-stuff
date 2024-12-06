@@ -9,10 +9,16 @@ spec:
     namespace: prometheus
     server: {{ .Values.spec.destination.server }}
   project: default
-  source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: {{ (index .Values "prometheus" "targetRevision") }}
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      targetRevision: {{ (index .Values "prometheus" "targetRevision") }}
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/prometheus-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
