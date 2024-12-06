@@ -27,7 +27,7 @@ buildkit:
 harbor:
   enable: false
 lgtm:
-  enable: false
+  enable: true
   targetRevision: 2.1.0
 openbao:
   enable: true
