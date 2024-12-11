@@ -15,8 +15,6 @@ spec:
       helm:
         valueFiles: 
           - $sourceRepo/values/externaldns-values.yaml
-          - $sourceRepo/values/externaldns-eso.yaml
-          - $sourceRepo/values/externaldns-secretstore.yaml
         releaseName: externaldns
       targetRevision: {{ (index .Values "externaldns" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
