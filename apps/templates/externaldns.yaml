@@ -1,0 +1,31 @@
+{{- if (index .Values "externaldns" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: externaldns
+  namespace: argo
+spec:
+  destination:
+    namespace: externaldns
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: https://kubernetes-sigs.github.io/externaldns/ 
+      chart: externaldns
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/externaldns-values.yaml
+          - $sourceRepo/values/externaldns-eso.yaml
+          - $sourceRepo/values/externaldns-secretstore.yaml
+        releaseName: externaldns
+      targetRevision: {{ (index .Values "externaldns" "targetRevision") }}
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

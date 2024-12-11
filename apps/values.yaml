@@ -24,6 +24,9 @@ buildkit:
   targetRevision: 1.16.1
 "external-secrets":
   enable: true
+externaldns:
+  enable: true
+  targetRevision: 1.15.0
 harbor:
   enable: false
 lgtm:
