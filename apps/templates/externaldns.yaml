@@ -10,8 +10,8 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   sources:
-    - repoURL: https://kubernetes-sigs.github.io/externaldns/ 
-      chart: externaldns
+    - repoURL: https://kubernetes-sigs.github.io/external-dns/ 
+      chart: external-dns
       helm:
         valueFiles: 
           - $sourceRepo/values/externaldns-values.yaml
