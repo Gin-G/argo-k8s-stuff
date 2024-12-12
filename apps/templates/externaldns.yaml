@@ -20,7 +20,9 @@ spec:
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
-    - path: $sourceRepo/esos/externaldns
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/externaldns
   syncPolicy:
     automated:
       prune: true
