@@ -20,6 +20,9 @@ spec:
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: values/externaldns-eso.yaml
   syncPolicy:
     automated:
       prune: true

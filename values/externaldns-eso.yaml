@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-api
+  namespace: externaldns
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: openbao-backend
+    kind: SecretStore
+  target:
+    name: cloudflare-api
+  data:
+  - secretKey: cloudflare-api
+    remoteRef:
+      key: externaldns       # Just the path without data/ prefix for v1
+      property: cloudflare-api
