@@ -2,11 +2,18 @@ grafana:
   ingress:
     enabled: true
     annotations: {
-      traefik.ingress.kubernetes.io/router.entrypoints: web
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure,
+      traefik.ingress.kubernetes.io/router.tls: "true",
+      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
+      kubernetes.io/ingress-class: traefik
     }
     hosts: 
-      - grafana.gingmachine
+      - grafana.ging.nickknows.net
     ingressClassName: traefik
+    tls:
+    - secretName: grafana.ging.nickknows.net-tls
+      hosts:
+        - grafana.ging.nickknows.net
   persistence:
     enabled: true
     type: pvc
