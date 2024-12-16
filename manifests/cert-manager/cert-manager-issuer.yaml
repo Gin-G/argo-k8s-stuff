@@ -12,6 +12,6 @@ spec:
       - dns01:
           cloudflare:
             email: NickCo7@gmail.com
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cloudflare-api
               key: cloudflare-api
