@@ -1,14 +1,18 @@
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
+  name: letsencrypt-cloudflare
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: NickCo7@gmail.com
     privateKeySecretRef:
-      name: letsencrypt-prod
+      name: letsencrypt-cloudflare
     solvers:
-      - http01:
-          ingress:
-            ingressClassName: traefik
+      - dns01:
+          cloudflare:
+            email: NickCo7@gmail.com
+            apiSecretKeyRef:
+              name: cloudflare-api
+              key: cloudflare-api
+              namespace: externaldns
