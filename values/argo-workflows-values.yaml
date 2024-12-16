@@ -620,7 +620,10 @@ server:
     enabled: true
     # -- Additional ingress annotations
     annotations: {
-      traefik.ingress.kubernetes.io/router.entrypoints: web
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure,
+      traefik.ingress.kubernetes.io/router.tls: "true",
+      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
+      kubernetes.io/ingress-class: traefik
     }
     # -- Additional ingress labels
     labels: {}
@@ -630,7 +633,7 @@ server:
     # -- List of ingress hosts
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
-    hosts: ["argoworkflows.gingmachine"]
+    hosts: ["argoworkflows.ging.nickknows.net"]
       # - argoworkflows.example.com
 
     # -- List of ingress paths
@@ -655,10 +658,10 @@ server:
       #         name: use-annotation
 
     # -- Ingress TLS configuration
-    tls: []
-      # - secretName: argoworkflows-example-tls
-      #   hosts:
-      #     - argoworkflows.example.com
+    tls:
+      - secretName: argoworkflows-tls
+        hosts:
+          - argoworkflows.ging.nickknows.net
 
   ## Create a Google Backendconfig  for use with the GKE Ingress Controller
   ## https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-configuration#configuring_ingress_features_through_backendconfig_parameters
