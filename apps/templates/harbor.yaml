@@ -10,12 +10,16 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    helm:
-      valueFiles: 
-        - values.yaml
-    path: helm-charts/harbor
-    repoURL: {{ .Values.spec.source.repoURL }}
-    targetRevision: {{ .Values.spec.source.targetRevision }}
+  sources:
+    - repoURL: https://helm.goharbor.io
+      chart: harbor
+      targetRevision: {{ (index .Values "lgtm" "targetRevision") }}
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/harbor-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
