@@ -15,4 +15,3 @@ spec:
             apiKeySecretRef:
               name: cloudflare-api
               key: cloudflare-api
-              namespace: externaldns
