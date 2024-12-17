@@ -37,3 +37,5 @@ loki:
     - secretName: loki.ging.nickknows.net-tls
       hosts:
         - loki.ging.nickknows.net
+  gateway:
+    enabled: false
