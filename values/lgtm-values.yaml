@@ -21,21 +21,3 @@ grafana:
     storageClassName: local-path
 
 loki:
-  ingress:
-    enabled: true
-    annotations: {
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure,
-      traefik.ingress.kubernetes.io/router.tls: "true",
-      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
-      kubernetes.io/ingress-class: traefik,
-      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-    }
-    hosts: 
-      - loki.ging.nickknows.net
-    ingressClassName: traefik
-    tls:
-    - secretName: loki.ging.nickknows.net-tls
-      hosts:
-        - loki.ging.nickknows.net
-  gateway:
-    enabled: false
