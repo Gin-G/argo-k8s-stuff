@@ -6,7 +6,8 @@ dashboard:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure,
       traefik.ingress.kubernetes.io/router.tls: "true",
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
-      kubernetes.io/ingress-class: traefik
+      kubernetes.io/ingress-class: traefik,
+      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
     ingressClassName: "traefik"
     hosts: ["argorollouts.ging.nickknows.net"]
