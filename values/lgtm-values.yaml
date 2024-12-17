@@ -29,6 +29,14 @@ loki:
     table_manager:
       retention_deletes_enabled: true
       retention_period: 336h
+      
+    # Ensure logs can be ingested
+    ingester:
+      wal:
+        enabled: true
+      lifecycler:
+        ring:
+          replication_factor: 1
 
   # Configure log collection
   serviceMonitor:
@@ -45,3 +53,12 @@ loki:
     storageClassName: local-path
     size: 10Gi
 
+agent:
+  enabled: true
+  logs:
+    enabled: true
+    podLogsConfig:
+      enabled: true
+      # Collect logs from all namespaces
+      namespaces:
+        - "*"
