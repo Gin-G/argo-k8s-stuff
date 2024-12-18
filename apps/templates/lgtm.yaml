@@ -19,6 +19,11 @@ spec:
     - repoURL: https://grafana.github.io/helm-charts
       chart: promtail
       targetRevision: {{ (index .Values "promtail" "targetRevision") }}
+      helm:
+        values: |
+          config:
+            clients:
+              - url: http://lgtm-loki-gateway/loki/api/v1/push
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
