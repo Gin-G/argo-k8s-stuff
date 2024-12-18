@@ -32,5 +32,5 @@ loki:
           storageClassName: local-path
           size: 10Gi
           annotations: {
-            volume.kubernetes.io/hostname: "gingmachine"
+            volume.kubernetes.io/selected-node: "gingmachine"
           }
