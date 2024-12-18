@@ -16,6 +16,9 @@ spec:
       helm:
         valueFiles: 
           - $sourceRepo/values/lgtm-values.yaml
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: promtail
+      targetRevision: {{ (index .Values "promtail" "targetRevision") }}
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
