@@ -28,5 +28,6 @@ loki:
     persistence:
       enabled: true
       claims:
-        storageClassName: local-path
-        size: 10Gi
+        - name: loki-ingester
+          storageClassName: local-path
+          size: 10Gi
