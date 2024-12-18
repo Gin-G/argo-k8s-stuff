@@ -24,3 +24,8 @@ loki:
   # Configure log collection
   serviceMonitor:
     enabled: true
+  persistence:
+    enabled: true
+    claims:
+      storageClassName: local-path
+      size: 10Gi
