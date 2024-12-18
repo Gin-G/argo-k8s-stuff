@@ -31,6 +31,6 @@ loki:
         - name: loki-ingester
           storageClassName: local-path
           size: 10Gi
-      annotations: {
-        volume.kubernetes.io/hostname: "gingmachine"
-      }
+          annotations: {
+            volume.kubernetes.io/hostname: "gingmachine"
+          }
