@@ -21,6 +21,7 @@ grafana:
     storageClassName: local-path
 
 loki:
+  enable: false
   # Configure log collection
   serviceMonitor:
     enabled: true
