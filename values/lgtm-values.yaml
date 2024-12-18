@@ -37,6 +37,3 @@ loki:
     extraVolumeMounts:
       - name: data
         emptyDir: {}
-    extraVolumes:
-      - name: data
-        mountPath: /var/loki
