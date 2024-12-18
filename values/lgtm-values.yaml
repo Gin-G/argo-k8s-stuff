@@ -31,3 +31,8 @@ loki:
         - name: loki-ingester
           storageClassName: local-path
           size: 10Gi
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: "gingmachine"
