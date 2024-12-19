@@ -28,13 +28,3 @@ loki:
   ingester:
     persistence:
       enabled: true
-      claims:
-        - name: loki-ingester
-          storageClassName: local-path
-          size: 10Gi
-          annotations: {
-            volume.kubernetes.io/selected-node: "gingmachine"
-          }
-    extraVolumeMounts:
-      - name: data
-        emptyDir: {}
