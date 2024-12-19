@@ -21,17 +21,17 @@ grafana:
     storageClassName: local-path
 
 loki:
-  enable: false
+  enable: true
   # Configure log collection
-  #serviceMonitor:
-  #  enabled: true
-  #ingester:
-  #  persistence:
-  #    enabled: true
-  #    claims:
-  #      - name: loki-ingester
-  #        storageClassName: local-path
-  #        size: 10Gi
-  #        annotations: {
-  #          volume.kubernetes.io/selected-node: "gingmachine"
-  #        }
+  serviceMonitor:
+    enabled: true
+  ingester:
+    persistence:
+      enabled: true
+      claims:
+        - name: loki-ingester
+          storageClassName: local-path
+          size: 10Gi
+          annotations: {
+            volume.kubernetes.io/selected-node: "gingmachine"
+          }
