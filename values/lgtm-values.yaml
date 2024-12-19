@@ -35,3 +35,6 @@ loki:
           annotations: {
             volume.kubernetes.io/selected-node: "gingmachine"
           }
+    extraVolumeMounts:
+      - name: data
+        emptyDir: {}
