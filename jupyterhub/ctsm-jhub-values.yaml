@@ -24,3 +24,10 @@ hub:
       ask_email_on_signup: true
       allowed_failed_logins: 3
       seconds_before_next_try: 1200
+  extraVolumes:
+    - name: hub-db-dir
+      persistentVolumeClaim:
+        claimName: userdata-pvc
+        annotations: {
+          volume.kubernetes.io/selected-node: "gingmachine"
+        }
