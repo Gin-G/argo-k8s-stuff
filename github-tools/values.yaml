@@ -9,7 +9,7 @@ spec:
 "ncote-scale-set":
   enable: true
 nickknows:
-  enable: false
+  enable: true
 "hpc-benchmarks":
   enable: false
 skitunes:
