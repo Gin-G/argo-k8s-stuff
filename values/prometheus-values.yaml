@@ -16,4 +16,9 @@ prometheus:
         - prometheus.ging.nickknows.net
   prometheusSpec:
     remoteWrite:
-      - url: http://lgtm-mimir-nginx/prometheus
+      - url: http://10.43.50.204
+    additionalScrapeConfigs: 
+      - job_name: 'prometheus'
+        honor_labels: true
+        static_configs:
+        - targets: ['10.43.50.204']
