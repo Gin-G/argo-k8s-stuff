@@ -28,7 +28,7 @@ externaldns:
   enable: true
   targetRevision: 1.15.0
 harbor:
-  enable: true
+  enable: false
   targetRevision: 1.16.0
 lgtm:
   enable: true
