@@ -13,7 +13,7 @@ spec:
   sources:
     - repoURL: https://helm.goharbor.io
       chart: harbor
-      targetRevision: {{ (index .Values "lgtm" "targetRevision") }}
+      targetRevision: {{ (index .Values "harbor" "targetRevision") }}
       helm:
         valueFiles: 
           - $sourceRepo/values/harbor-values.yaml
