@@ -26,9 +26,11 @@ expose:
       # "tls.crt" - the certificate
       # "tls.key" - the private key
       secretName: "harbor.ging.nickknows.net-tls"
+      notarySecretName: "harbor.ging.nickknows.net-tls"
   ingress:
     hosts:
       core: harbor.ging.nickknows.net
+      notary: harbor.ging.nickknows.net
     # set to the type of ingress controller if it has specific requirements.
     # leave as `default` for most ingress controllers.
     # set to `gce` if using the GCE ingress controller
@@ -38,7 +40,6 @@ expose:
     controller: default
     ## Allow .Capabilities.KubeVersion.Version to be overridden while creating ingress
     kubeVersionOverride: ""
-    className: "traefik"
     annotations:
       # note different ingress controllers may require a different ssl-redirect annotation
       # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
