@@ -16,7 +16,7 @@ expose:
     # The tls certificate can be generated manually or by cert manager
     # 3) none: configure no tls certificate for the ingress. If the default
     # tls certificate is configured in the ingress controller, choose this option
-    certSource: auto
+    certSource: secret
     auto:
       # The common name used to generate the certificate, it's necessary
       # when the type isn't "ingress"
@@ -110,7 +110,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: http://harbor.ging-laptop.nick-knows.net
+externalURL: https://harbor.ging.nickknows.net
 
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamically.
