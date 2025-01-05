@@ -3,13 +3,13 @@ dashboard:
   ingress:
     enabled: true
     annotations: {
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure,
-      traefik.ingress.kubernetes.io/router.tls: "true",
+      nginx.ingress.kubernetes.io/ssl-redirect: "true",
+      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
-      kubernetes.io/ingress-class: traefik,
+      kubernetes.io/ingress-class: nginx,
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
-    ingressClassName: "traefik"
+    ingressClassName: "nginx"
     hosts: ["argorollouts.ging.nickknows.net"]
     tls:
     - secretName: argorollouts.ging.nickknows.net-tls

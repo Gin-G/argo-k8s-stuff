@@ -422,7 +422,12 @@ server:
     labels: {}
       # traffic: external
     annotations: {
-      avp.kubernetes.io/path: "kv/openbao"
+      avp.kubernetes.io/path: "kv/openbao",
+      nginx.ingress.kubernetes.io/ssl-redirect: "true",
+      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
+      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
+      kubernetes.io/ingress-class: nginx,
+      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
       # |
       # kubernetes.io/ingress.class: nginx
@@ -433,7 +438,7 @@ server:
 
     # Optionally use ingressClassName instead of deprecated annotation.
     # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
-    ingressClassName: "traefik"
+    ingressClassName: "nginx"
 
     # As of Kubernetes 1.19, all Ingress Paths must have a pathType configured. The default value below should be sufficient in most cases.
     # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types for other possible values.
@@ -443,7 +448,7 @@ server:
     # configure the ingress to point to the OpenBao active service.
     activeService: true
     hosts:
-      - host: openbao.gingmachine
+      - host: openbao.ging.nickknows.net
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
@@ -453,10 +458,10 @@ server:
     #       name: ssl-redirect
     #       port:
     #         number: use-annotation
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+    tls:
+      - secretName: openbao.ging.nickknows.net-tls
+        hosts:
+          - openbao.ging.nickknows.net
     spec:
 
   # hostAliases is a list of aliases to be added to /etc/hosts. Specified as a YAML list.

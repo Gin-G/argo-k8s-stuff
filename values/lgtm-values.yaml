@@ -2,15 +2,15 @@ grafana:
   ingress:
     enabled: true
     annotations: {
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure,
-      traefik.ingress.kubernetes.io/router.tls: "true",
+      nginx.ingress.kubernetes.io/ssl-redirect: "true",
+      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
-      kubernetes.io/ingress-class: traefik,
+      kubernetes.io/ingress-class: nginx,
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
     hosts: 
       - grafana.ging.nickknows.net
-    ingressClassName: traefik
+    ingressClassName: nginx
     tls:
     - secretName: grafana.ging.nickknows.net-tls
       hosts:
