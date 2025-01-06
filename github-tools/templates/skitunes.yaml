@@ -16,7 +16,7 @@ spec:
       helm:
         values: |
           githubConfigUrl: https://github.com/Gin-G/SkiTunes
-          githubConfigSecret: ging-api-token
+          githubConfigSecret: ging-gh-token
           controllerServiceAccount:
             namespace: arc-systems
             name: gh-arc-gha-rs-controller

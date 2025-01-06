@@ -11,6 +11,6 @@ spec:
 nickknows:
   enable: true
 "hpc-benchmarks":
-  enable: false
+  enable: true
 skitunes:
   enable: true
