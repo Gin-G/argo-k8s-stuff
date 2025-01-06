@@ -20,7 +20,9 @@ spec:
               - "argocd.argoproj.io/instance"
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
-      path: manifests/github/arc-secretstore.yaml
+      path: manifests/github/
+      directory:
+        include: "arc-secretstore.yaml"
   syncPolicy:
     automated:
       prune: true

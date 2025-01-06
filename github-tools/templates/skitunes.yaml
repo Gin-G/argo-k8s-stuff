@@ -22,7 +22,9 @@ spec:
             name: gh-arc-gha-rs-controller
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
-      path: manifests/github/ging-eso.yaml
+      path: manifests/github/
+      directory:
+        include: "ging-eso.yaml"
   syncPolicy:
     automated:
       prune: true
