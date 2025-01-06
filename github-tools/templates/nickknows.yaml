@@ -20,11 +20,9 @@ spec:
           controllerServiceAccount:
             namespace: arc-systems
             name: gh-arc-gha-rs-controller
-        valueFiles: 
-          - $sourceRepo/manifests/github/ging-eso.yaml
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
-      ref: sourceRepo
+      rpath: manifests/github/gin-eso.yaml
   syncPolicy:
     automated:
       prune: true
