@@ -40,7 +40,7 @@ expose:
     controller: default
     ## Allow .Capabilities.KubeVersion.Version to be overridden while creating ingress
     kubeVersionOverride: ""
-    annotations:
+    annotations: {
       # note different ingress controllers may require a different ssl-redirect annotation
       # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
       nginx.ingress.kubernetes.io/ssl-redirect: "true",
@@ -48,6 +48,7 @@ expose:
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
       kubernetes.io/ingress-class: nginx,
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+    }
     # ingress-specific labels
     labels: {}
   clusterIP:
