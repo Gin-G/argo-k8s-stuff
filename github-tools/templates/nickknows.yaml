@@ -16,10 +16,15 @@ spec:
     helm:
       values: |
         githubConfigUrl: https://github.com/Gin-G/NickKnows
-        githubConfigSecret: pre-defined-secret
+        githubConfigSecret: ging-api-token
         controllerServiceAccount:
           namespace: arc-systems
           name: gh-arc-gha-rs-controller
+      valueFiles: 
+        - $sourceRepo/manifests/github/ging-eso.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true

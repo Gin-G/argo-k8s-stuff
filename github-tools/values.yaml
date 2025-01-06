@@ -7,7 +7,7 @@ spec:
 "gh-arc":
   enable: true
 "ncote-scale-set":
-  enable: true
+  enable: false
 nickknows:
   enable: true
 "hpc-benchmarks":
