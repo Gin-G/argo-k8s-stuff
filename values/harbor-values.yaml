@@ -49,8 +49,7 @@ expose:
       kubernetes.io/ingress-class: nginx,
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
-    spec:
-      ingressClassName: nginx
+    className: nginx
     # ingress-specific labels
     labels: {}
   clusterIP:
