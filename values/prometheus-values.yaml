@@ -14,11 +14,11 @@ prometheus:
     - secretName: prometheus.ging.nickknows.net-tls
       hosts:
         - prometheus.ging.nickknows.net
-  prometheusSpec:
-    remoteWrite:
-      - url: http://10.43.50.204
-    additionalScrapeConfigs: 
-      - job_name: 'prometheus'
-        honor_labels: true
-        static_configs:
-        - targets: ['10.43.50.204']
+#  prometheusSpec:
+#    remoteWrite:
+#      - url: http://10.43.50.204
+#    additionalScrapeConfigs: 
+#      - job_name: 'prometheus'
+#        honor_labels: true
+#        static_configs:
+#        - targets: ['10.43.50.204']

@@ -1,4 +1,0 @@
-jhubs:
-  ctsm:
-    name: ctsm-hub
-    namespace: jupyter
