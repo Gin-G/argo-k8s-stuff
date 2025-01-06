@@ -11,7 +11,7 @@ spec:
   target:
     name: ncote-gh-token   # This matches your existing secret name for compatibility
   data:
-  - secretKey: ncote-gh-token     # This matches your existing secret key
+  - secretKey: github_token    # This matches your existing secret key
     remoteRef:
       key: github               # Path in OpenBao where the secret is stored
       property: ncote-api-token   # The specific key you mentioned
