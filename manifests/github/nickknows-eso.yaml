@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: ging-github-runner-token
+  name: nickknows-github-runner-token
   namespace: arc-systems
 spec:
   refreshInterval: 1h
@@ -9,7 +9,7 @@ spec:
     name: openbao-backend
     kind: SecretStore
   target:
-    name: ging-gh-token   # This matches your existing secret name for compatibility
+    name: nickknows-gh-token   # This matches your existing secret name for compatibility
   data:
   - secretKey: github_token    # This matches your existing secret key
     remoteRef:

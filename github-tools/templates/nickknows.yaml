@@ -16,7 +16,7 @@ spec:
       helm:
         values: |
           githubConfigUrl: https://github.com/Gin-G/NickKnows
-          githubConfigSecret: ging-gh-token
+          githubConfigSecret: nickknows-gh-token
           controllerServiceAccount:
             namespace: arc-systems
             name: gh-arc-gha-rs-controller
@@ -24,7 +24,7 @@ spec:
       targetRevision: {{ .Values.spec.source.targetRevision }}
       path: manifests/github/
       directory:
-        include: "ging-eso.yaml"
+        include: "nickknows-eso.yaml"
   syncPolicy:
     automated:
       prune: true
