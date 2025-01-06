@@ -22,7 +22,7 @@ spec:
             name: gh-arc-gha-rs-controller
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
-      rpath: manifests/github/ncote-eso.yaml
+      path: manifests/github/ncote-eso.yaml
   syncPolicy:
     automated:
       prune: true
