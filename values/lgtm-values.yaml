@@ -38,22 +38,23 @@ loki:
 
 mimir:
   enable: true
-  ingress:
-    enabled: true
-    annotations: {
-      nginx.ingress.kubernetes.io/ssl-redirect: "true",
-      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
-      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
-      kubernetes.io/ingress-class: nginx,
-      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-    }
-    hosts: 
-      - mimir.ging.nickknows.net
-    ingressClassName: nginx
-    tls:
-    - secretName: mimir.ging.nickknows.net-tls
-      hosts:
+  nginx:
+    ingress:
+      enabled: true
+      annotations: {
+        nginx.ingress.kubernetes.io/ssl-redirect: "true",
+        nginx.ingress.kubernetes.io/ssl-passthrough: "false",
+        cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
+        kubernetes.io/ingress-class: nginx,
+        external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+      }
+      hosts: 
         - mimir.ging.nickknows.net
+      ingressClassName: nginx
+      tls:
+      - secretName: mimir.ging.nickknows.net-tls
+        hosts:
+          - mimir.ging.nickknows.net
   persistence:
     enabled: true
     type: pvc
