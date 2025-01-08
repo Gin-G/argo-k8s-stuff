@@ -17,6 +17,13 @@ prometheus:
   prometheusSpec:
     remoteWrite:
       - url: http://lgtm-mimir-distributor.lgtm.svc.cluster.local:8080/api/v1/push
+        name: mimir
+        remote_timeout: 30s
+        queue_config:
+          capacity: 2500
+          max_shards: 200
+          min_shards: 1
+          max_samples_per_send: 500
 #    additionalScrapeConfigs: 
 #      - job_name: 'prometheus'
 #        honor_labels: true
