@@ -14,9 +14,9 @@ prometheus:
     - secretName: prometheus.ging.nickknows.net-tls
       hosts:
         - prometheus.ging.nickknows.net
-#  prometheusSpec:
-#    remoteWrite:
-#      - url: http://10.43.50.204
+  prometheusSpec:
+    remoteWrite:
+      - url: http://lgtm-mimir-distributor.lgtm.svc.cluster.local:8080/api/v1/push
 #    additionalScrapeConfigs: 
 #      - job_name: 'prometheus'
 #        honor_labels: true
