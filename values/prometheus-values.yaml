@@ -20,7 +20,6 @@ prometheus:
         headers:
           X-Scope-OrgID: mimir-continuous-test  # You can use any string here if you're single tenant
         name: mimir
-        remote_timeout: 30s
 #    additionalScrapeConfigs: 
 #      - job_name: 'prometheus'
 #        honor_labels: true
