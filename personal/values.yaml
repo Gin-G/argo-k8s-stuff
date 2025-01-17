@@ -12,7 +12,7 @@ skitunes:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: main
 skitunes-dev:
-  enable: true
+  enable: false
   source:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: db-switch
