@@ -1,0 +1,34 @@
+{{- if (index .Values "ccpp-images" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gh-arc-ccpp-images
+  namespace: argo
+spec:
+  destination:
+    namespace: arc-systems
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - path: helm-charts/gha-runner-scale-set
+      repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      helm:
+        values: |
+          githubConfigUrl: https://github.com/NCAR/ccpp-jhub-images
+          githubConfigSecret: ncote-gh-token
+          controllerServiceAccount:
+            namespace: arc-systems
+            name: gh-arc-gha-rs-controller
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/github/
+      directory:
+        include: "ncote-ccpp-eso.yaml"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
