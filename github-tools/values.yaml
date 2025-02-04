@@ -6,6 +6,8 @@ spec:
     targetRevision: main
 "gh-arc":
   enable: true
+"ccpp-images":
+  enable: true
 "ncote-scale-set":
   enable: false
 nickknows:
