@@ -16,7 +16,7 @@ spec:
       helm:
         values: |
           githubConfigUrl: https://github.com/NCAR/ccpp-jhub-images
-          githubConfigSecret: ncote-gh-token
+          githubConfigSecret: ncote-ccpp-gh-token
           controllerServiceAccount:
             namespace: arc-systems
             name: gh-arc-gha-rs-controller
