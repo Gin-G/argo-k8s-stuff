@@ -388,7 +388,7 @@ server:
     # -- image repo to use for server image
     repository: "openbao/openbao"
     # -- image tag to use for server image
-    tag: "2.0.0-alpha20240329"
+    tag: "2.2.0-beta20250213"
     # -- image pull policy to use for server image. if tag is "latest", set to "Always"
     pullPolicy: IfNotPresent
 
