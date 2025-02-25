@@ -85,7 +85,7 @@ injector:
     # -- image repo to use for agent image
     repository: "openbao/openbao"
     # -- image tag to use for agent image
-    tag: "2.0.0-alpha20240329"
+    tag: "2.2.0-beta20250213"
     # -- image pull policy to use for agent image. if tag is "latest", set to "Always"
     pullPolicy: IfNotPresent
 
@@ -1200,7 +1200,7 @@ csi:
       # -- image repo to use for agent image
       repository: "openbao/openbao"
       # -- image tag to use for agent image
-      tag: "2.0.0-alpha20240329"
+      tag: "2.2.0-beta20250213"
       # -- image pull policy to use for agent image. if tag is "latest", set to "Always"
       pullPolicy: IfNotPresent
 
