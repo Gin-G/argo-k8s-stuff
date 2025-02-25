@@ -35,7 +35,7 @@ lgtm:
   targetRevision: 2.1.0
 openbao:
   enable: true
-  targetRevision: 0.6.0
+  targetRevision: 0.7.0
 prometheus:
   enable: true
   targetRevision: 66.2.2
