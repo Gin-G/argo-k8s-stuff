@@ -1,0 +1,22 @@
+{{- if (index .Values "nvidia" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nvidia
+  namespace: argo
+spec:
+  destination:
+    namespace: nvidia
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://nvidia.github.io/k8s-device-plugin
+    chart: nvidia-device-plugin
+    targetRevision: {{ (index .Values "nvidia" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
