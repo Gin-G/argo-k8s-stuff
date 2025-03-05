@@ -13,6 +13,15 @@ spec:
     repoURL: https://nvidia.github.io/k8s-device-plugin
     chart: nvidia-device-plugin
     targetRevision: {{ (index .Values "nvidia" "targetRevision") }}
+    helm:
+      values: |
+        nodeSelector:
+          gpu: "true"  # Use your existing node label
+        priorityClassName: ""
+        tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
   syncPolicy:
     automated:
       prune: true
