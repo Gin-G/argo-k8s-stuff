@@ -16,15 +16,29 @@ spec:
       helm:
         values: |
           nodeSelector:
-            gpu: "true"  # Use your existing node label
+            gpu: "true"
           priorityClassName: ""
           tolerations:
           - key: nvidia.com/gpu
             operator: Exists
             effect: NoSchedule
+      name: device-plugin
     - repoURL: https://helm.ngc.nvidia.com/nvidia
       chart: gpu-operator
       targetRevision: {{ (index .Values "nvidia" "operatorRevision") }}
+      helm:
+        values: |
+          driver:
+            enabled: false
+          toolkit:
+            enabled: true
+          devicePlugin:
+            enabled: false  # Using the standalone device plugin
+          migManager:
+            enabled: false
+          nodeSelector:
+            gpu: "true"
+      name: gpu-operator
   syncPolicy:
     automated:
       prune: true
