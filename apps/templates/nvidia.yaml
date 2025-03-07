@@ -22,6 +22,8 @@ spec:
           - key: nvidia.com/gpu
             operator: Exists
             effect: NoSchedule
+          config:
+            deviceDiscoveryStrategy: "nvml"
       name: device-plugin
     - repoURL: https://helm.ngc.nvidia.com/nvidia
       chart: gpu-operator
@@ -33,11 +35,21 @@ spec:
           toolkit:
             enabled: true
           devicePlugin:
-            enabled: false  # Using the standalone device plugin
+            enabled: false
           migManager:
             enabled: false
           nodeSelector:
             gpu: "true"
+          # Explicitly set container runtime
+          toolkit:
+            enabled: true
+            env:
+            - name: CONTAINER_RUNTIME
+              value: containerd
+            - name: CONTAINERD_CONFIG
+              value: /var/lib/rancher/k3s/agent/etc/containerd/config.toml
+            - name: CONTAINERD_SOCKET
+              value: /run/k3s/containerd/containerd.sock
       name: gpu-operator
   syncPolicy:
     automated:
