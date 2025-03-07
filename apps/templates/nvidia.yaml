@@ -23,7 +23,10 @@ spec:
             operator: Exists
             effect: NoSchedule
           config:
-            deviceDiscoveryStrategy: "nvml"
+            deviceDiscoveryStrategy: "nvml"  # Make sure this is consistent
+            plugin:
+              nvidiaCTKPath: "/usr/bin/nvidia-ctk"
+              containerDriverRoot: "/run/nvidia/driver"  # Add this if needed
       name: device-plugin
     - repoURL: https://helm.ngc.nvidia.com/nvidia
       chart: gpu-operator
