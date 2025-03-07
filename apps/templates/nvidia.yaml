@@ -35,8 +35,6 @@ spec:
         values: |
           driver:
             enabled: false
-          toolkit:
-            enabled: true
           devicePlugin:
             enabled: false
           migManager:
@@ -53,6 +51,10 @@ spec:
               value: /var/lib/rancher/k3s/agent/etc/containerd/config.toml
             - name: CONTAINERD_SOCKET
               value: /run/k3s/containerd/containerd.sock
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: all
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: compute,utility
       name: gpu-operator
   syncPolicy:
     automated:
