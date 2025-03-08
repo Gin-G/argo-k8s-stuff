@@ -27,6 +27,7 @@ spec:
             plugin:
               nvidiaCTKPath: "/usr/bin/nvidia-ctk"
               containerDriverRoot: "/run/nvidia/driver"  # Add this if needed
+          runtimeClassName: nvidia  # Add this line
       name: device-plugin
     - repoURL: https://helm.ngc.nvidia.com/nvidia
       chart: gpu-operator
