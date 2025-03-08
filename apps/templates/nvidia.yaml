@@ -15,6 +15,7 @@ spec:
       targetRevision: {{ (index .Values "nvidia" "targetRevision") }}
       helm:
         values: |
+          deviceDiscoveryStrategy: "nvml"  # Make sure this is consistent
           nodeSelector:
             gpu: "true"
           priorityClassName: ""
@@ -23,7 +24,6 @@ spec:
             operator: Exists
             effect: NoSchedule
           config:
-            deviceDiscoveryStrategy: "nvml"  # Make sure this is consistent
             plugin:
               nvidiaCTKPath: "/usr/bin/nvidia-ctk"
               containerDriverRoot: "/run/nvidia/driver"  # Add this if needed
