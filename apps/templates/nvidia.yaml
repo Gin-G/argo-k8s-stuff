@@ -46,12 +46,14 @@ spec:
           toolkit:
             enabled: true
             env:
-            - name: CONTAINER_RUNTIME
-              value: containerd
+            - name: CONTAINER_RUNTIME_CLASS
+              value: nvidia
             - name: CONTAINERD_CONFIG
               value: /var/lib/rancher/k3s/agent/etc/containerd/config.toml
             - name: CONTAINERD_SOCKET
               value: /run/k3s/containerd/containerd.sock
+            - name: CONTAINERD_SET_AS_DEFAULT
+              value: true
             - name: NVIDIA_VISIBLE_DEVICES
               value: all
             - name: NVIDIA_DRIVER_CAPABILITIES
