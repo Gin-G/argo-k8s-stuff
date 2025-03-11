@@ -15,6 +15,12 @@ spec:
     targetRevision: {{ (index .Values "nvidia" "targetRevision") }}
     helm:
       values: |
+        nodeSelector:
+          gpu: "true"
+        tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
         runtimeClassName: nvidia  # Add this line
     name: device-plugin
   syncPolicy:
