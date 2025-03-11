@@ -34,7 +34,7 @@ lgtm:
   enable: true
   targetRevision: 2.1.0
 nvidia:
-  enable: true
+  enable: false
   targetRevision: 0.17.0
   operatorRevision: v24.9.2
 openbao:
