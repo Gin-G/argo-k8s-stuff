@@ -9,20 +9,44 @@ spec:
     namespace: nvidia
     server: {{ .Values.spec.destination.server }}
   project: default
-  source:
-    repoURL: https://nvidia.github.io/k8s-device-plugin
-    chart: nvidia-device-plugin
-    targetRevision: {{ (index .Values "nvidia" "targetRevision") }}
-    helm:
-      values: |
-        nodeSelector:
-          gpu: "true"
-        tolerations:
-        - key: nvidia.com/gpu
-          operator: Exists
-          effect: NoSchedule
-        runtimeClassName: nvidia  # Add this line
-    name: device-plugin
+  sources:
+    - repoURL: https://nvidia.github.io/k8s-device-plugin
+      chart: nvidia-device-plugin
+      targetRevision: {{ (index .Values "nvidia" "targetRevision") }}
+      helm:
+        values: |
+          nodeSelector:
+            gpu: "true"
+          tolerations:
+          - key: nvidia.com/gpu
+            operator: Exists
+            effect: NoSchedule
+          runtimeClassName: nvidia  # Add this line
+      name: device-plugin
+    - repoURL: https://helm.ngc.nvidia.com/nvidia
+      chart: gpu-operator
+      targetRevision: {{ (index .Values "nvidia" "operatorRevision") }}
+      helm:
+        values: |
+          nodeSelector:
+            gpu: "true"
+          # Explicitly set container runtime
+          toolkit:
+            enabled: true
+            env:
+            - name: CONTAINER_RUNTIME_CLASS
+              value: nvidia
+            - name: CONTAINERD_CONFIG
+              value: /var/lib/rancher/k3s/agent/etc/containerd/config.toml
+            - name: CONTAINERD_SOCKET
+              value: /run/k3s/containerd/containerd.sock
+            - name: CONTAINERD_SET_AS_DEFAULT
+              value: true
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: all
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: compute,utility
+      name: gpu-operator
   syncPolicy:
     automated:
       prune: true
