@@ -9,7 +9,6 @@ spec:
     namespace: harbor
     server: {{ .Values.spec.destination.server }}
   project: default
-  source:
   sources:
     - repoURL: https://helm.goharbor.io
       chart: harbor

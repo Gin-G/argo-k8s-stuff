@@ -47,3 +47,6 @@ promtail:
   targetRevision: 6.16.6
 rancher:
   enable: false
+rook-ceph:
+  enable: true
+  targetRevision: v1.16.5

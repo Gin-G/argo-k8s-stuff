@@ -1,0 +1,51 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v17.2.6
+  dataDirHostPath: /var/lib/rook
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  mgr:
+    count: 1
+  dashboard:
+    enabled: true
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+      - name: gingmachine  # Adjust hostname
+        devices:
+          - name: "/dev/sdb"  # Use entire device
+      - name: ging-laptop.nick-knows.net  # Adjust hostname
+        directories:
+          - path: "/var/lib/ceph-storage"
+      - name: gingworker  # Adjust hostname
+        directories:
+          - path: "/var/lib/ceph-storage"
+  resources:
+    mgr:
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
+      requests:
+        cpu: "100m"
+        memory: "512Mi"
+    mon:
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
+      requests:
+        cpu: "100m"
+        memory: "512Mi"
+    osd:
+      limits:
+        cpu: "1"
+        memory: "2Gi"
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
