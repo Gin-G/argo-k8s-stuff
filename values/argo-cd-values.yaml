@@ -203,6 +203,8 @@ configs:
     ## Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/
     statusbadge.enabled: true
 
+    users.anonymous.enabled: true
+    users.anonymous.readOnly: true
     # Dex configuration
     # dex.config: |
     #   connectors:
