@@ -20,7 +20,7 @@ spec:
     nodes:
       - name: gingmachine  # Adjust hostname
         devices:
-          - name: "/dev/sdb"  # Use entire device
+          - name: "/dev/sde"  # Use entire device
       - name: ging-laptop.nick-knows.net  # Adjust hostname
         directories:
           - path: "/var/lib/ceph-storage"
