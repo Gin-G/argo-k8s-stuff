@@ -21,7 +21,7 @@ buildkit:
   targetRevision: 0.8.0
 "cert-manager":
   enable: true
-  targetRevision: 1.16.1
+  targetRevision: 1.16.2
 "external-secrets":
   enable: true
 externaldns:
