@@ -20,13 +20,13 @@ spec:
     nodes:
       - name: gingmachine  # Adjust hostname
         devices:
-          - path: "/var/lib/ceph-storage"
+          - name: "/var/lib/ceph-storage"
       - name: ging-laptop.nick-knows.net  # Adjust hostname
         devices:
-          - path: "/var/lib/ceph-storage"
+          - name: "/var/lib/ceph-storage"
       - name: gingworker  # Adjust hostname
         devices:
-          - path: "/var/lib/ceph-storage"
+          - name: "/var/lib/ceph-storage"
   resources:
     mgr:
       limits:
