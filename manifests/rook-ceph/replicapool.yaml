@@ -6,4 +6,4 @@ metadata:
 spec:
   failureDomain: host  # This can be 'host' or 'osd' depending on your setup
   replicated:
-    size: 3 
+    size: 1
