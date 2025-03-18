@@ -6,15 +6,15 @@ spec:
     targetRevision: main
 "argo-cd":
   enable: true
-  targetRevision: 7.7.5
+  targetRevision: 7.7.13
 "argo-workflows":
-  enable: true
+  enable: false
   targetRevision: 0.42.5
 "argo-rollouts":
   enable: true
   targetRevision: 2.38.0
 backstage:
-  enable: true
+  enable: false
   targetRevision: 2.2.0
 buildkit:
   enable: true
