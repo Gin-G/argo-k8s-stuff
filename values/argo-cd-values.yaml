@@ -119,7 +119,7 @@ global:
   priorityClassName: ""
 
   # -- Default node selector for all components
-  nodeSelector: {}
+  nodeSelector: {"gingmachine", "gingworker"}
 
   # -- Default tolerations for all components
   tolerations: []
