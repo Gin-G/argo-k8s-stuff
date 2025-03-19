@@ -6,7 +6,7 @@ spec:
     targetRevision: main
 "argo-cd":
   enable: true
-  targetRevision: 7.7.13
+  targetRevision: 7.7.12
 "argo-workflows":
   enable: false
   targetRevision: 0.42.5
