@@ -119,7 +119,7 @@ global:
   priorityClassName: ""
 
   # -- Default node selector for all components
-  nodeSelector: {"gingmachine", "gingworker"}
+  nodeSelector: {}
 
   # -- Default tolerations for all components
   tolerations: []
@@ -133,12 +133,12 @@ global:
       # -- Default node affinity rules. Either: `none`, `soft` or `hard`
       type: hard
       # -- Default match expressions for node affinity
-      matchExpressions: []
-        # - key: topology.kubernetes.io/zone
-        #   operator: In
-        #   values:
-        #    - antarctica-east1
-        #    - antarctica-west1
+      matchExpressions: 
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - gingmachine
+            - gingworker
 
   # -- Default [TopologySpreadConstraints] rules for all components
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
