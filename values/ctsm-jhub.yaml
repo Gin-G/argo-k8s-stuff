@@ -1,0 +1,43 @@
+singleuser:
+    image:
+        name: docker.io/escomp/test-ctsm-cislcloud-v4
+        tag: "latest"
+    storage:
+        capacity: 10G
+        dynamic:
+            storageClass: local-path
+ingress:
+    enabled: true
+    annotations:
+        nginx.ingress.kubernetes.io/ssl-redirect: true
+        cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    ingressClassName: nginx
+    hosts:
+        - ctsm-jhub.nickknows.net
+    tls:
+        - secretName: ctsm-jhub-tls
+          hosts:
+            - ctsm-jhub.nickknows.net
+hub:
+    config:
+        JupyterHub:
+            authenticator_class: nativeauthenticator.NativeAuthenticator
+        Authenticator:
+            allow_all: true
+            admin_users:
+              - ncote
+              - kcote
+              - varshareddy
+              - bdobbins
+              - slevis
+              - khrpcek
+        NativeAuthenticator:
+          enable_signup: true
+          minimum_password_length: 8
+          check_common_password: true
+          ask_email_on_signup: true
+          allowed_failed_logins: 3
+          seconds_before_next_try: 1200
+proxy:
+    service:
+        type: ClusterIP
