@@ -7,12 +7,12 @@ spec:
 "gh-arc":
   enable: true
 "ccpp-images":
-  enable: true
+  enable: false
 "ncote-scale-set":
   enable: false
 nickknows:
   enable: true
 "hpc-benchmarks":
-  enable: true
+  enable: false
 skitunes:
   enable: true

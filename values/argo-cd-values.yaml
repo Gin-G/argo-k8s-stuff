@@ -1,3 +1,5 @@
+server.insecure: true
+
 global:
   affinity:
     # -- Default pod anti-affinity rules. Either: `none`, `soft` or `hard`
@@ -115,7 +117,7 @@ server:
     ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
     annotations: {
       nginx.ingress.kubernetes.io/ssl-redirect: "true",
-      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true",
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
       kubernetes.io/ingress-class: nginx,
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
