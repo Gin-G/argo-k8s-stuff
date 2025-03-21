@@ -9,43 +9,13 @@ spec:
   dataDirHostPath: /var/lib/rook
   mon:
     count: 1
-    allowMultiplePerNode: false
-  mgr:
-    count: 1
+    allowMultiplePerNode: true  # Allow multiple mons on same node - helpful for testing
   dashboard:
     enabled: true
   storage:
     useAllNodes: false
     useAllDevices: false
     nodes:
-      - name: gingmachine  # Hostname must match exactly
+      - name: "gingmachine"
         directories:
-          - path: "/var/lib/ceph-storage"
-      - name: ging-laptop.nick-knows.net
-        directories:
-          - path: "/var/lib/ceph-storage"
-      - name: gingworker
-        directories:
-          - path: "/var/lib/ceph-storage"
-  resources:
-    mgr:
-      limits:
-        cpu: "500m"
-        memory: "1Gi"
-      requests:
-        cpu: "100m"
-        memory: "512Mi"
-    mon:
-      limits:
-        cpu: "500m"
-        memory: "1Gi"
-      requests:
-        cpu: "100m"
-        memory: "512Mi"
-    osd:
-      limits:
-        cpu: "1"
-        memory: "2Gi"
-      requests:
-        cpu: "500m"
-        memory: "1Gi"
+        - path: "/var/lib/ceph-storage"
