@@ -26,7 +26,12 @@ spec:
       targetRevision: {{ .Values.spec.source.targetRevision }}
       path: manifests/github/
       directory:
-        include: "peronadao-eso.yaml, personadao-secretstore.yaml"
+        include: "peronadao-eso.yaml"
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/github/
+      directory:
+        include: "personadao-secretstore.yaml"
   syncPolicy:
     automated:
       prune: true
