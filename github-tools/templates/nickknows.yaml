@@ -19,7 +19,18 @@ spec:
           githubConfigSecret: nickknows-gh-token
           controllerServiceAccount:
             namespace: arc-systems
-            name: gh-arc-gha-rs-controller
+            name: gh-arc-gha-rs-controller  
+          template:
+            spec:
+              affinity:
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                    - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values:
+                        - gingmachine
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       path: manifests/github/
