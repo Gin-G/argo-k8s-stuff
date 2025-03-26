@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: personadao-github-runner-token
+  namespace: personadao
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: openbao-backend
+    kind: SecretStore
+  target:
+    name: personadao-gh-token   # This matches your existing secret name for compatibility
+  data:
+  - secretKey: github_token    # This matches your existing secret key
+    remoteRef:
+      key: github               # Path in OpenBao where the secret is stored
+      property: ging-api-token   # The specific key you mentioned
