@@ -14,5 +14,7 @@ nickknows:
   enable: true
 "hpc-benchmarks":
   enable: false
+personadao:
+  enable: true
 skitunes:
   enable: true
