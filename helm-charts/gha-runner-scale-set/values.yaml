@@ -187,6 +187,15 @@ template:
   ##                 requests:
   ##                   storage: 1Gi
   spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - gingmachine
     containers:
       - name: runner
         image: ghcr.io/actions/actions-runner:2.321.0
