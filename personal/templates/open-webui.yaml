@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: open-webui
-  namespace: argocd
+  namespace: argo
 spec:
   destination:
     namespace: ctsm
