@@ -1,0 +1,13 @@
+ingress:
+  enabled: true
+  annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: true
+      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+  class: nginx
+  host: openweb.nickknows.net
+  tls: true
+managedCertificate:
+  enabled: true
+  name: openwebui-tls
+  domains:
+    - openweb.nickknows.net

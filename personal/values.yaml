@@ -9,6 +9,9 @@ ctsmjhub:
   source:
     repoURL: https://github.com/Gin-G/NickKnows
     targetRevision: main
+openwebui:
+  enable: true
+  chartVersion: 5.25.0
 skitunes:
   enable: true
   source:

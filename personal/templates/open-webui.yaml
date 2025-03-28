@@ -1,0 +1,29 @@
+{{- if .Values.openwebui.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-webui
+  namespace: argocd
+spec:
+  destination:
+    namespace: ctsm
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: https://helm.openwebui.com
+      chart: open-webui
+      targetRevision: {{ .Values.openwebui.chartVersion}}
+      helm:
+        valueFiles: 
+          - $values/values/open-webui.yaml
+    - repoURL: https://github.com/Gin-G/argo-k8s-stuff
+      targetRevision: main
+      ref: values
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - Prune=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
