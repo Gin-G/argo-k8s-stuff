@@ -12,7 +12,7 @@ spec:
   sources:
     - repoURL: https://hub.jupyter.org/helm-chart
       chart: jupyterhub
-      targetRevision: {{ .Values.apps.ctsmjhub.chartVersion}}
+      targetRevision: {{ .Values.ctsmjhub.chartVersion}}
       helm:
         valueFiles: 
           - $values/values/ctsm-jhub.yaml
