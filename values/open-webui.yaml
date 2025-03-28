@@ -5,9 +5,7 @@ ingress:
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
   class: nginx
   host: openweb.nickknows.net
-  tls: true
-managedCertificate:
-  enabled: true
-  name: openwebui-tls
-  domains:
-    - openweb.nickknows.net
+  tls: 
+    - secretName: openwebui-tls
+      hosts:
+        - openweb.nickknows.net
