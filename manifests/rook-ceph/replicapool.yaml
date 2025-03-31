@@ -4,6 +4,6 @@ metadata:
   name: replicapool
   namespace: rook-ceph
 spec:
-  failureDomain: host  # This can be 'host' or 'osd' depending on your setup
+  failureDomain: osd  # This can be 'host' or 'osd' depending on your setup
   replicated:
     size: 1
