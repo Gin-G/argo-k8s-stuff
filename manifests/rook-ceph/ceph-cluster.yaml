@@ -5,12 +5,25 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    # see the "Cluster Settings" section below for more details on which image of ceph to run
     image: quay.io/ceph/ceph:v19.2.1
   dataDirHostPath: /var/lib/rook
   mon:
-    count: 3
+    count: 1
     allowMultiplePerNode: false
+  mgr:
+    count: 1
+  dashboard:
+    enabled: true
   storage:
-    useAllNodes: true
-    useAllDevices: true
+    useAllNodes: false  # Must be false to specify nodes manually
+    useAllDevices: false
+    nodes:
+      - name: gingmachine  # Exact hostname
+        directories:
+          - path: "/var/lib/ceph-storage"  # Use path instead of name
+      - name: ging-laptop.nick-knows.net  # Exact hostname
+        directories:
+          - path: "/var/lib/ceph-storage"  # Use path instead of name
+      - name: gingworker  # Exact hostname
+        directories:
+          - path: "/var/lib/ceph-storage"  # Use path instead of name
