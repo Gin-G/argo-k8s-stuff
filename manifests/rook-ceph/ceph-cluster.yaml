@@ -5,25 +5,25 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    image: quay.io/ceph/ceph:v19.2.1
+    image: quay.io/ceph/ceph:v19.2.1  # More stable version
   dataDirHostPath: /var/lib/rook
   mon:
-    count: 1
-    allowMultiplePerNode: false
+    count: 2
+    allowMultiplePerNode: true
   mgr:
     count: 1
   dashboard:
     enabled: true
   storage:
-    useAllNodes: false  # Must be false to specify nodes manually
+    useAllNodes: false
     useAllDevices: false
     nodes:
-      - name: gingmachine  # Exact hostname
-        directories:
-          - path: "/var/lib/ceph-storage"  # Use path instead of name
-      - name: ging-laptop.nick-knows.net  # Exact hostname
-        directories:
-          - path: "/var/lib/ceph-storage"  # Use path instead of name
-      - name: gingworker  # Exact hostname
-        directories:
-          - path: "/var/lib/ceph-storage"  # Use path instead of name
+      - name: gingmachine
+        devices:
+          - name: "/dev/sdb"  # Use the unused disk
+      - name: ging-laptop.nick-knows.net
+        devices:
+          - name: /dev/loop37  # Will be something like /dev/loop37
+      - name: gingworker
+        devices:
+          - name: /dev/loop0 # Will be something like /dev/loop7
