@@ -1,0 +1,22 @@
+{{- if (index .Values "freva" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: freva
+  namespace: argo
+spec:
+  destination:
+    namespace: freva
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: freva-helm/
+    repoURL: {{ (index .Values "freva" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "freva" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
