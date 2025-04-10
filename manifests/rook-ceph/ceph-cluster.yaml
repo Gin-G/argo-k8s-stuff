@@ -5,10 +5,10 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    image: quay.io/ceph/ceph:v19.2.1  # More stable version
+    image: quay.io/ceph/ceph:v19.2.1
   dataDirHostPath: /var/lib/rook
   mon:
-    count: 2
+    count: 1
     allowMultiplePerNode: true
   mgr:
     count: 1
@@ -17,13 +17,40 @@ spec:
   storage:
     useAllNodes: false
     useAllDevices: false
+    deviceFilter: ""
+    config:
+      osdsPerDevice: "1"
     nodes:
       - name: gingmachine
         devices:
-          - name: "/dev/sdb"  # Use the unused disk
-      - name: ging-laptop.nick-knows.net
-        devices:
-          - name: /dev/loop37  # Will be something like /dev/loop37
-      - name: gingworker
-        devices:
-          - name: /dev/loop0 # Will be something like /dev/loop7
+          - name: "/dev/sdb"
+  healthCheck:
+    daemonHealth:
+      mon:
+        disabled: false
+        interval: 45s
+      osd:
+        disabled: false
+        interval: 60s
+  resources:
+    mgr:
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
+      requests:
+        cpu: "100m"
+        memory: "512Mi"
+    mon:
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
+      requests:
+        cpu: "100m"
+        memory: "512Mi"
+    osd:
+      limits:
+        cpu: "1"
+        memory: "2Gi"
+      requests:
+        cpu: "300m"
+        memory: "1Gi"
