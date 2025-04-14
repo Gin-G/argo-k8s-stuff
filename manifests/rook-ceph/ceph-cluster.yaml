@@ -23,7 +23,7 @@ spec:
     nodes:
       - name: gingmachine
         devices:
-          - name: "/dev/sdb"
+          - name: "/dev/sde"
   healthCheck:
     daemonHealth:
       mon:
