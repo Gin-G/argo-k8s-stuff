@@ -3,7 +3,7 @@ spec:
     server: https://kubernetes.default.svc
 ctsmjhub:
   enable: true
-  chartVersion: 4.1.0
+  chartVersion: 4.0.0
 "nick-knows":
   enable: true
   source:
