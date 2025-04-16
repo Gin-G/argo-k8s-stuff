@@ -5,7 +5,7 @@ singleuser:
     storage:
         capacity: 10G
         dynamic:
-            storageClass: local-path
+            storageClass: rook-ceph-block
 ingress:
     enabled: true
     annotations:
