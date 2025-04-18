@@ -5,7 +5,7 @@ ctsmjhub:
   enable: true
   chartVersion: 4.0.0
 "nick-knows":
-  enable: true
+  enable: false
   source:
     repoURL: https://github.com/Gin-G/NickKnows
     targetRevision: main
