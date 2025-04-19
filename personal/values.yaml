@@ -1,6 +1,9 @@
 spec:
   destination:
     server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/Gin-G/argo-k8s-stuff
+    targetRevision: main
 ctsmjhub:
   enable: true
   chartVersion: 4.0.0
