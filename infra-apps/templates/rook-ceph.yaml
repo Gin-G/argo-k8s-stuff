@@ -6,14 +6,17 @@ metadata:
   namespace: argo 
 spec:
   project: default
-  source:
-    chart: rook-ceph
-    repoURL: https://charts.rook.io/release
-    targetRevision: {{ (index .Values "rook-ceph" "targetRevision") }}
-    helm:
-      values: |
-        crds:
-          enabled: true
+  sources:
+    - chart: rook-ceph
+      repoURL: https://charts.rook.io/release
+      targetRevision: {{ (index .Values "rook-ceph" "targetRevision") }}
+      helm:
+        values: |
+          crds:
+            enabled: true
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/rook-ceph
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: rook-ceph
