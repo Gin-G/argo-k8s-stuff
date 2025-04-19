@@ -1,0 +1,22 @@
+{{- if (index .Values "nginx" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx
+  namespace: argo
+spec:
+  destination:
+    namespace: nginx
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    chart: ingress-nginx
+    targetRevision: {{ (index .Values "nginx" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
