@@ -13,6 +13,9 @@ spec:
     - path: helm-chart/
       repoURL: {{ (index .Values "skitunes" "source" "repoURL") }}
       targetRevision: {{ (index .Values "skitunes" "source" "targetRevision") }}
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/skitunes
   syncPolicy:
     automated:
       prune: true
