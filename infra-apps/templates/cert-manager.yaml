@@ -13,6 +13,9 @@ spec:
     - repoURL: https://charts.jetstack.io
       chart: cert-manager
       targetRevision: {{ (index .Values "cert-manager" "targetRevision") }}
+      helm:
+        values: |
+          installCRDs: true
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       path: manifests/cert-manager
