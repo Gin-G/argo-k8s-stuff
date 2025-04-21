@@ -448,7 +448,7 @@ server:
     # configure the ingress to point to the OpenBao active service.
     activeService: true
     hosts:
-      - host: openbao.ging.nickknows.net
+      - host: openbao.nickknows.net
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
@@ -459,9 +459,9 @@ server:
     #       port:
     #         number: use-annotation
     tls:
-      - secretName: openbao.ging.nickknows.net-tls
+      - secretName: openbao.nickknows.net-tls
         hosts:
-          - openbao.ging.nickknows.net
+          - openbao.nickknows.net
     spec:
 
   # hostAliases is a list of aliases to be added to /etc/hosts. Specified as a YAML list.

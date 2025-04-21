@@ -9,12 +9,12 @@ grafana:
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
     hosts: 
-      - grafana.ging.nickknows.net
+      - grafana.nickknows.net
     ingressClassName: nginx
     tls:
-    - secretName: grafana.ging.nickknows.net-tls
+    - secretName: grafana.nickknows.net-tls
       hosts:
-        - grafana.ging.nickknows.net
+        - grafana.nickknows.net
   persistence:
     enabled: true
     type: pvc

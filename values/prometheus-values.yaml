@@ -9,11 +9,11 @@ prometheus:
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
     ingressClassName: "nginx"
-    hosts: ["prometheus.ging.nickknows.net"]
+    hosts: ["prometheus.nickknows.net"]
     tls:
-    - secretName: prometheus.ging.nickknows.net-tls
+    - secretName: prometheus.nickknows.net-tls
       hosts:
-        - prometheus.ging.nickknows.net
+        - prometheus.nickknows.net
   prometheusSpec:
     remoteWrite:
       - url: http://lgtm-mimir-distributor.lgtm.svc.cluster.local:8080/api/v1/push

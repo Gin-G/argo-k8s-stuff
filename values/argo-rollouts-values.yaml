@@ -10,8 +10,8 @@ dashboard:
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     }
     ingressClassName: "nginx"
-    hosts: ["argorollouts.ging.nickknows.net"]
+    hosts: ["argorollouts.nickknows.net"]
     tls:
-    - secretName: argorollouts.ging.nickknows.net-tls
+    - secretName: argorollouts.nickknows.net-tls
       hosts:
-        - argorollouts.ging.nickknows.net
+        - argorollouts.nickknows.net
