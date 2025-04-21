@@ -118,6 +118,7 @@ server:
     annotations: {
       nginx.ingress.kubernetes.io/ssl-redirect: "true",
       nginx.ingress.kubernetes.io/ssl-passthrough: "true",
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS",
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
       kubernetes.io/ingress-class: nginx,
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
