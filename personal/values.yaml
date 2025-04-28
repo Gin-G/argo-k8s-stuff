@@ -34,4 +34,4 @@ dbtest:
   enable: true
   source:
     repoURL: https://github.com/NicholasCote/data-flask
-    targetRevision: main
+    targetRevision: dev
