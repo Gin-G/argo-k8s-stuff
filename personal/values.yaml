@@ -30,3 +30,8 @@ skitunes-dev:
   source:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: db-switch
+dbtest:
+  enable: false
+  source:
+    repoURL: https://github.com/NicholasCote/data-flask
+    targetRevision: main

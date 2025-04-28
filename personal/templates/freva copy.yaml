@@ -1,0 +1,22 @@
+{{- if (index .Values "dbtest" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dbtest
+  namespace: argo
+spec:
+  destination:
+    namespace: skitunes
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: flask-db/postgres-helm/
+    repoURL: {{ (index .Values "dbtest" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "dbtest" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
