@@ -31,7 +31,7 @@ skitunes-dev:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: db-switch
 dbtest:
-  enable: true
+  enable: false
   source:
     repoURL: https://github.com/NicholasCote/data-flask
     targetRevision: dev
