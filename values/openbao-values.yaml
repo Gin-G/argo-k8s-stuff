@@ -653,7 +653,8 @@ server:
   # Example:
   # nodeSelector:
   #   beta.kubernetes.io/arch: amd64
-  nodeSelector: {}
+  nodeSelector: 
+    - kubernetes.io/hostname: "gingmachine"
 
   # Enables network policy for server pods
   networkPolicy:
