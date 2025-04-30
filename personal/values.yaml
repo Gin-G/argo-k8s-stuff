@@ -33,5 +33,5 @@ skitunes-dev:
 dbtest:
   enable: true
   source:
-    repoURL: https://github.com/NicholasCote/data-flask
-    targetRevision: dev
+    repoURL: https://github.com/Gin-G/db-notes
+    targetRevision: main
