@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     repoURL: https://cloudnative-pg.github.io/charts
-    chart: cnpg/cloudnative-pg
+    chart: cloudnative-pg
     targetRevision: {{ (index .Values "cnpg" "targetRevision") }}
   syncPolicy:
     automated:
