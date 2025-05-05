@@ -1,0 +1,22 @@
+{{- if (index .Values "cnpg" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg
+  namespace: argo
+spec:
+  destination:
+    namespace: cnpg
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://cloudnative-pg.github.io/charts
+    chart: cnpg/cloudnative-pg
+    targetRevision: {{ (index .Values "cnpg" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
