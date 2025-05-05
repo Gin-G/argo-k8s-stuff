@@ -15,13 +15,8 @@ spec:
     targetRevision: {{ (index .Values "cnpg" "targetRevision") }}
     helm:
       values: |
-        affinity: 
-          nodeAffinity:
-            matchExpressions: 
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                  - gingmachine
+        nodeSelector: 
+          kubernetes.io/hostname: "gingmachine"
   syncPolicy:
     automated:
       prune: true
