@@ -13,6 +13,18 @@ spec:
     repoURL: https://cloudnative-pg.github.io/charts
     chart: cloudnative-pg
     targetRevision: {{ (index .Values "cnpg" "targetRevision") }}
+    helm:
+      values: |
+        affinity: 
+          nodeAffinity:
+            # -- Default node affinity rules. Either: `none`, `soft` or `hard`
+            type: hard
+            # -- Default match expressions for node affinity
+            matchExpressions: 
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - gingmachine
   syncPolicy:
     automated:
       prune: true
