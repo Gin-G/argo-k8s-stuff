@@ -29,7 +29,7 @@ skitunes:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: main
 whokan:
-  enable: true
+  enable: false
   source:
     repoURL: https://github.com/Gin-G/Whookan
     targetRevision: main
