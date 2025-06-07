@@ -1,0 +1,22 @@
+{{- if (index .Values "whokan" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: whokan
+  namespace: argo
+spec:
+  destination:
+    namespace: whokan
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: whohelm/
+    repoURL: {{ (index .Values "whokan" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "whokan" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

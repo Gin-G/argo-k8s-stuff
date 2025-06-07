@@ -28,6 +28,11 @@ skitunes:
   source:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: main
+whokan:
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/Whookan
+    targetRevision: main
 skitunes-dev:
   enable: false
   source:
