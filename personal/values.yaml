@@ -4,9 +4,6 @@ spec:
   source:
     repoURL: https://github.com/Gin-G/argo-k8s-stuff
     targetRevision: main
-ctsmjhub:
-  enable: true
-  chartVersion: 4.0.0
 "nick-knows":
   enable: true
   source:
