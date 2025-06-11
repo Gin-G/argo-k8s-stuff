@@ -12,11 +12,6 @@ spec:
 openwebui:
   enable: true
   chartVersion: 5.25.0
-freva:
-  enable: true
-  source:
-    repoURL: https://github.com/NicholasCote/freva-web-cirrus
-    targetRevision: cirrus-dev
 skitunes:
   enable: true
   source:
