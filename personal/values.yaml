@@ -12,9 +12,6 @@ ctsmjhub:
   source:
     repoURL: https://github.com/Gin-G/NickKnows
     targetRevision: main
-minio:
-  enable: true
-  chartVersion: 5.4.0
 openwebui:
   enable: true
   chartVersion: 5.25.0
