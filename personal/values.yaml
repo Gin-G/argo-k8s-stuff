@@ -8,6 +8,10 @@ spec:
   enable: true
   source:
     repoURL: https://github.com/Gin-G/NickKnows
+defs:
+  enable: true
+  source:
+    repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
 skitunes:
   enable: true

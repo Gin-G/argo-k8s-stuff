@@ -1,0 +1,22 @@
+{{- if (index .Values "defs" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: defs
+  namespace: argo
+spec:
+  destination:
+    namespace: defs
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: announcement/helm/
+    repoURL: {{ (index .Values "defs" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "defs" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
