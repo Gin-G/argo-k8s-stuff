@@ -13,6 +13,11 @@ defs:
   source:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
+defs-dev:
+  enable: true
+  source:
+    repoURL:  git@github.com:Gin-G/DeFS.git
+    targetRevision: main
 skitunes:
   enable: true
   source:
