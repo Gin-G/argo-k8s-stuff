@@ -14,12 +14,12 @@ defs:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
 defs-dev:
-  enable: true
+  enable: false
   source:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
 defs-svelte:
-  enable: true
+  enable: false
   source:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
