@@ -1,0 +1,22 @@
+{{- if (index .Values "defs-dev" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: defs-svelte
+  namespace: argo
+spec:
+  destination:
+    namespace: defs-dev
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: dev/svelte-dev/helm/
+    repoURL: {{ (index .Values "defs-dev" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "defs-dev" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

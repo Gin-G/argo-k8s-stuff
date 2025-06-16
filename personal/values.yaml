@@ -18,6 +18,11 @@ defs-dev:
   source:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
+defs-svelte:
+  enable: true
+  source:
+    repoURL:  git@github.com:Gin-G/DeFS.git
+    targetRevision: main
 skitunes:
   enable: true
   source:
