@@ -19,7 +19,7 @@ defs-dev:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
 defs-svelte:
-  enable: false
+  enable: true
   source:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
@@ -32,11 +32,6 @@ whokan:
   enable: true
   source:
     repoURL: https://github.com/Gin-G/Whookan
-    targetRevision: main
-tdstest:
-  enable: true
-  source:
-    repoURL: https://github.com/Gin-G/tds-test
     targetRevision: main
 skitunes-dev:
   enable: false
