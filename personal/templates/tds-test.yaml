@@ -1,0 +1,22 @@
+{{- if (index .Values "tdstest" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tdstest
+  namespace: argo
+spec:
+  destination:
+    namespace: tdstest
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: helm/
+    repoURL: {{ (index .Values "tdstest" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "tdstest" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
