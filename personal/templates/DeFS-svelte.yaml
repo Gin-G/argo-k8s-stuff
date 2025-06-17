@@ -1,4 +1,4 @@
-{{- if (index .Values "defs-dev" "enable") }}
+{{- if (index .Values "defs-svelte" "enable") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -6,13 +6,13 @@ metadata:
   namespace: argo
 spec:
   destination:
-    namespace: defs-dev
+    namespace: defs-svelte
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
     path: dev/svelte-dev/helm/
-    repoURL: {{ (index .Values "defs-dev" "source" "repoURL") }}
-    targetRevision: {{ (index .Values "defs-dev" "source" "targetRevision") }}
+    repoURL: {{ (index .Values "defs-svelte" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "defs-svelte" "source" "targetRevision") }}
   syncPolicy:
     automated:
       prune: true
