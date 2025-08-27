@@ -12,7 +12,7 @@ spec:
   targetRevision: 0.42.5
 "argo-rollouts":
   enable: true
-  targetRevision: 2.38.0
+  targetRevision: 2.40.3
 backstage:
   enable: false
   targetRevision: 2.2.0
