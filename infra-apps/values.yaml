@@ -48,7 +48,7 @@ openbao:
   targetRevision: 0.7.0
 prometheus:
   enable: true
-  targetRevision: 66.2.2
+  targetRevision: 77.0.2
 promtail:
   targetRevision: 6.16.6
 rancher:
