@@ -24,7 +24,7 @@ buildkit:
   targetRevision: 1.18.2
 cnpg:
   enable: true
-  targetRevision: 0.23.2
+  targetRevision: 0.26.0
 "external-secrets":
   enable: true
 externaldns:
