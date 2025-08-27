@@ -38,7 +38,7 @@ lgtm:
   targetRevision: 2.1.0
 nginx:
   enable: true
-  targetRevision: 4.12.3
+  targetRevision: 4.13.1
 nvidia:
   enable: true
   targetRevision: 0.17.0
