@@ -47,7 +47,7 @@ openbao:
   enable: true
   targetRevision: 0.7.0
 prometheus:
-  enable: true
+  enable: false
   targetRevision: 77.0.2
 promtail:
   targetRevision: 6.16.6
