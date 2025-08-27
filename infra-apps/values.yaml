@@ -21,7 +21,7 @@ buildkit:
   targetRevision: 0.8.0
 "cert-manager":
   enable: true
-  targetRevision: 1.16.2
+  targetRevision: 1.18.2
 cnpg:
   enable: true
   targetRevision: 0.23.2
