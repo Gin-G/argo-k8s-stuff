@@ -8,6 +8,11 @@ spec:
   enable: true
   source:
     repoURL: https://github.com/Gin-G/NickKnows
+"nfl-api":
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/NFL-API
+    targetRevision: main
 defs:
   enable: true
   source:

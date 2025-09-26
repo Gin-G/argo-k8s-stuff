@@ -1,0 +1,22 @@
+{{- if (index .Values "nfl-api" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nfl-api
+  namespace: argo
+spec:
+  destination:
+    namespace: nfl-api
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: helm/
+    repoURL: {{ (index .Values "nfl-api" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "nfl-api "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
