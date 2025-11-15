@@ -1,0 +1,22 @@
+{{- if (index .Values "rts" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rts
+  namespace: argo
+spec:
+  destination:
+    namespace: rts
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: rts-helm/
+    repoURL: {{ (index .Values "rts" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "rts" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

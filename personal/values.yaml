@@ -38,6 +38,11 @@ whokan:
   source:
     repoURL: https://github.com/Gin-G/Whookan
     targetRevision: main
+rts:
+  enable: true
+  source:
+    repoURL: git@github.com:Gin-G/ratetheslopes
+    targetRevision: main
 skitunes-dev:
   enable: false
   source:
