@@ -13,6 +13,11 @@ spec:
   source:
     repoURL: https://github.com/Gin-G/NFL-API
     targetRevision: main
+codeserver:
+  enable: true
+  source:
+    repoURL:  https://github.com/coder/code-server.git
+    targetRevision: main
 defs:
   enable: true
   source:
