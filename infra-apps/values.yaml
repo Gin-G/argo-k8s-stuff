@@ -6,13 +6,13 @@ spec:
     targetRevision: main
 "argo-cd":
   enable: true
-  targetRevision: 8.3.1
+  targetRevision: 9.3.7
 "argo-workflows":
   enable: false
   targetRevision: 0.42.5
 "argo-rollouts":
   enable: true
-  targetRevision: 2.40.3
+  targetRevision: 2.40.5
 backstage:
   enable: false
   targetRevision: 2.2.0
@@ -21,7 +21,7 @@ buildkit:
   targetRevision: 0.8.0
 "cert-manager":
   enable: true
-  targetRevision: 1.17.1
+  targetRevision: 1.19.2
 cnpg:
   enable: true
   targetRevision: 0.26.0
