@@ -7,18 +7,9 @@ spec:
 "argo-cd":
   enable: true
   targetRevision: 9.3.7
-"argo-workflows":
-  enable: false
-  targetRevision: 0.42.5
 "argo-rollouts":
   enable: true
   targetRevision: 2.40.5
-backstage:
-  enable: false
-  targetRevision: 2.2.0
-buildkit:
-  enable: false
-  targetRevision: 0.8.0
 "cert-manager":
   enable: true
   targetRevision: 1.19.2
@@ -27,12 +18,10 @@ cnpg:
   targetRevision: 0.26.0
 "external-secrets":
   enable: true
+  targetRevision: 1.3.1
 externaldns:
   enable: true
-  targetRevision: 1.15.0
-harbor:
-  enable: false
-  targetRevision: 1.16.0
+  targetRevision: 1.20.0
 homepage:
   enable: true
   targetRevision: 1.7.3
@@ -54,8 +43,20 @@ prometheus:
   targetRevision: 77.0.2
 promtail:
   targetRevision: 6.16.6
-rancher:
-  enable: false
 rook-ceph:
   enable: true
   targetRevision: v1.16.5
+"argo-workflows":
+  enable: false
+  targetRevision: 0.42.5
+backstage:
+  enable: false
+  targetRevision: 2.2.0
+buildkit:
+  enable: false
+  targetRevision: 0.8.0
+harbor:
+  enable: false
+  targetRevision: 1.16.0
+rancher:
+  enable: false
