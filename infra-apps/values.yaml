@@ -17,7 +17,7 @@ backstage:
   enable: false
   targetRevision: 2.2.0
 buildkit:
-  enable: true
+  enable: false
   targetRevision: 0.8.0
 "cert-manager":
   enable: true
