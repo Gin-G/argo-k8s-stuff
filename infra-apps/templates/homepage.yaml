@@ -1,0 +1,28 @@
+{{- if .Values.homepage.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homepage
+  namespace: argo
+spec:
+  destination:
+    namespace: homepage
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: https://unknowniq.github.io/helm-charts/
+      chart: homepage
+      targetRevision: {{ (index .Values "homepage" "targetRevision") }}
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/homepage-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

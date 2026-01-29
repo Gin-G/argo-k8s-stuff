@@ -1,0 +1,56 @@
+enableRbac: true
+
+config:
+  kubernetes:
+    mode: cluster
+
+  widgets:
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-cloudflare
+      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/name: "My Service"
+      gethomepage.dev/description: "Service description"
+      gethomepage.dev/group: "My Group"
+      gethomepage.dev/icon: "service-icon.png"
+    hosts:
+      - host: homepage.nickknows.net
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: homepage-tls
+        hosts:
+          - homepage.nickknows.net
+
+env:
+  - name: HOMEPAGE_ALLOWED_HOSTS
+    value: "homepage.nickknows.net"
+
+volumeMounts:
+  - name: docker-sock
+    mountPath: /var/run/docker.sock
+    readOnly: true
+
+volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock
+      type: Socket
+
+config:
+  docker: {}
