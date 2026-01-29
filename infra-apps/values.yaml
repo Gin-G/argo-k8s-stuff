@@ -35,7 +35,7 @@ harbor:
   targetRevision: 1.16.0
 homepage:
   enable: true
-  targetRevision: 1.8.1
+  targetRevision: 1.7.3
 lgtm:
   enable: true
   targetRevision: 2.1.0
