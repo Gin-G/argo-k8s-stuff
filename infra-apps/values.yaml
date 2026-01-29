@@ -33,7 +33,7 @@ nginx:
   targetRevision: 4.14.2
 openbao:
   enable: true
-  targetRevision: 0.7.0
+  targetRevision: 0.23.5
 prometheus:
   enable: true
   targetRevision: 77.0.2
