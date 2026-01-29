@@ -36,12 +36,12 @@ openbao:
   targetRevision: 0.23.5
 prometheus:
   enable: true
-  targetRevision: 77.0.2
+  targetRevision: 81.3.1
 promtail:
   targetRevision: 6.16.6
 rook-ceph:
   enable: true
-  targetRevision: v1.16.5
+  targetRevision: v1.19.0
 "argo-workflows":
   enable: false
   targetRevision: 0.42.5
