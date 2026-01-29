@@ -31,10 +31,6 @@ lgtm:
 nginx:
   enable: true
   targetRevision: 4.14.2
-nvidia:
-  enable: true
-  targetRevision: 0.17.0
-  operatorRevision: v24.9.2
 openbao:
   enable: true
   targetRevision: 0.7.0
@@ -58,5 +54,9 @@ buildkit:
 harbor:
   enable: false
   targetRevision: 1.16.0
+nvidia:
+  enable: false
+  targetRevision: 0.17.0
+  operatorRevision: v24.9.2
 rancher:
   enable: false
