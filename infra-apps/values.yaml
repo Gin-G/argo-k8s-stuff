@@ -27,7 +27,7 @@ homepage:
   targetRevision: 1.7.3
 lgtm:
   enable: true
-  targetRevision: 2.1.0
+  targetRevision: 3.0.1
 nginx:
   enable: true
   targetRevision: 4.13.1
