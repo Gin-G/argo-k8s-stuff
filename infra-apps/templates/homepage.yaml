@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   sources:
-    - repoURL: https://unknowniq.github.io/helm-charts/
+    - repoURL: oci://ghcr.io/m0nsterrr/helm-charts/homepage
       chart: homepage
       targetRevision: {{ (index .Values "homepage" "targetRevision") }}
       helm:

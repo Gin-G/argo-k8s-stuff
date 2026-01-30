@@ -24,7 +24,7 @@ externaldns:
   targetRevision: 1.20.0
 homepage:
   enable: true
-  targetRevision: 1.8.1
+  targetRevision: 4.5.0
 lgtm:
   enable: true
   targetRevision: 3.0.1
