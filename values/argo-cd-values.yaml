@@ -121,7 +121,12 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS",
       cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
       kubernetes.io/ingress-class: nginx,
-      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+      external-dns.alpha.kubernetes.io/target: "8.44.158.127",
+      gethomepage.dev/enabled: "true",
+      gethomepage.dev/name: "Argo CD",
+      gethomepage.dev/description: "GitOps Continuous Delivery",
+      gethomepage.dev/group: "Infrastructure",
+      gethomepage.dev/icon: "argocd.png",
     }
 
     # -- Defines which ingress controller will implement the resource
