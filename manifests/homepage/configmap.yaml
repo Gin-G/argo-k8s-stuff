@@ -3,18 +3,7 @@ kind: ConfigMap
 metadata:
   name: homepage-config
   namespace: homepage
-data:
-  services.yaml: |
-    ---
-    - Development:
-        - ArgoCD:
-            href: https://argocd.nickknows.net
-            description: GitOps CD
-            icon: argocd.png
-            widget:
-              type: argocd
-              url: https://argocd.nickknows.net
-              
+data:              
   kubernetes.yaml: |
     mode: cluster
     
