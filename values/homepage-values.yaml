@@ -1,40 +1,10 @@
 enableRbac: true
-
-config:
-  kubernetes:
-    mode: cluster
-    ingress: true
-  services:
-    - Development:
-        - ArgoCD:
-            href: https://argocd.nickknows.net
-            description: GitOps CD
-            icon: argocd.png
-            widget:
-              type: argocd
-              url: https://argocd.nickknows.net/
-  widgets:
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-        nodes:
-          show: true
-          cpu: true
-          memory: true
-
 ingress:
   enabled: true
   ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-cloudflare
     external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/name: "GinG-K8s"
-    gethomepage.dev/description: "Gin G's Kubernetes Cluster"
-    gethomepage.dev/group: "GinG"
-    gethomepage.dev/icon: "icon.png"
   hosts:
     - host: homepage.nickknows.net
       paths:
@@ -44,11 +14,9 @@ ingress:
     - secretName: homepage-tls
       hosts:
         - homepage.nickknows.net
-
 env:
   - name: HOMEPAGE_ALLOWED_HOSTS
     value: "homepage.nickknows.net"
-
 volumeMounts:
   - name: homepage-config
     mountPath: /app/config/services.yaml
