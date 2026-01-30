@@ -8,12 +8,14 @@ data:
     mode: cluster
     
   widgets.yaml: |
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-        nodes:
-          show: true
-          cpu: true
-          memory: true
+  - kubernetes:
+      cluster:
+        show: true
+        cpu: true
+        memory: true
+        label: "Cluster Overview"
+      nodes:
+        show: true
+        cpu: true
+        memory: true
+        showLabel: true
