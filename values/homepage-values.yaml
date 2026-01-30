@@ -17,7 +17,7 @@ config:
 
 ingress:
   enabled: true
-  className: nginx
+  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-cloudflare
     external-dns.alpha.kubernetes.io/target: "8.44.158.127"
