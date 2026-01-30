@@ -3,6 +3,7 @@ enableRbac: true
 config:
   kubernetes:
     mode: cluster
+    ingress: true
 
   widgets:
     - kubernetes:
