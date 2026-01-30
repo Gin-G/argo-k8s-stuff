@@ -21,7 +21,7 @@ spec:
       ref: sourceRepo
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
-      path: manifests/homepage/configmap.yaml
+      path: manifests/homepage/
   syncPolicy:
     automated:
       prune: true
