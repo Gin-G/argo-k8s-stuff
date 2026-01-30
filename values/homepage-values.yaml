@@ -48,3 +48,19 @@ ingress:
 env:
   - name: HOMEPAGE_ALLOWED_HOSTS
     value: "homepage.nickknows.net"
+
+volumeMounts:
+  - name: config
+    mountPath: /app/config/services.yaml
+    subPath: services.yaml
+  - name: config
+    mountPath: /app/config/kubernetes.yaml
+    subPath: kubernetes.yaml
+  - name: config
+    mountPath: /app/config/widgets.yaml
+    subPath: widgets.yaml
+
+volumes:
+  - name: config
+    configMap:
+      name: homepage-config
