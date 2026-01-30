@@ -22,7 +22,7 @@ ingress:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-cloudflare
       external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-      gethomepage.dev/enabled: "true"
+      gethomepage.dev/enabled: "false"
       gethomepage.dev/name: "GinG-K8s"
       gethomepage.dev/description: "Gin G's Kubernetes Cluster"
       gethomepage.dev/group: "GinG"
