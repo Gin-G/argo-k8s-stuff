@@ -16,26 +16,25 @@ config:
           memory: true
 
 ingress:
-  main:
-    enabled: true
-    className: nginx
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-cloudflare
-      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-      gethomepage.dev/enabled: "true"
-      gethomepage.dev/name: "GinG-K8s"
-      gethomepage.dev/description: "Gin G's Kubernetes Cluster"
-      gethomepage.dev/group: "GinG"
-      gethomepage.dev/icon: "icon.png"
-    hosts:
-      - host: homepage.nickknows.net
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - secretName: homepage-tls
-        hosts:
-          - homepage.nickknows.net
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-cloudflare
+    external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: "GinG-K8s"
+    gethomepage.dev/description: "Gin G's Kubernetes Cluster"
+    gethomepage.dev/group: "GinG"
+    gethomepage.dev/icon: "icon.png"
+  hosts:
+    - host: homepage.nickknows.net
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: homepage-tls
+      hosts:
+        - homepage.nickknows.net
 
 env:
   - name: HOMEPAGE_ALLOWED_HOSTS
