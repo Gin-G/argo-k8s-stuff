@@ -50,17 +50,17 @@ env:
     value: "homepage.nickknows.net"
 
 volumeMounts:
-  - name: config
+  - name: homepage-config
     mountPath: /app/config/services.yaml
     subPath: services.yaml
-  - name: config
+  - name: homepage-config
     mountPath: /app/config/kubernetes.yaml
     subPath: kubernetes.yaml
-  - name: config
+  - name: homepage-config
     mountPath: /app/config/widgets.yaml
     subPath: widgets.yaml
 
 volumes:
-  - name: config
+  - name: homepage-config
     configMap:
       name: homepage-config
