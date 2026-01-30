@@ -13,7 +13,6 @@ config:
             widget:
               type: argocd
               url: https://argocd.nickknows.net/
-
   widgets:
     - kubernetes:
         cluster:

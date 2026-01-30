@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  namespace: homepage
+data:
+  services.yaml: |
+    ---
+    - Development:
+        - ArgoCD:
+            href: https://argocd.nickknows.net
+            description: GitOps CD
+            icon: argocd.png
+            widget:
+              type: argocd
+              url: https://argocd.nickknows.net
+              
+  kubernetes.yaml: |
+    mode: cluster
+    
+  widgets.yaml: |
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+        nodes:
+          show: true
+          cpu: true
+          memory: true
