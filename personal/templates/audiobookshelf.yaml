@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   sources:
-    - path: audiobookshelf
+    - chart: audiobookshelf
       repoURL: {{ (index .Values "audiobookshelf" "source" "repoURL") }}
       targetRevision: {{ (index .Values "audiobookshelf" "source" "targetRevision") }}
       helm:
