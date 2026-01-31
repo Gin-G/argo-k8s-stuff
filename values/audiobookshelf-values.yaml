@@ -27,8 +27,13 @@ persistence:
     storageClass: rook-ceph-block
     accessMode: ReadWriteOnce
     size: 10Gi
-audiobooks:
+  library:
     enabled: true
     storageClass: rook-ceph-block
     accessMode: ReadWriteOnce
-    size: 10Gi  # adjust as needed
+    size: 100Gi
+  backup:
+    enabled: true
+    storageClass: rook-ceph-block
+    accessMode: ReadWriteOnce
+    size: 10Gi
