@@ -16,24 +16,40 @@ ingress:
       hosts:
         - audiobookshelf.nickknows.net
 
-persistence:
+audiobookshelf:
   config:
-    enabled: true
-    storageClass: rook-ceph-block
-    accessMode: ReadWriteOnce
-    size: 1Gi
+    persistence:
+      enabled: true
+      storageClassName: rook-ceph-block
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
   metadata:
-    enabled: true
-    storageClass: rook-ceph-block
-    accessMode: ReadWriteOnce
-    size: 10Gi
+    persistence:
+      enabled: true
+      storageClassName: rook-ceph-block
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
   library:
-    enabled: true
-    storageClass: rook-ceph-block
-    accessMode: ReadWriteOnce
-    size: 100Gi
+    persistence:
+      enabled: true
+      storageClassName: rook-ceph-block
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Gi
   backup:
-    enabled: true
-    storageClass: rook-ceph-block
-    accessMode: ReadWriteOnce
-    size: 10Gi
+    persistence:
+      enabled: true
+      storageClassName: rook-ceph-block
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
