@@ -4,6 +4,18 @@ metadata:
   name: homepage-config
   namespace: homepage
 data:
+  services.yaml: |
+    ---
+    - Media:
+        - Plex:
+            href: http://gingmachine.local:32400/web
+            description: Media Server
+            icon: plex.png
+            widget:
+              type: plex
+              url: http://gingmachine.local:32400
+              key: YOUR_PLEX_TOKEN
+              
   kubernetes.yaml: |
     mode: cluster
     
