@@ -4,6 +4,11 @@ spec:
   source:
     repoURL: https://github.com/Gin-G/argo-k8s-stuff
     targetRevision: main
+audiobookshelf:
+  enable: true
+  source: 
+    repoURL: https://charts.christianhuth.de
+    targetRevision: 1.7.0
 "nick-knows":
   enable: true
   source:

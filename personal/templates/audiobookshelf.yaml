@@ -1,0 +1,28 @@
+{{- if (index .Values "audiobookshelf" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: audiobookshelf
+  namespace: argo
+spec:
+  destination:
+    namespace: audiobookshelf
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - path: audiobookshelf
+      repoURL: {{ (index .Values "audiobookshelf" "source" "repoURL") }}
+      targetRevision: {{ (index .Values "audiobookshelf" "source" "targetRevision") }}
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/audiobookshelf-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

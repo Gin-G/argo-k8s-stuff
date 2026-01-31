@@ -1,0 +1,34 @@
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+  hosts:
+    - host: audiobookshelf.nickknows.net
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: audiobookshelf-tls
+      hosts:
+        - audiobookshelf.nickknows.net
+
+persistence:
+  config:
+    enabled: true
+    storageClass: rook-ceph-block
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  metadata:
+    enabled: true
+    storageClass: rook-ceph-block
+    accessMode: ReadWriteOnce
+    size: 10Gi
+audiobooks:
+    enabled: true
+    storageClass: rook-ceph-block
+    accessMode: ReadWriteOnce
+    size: 10Gi  # adjust as needed
