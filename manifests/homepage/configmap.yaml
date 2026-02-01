@@ -15,7 +15,16 @@ data:
               type: plex
               url: http://gingmachine.local:32400
               key: YOUR_PLEX_TOKEN
-              
+        - Audiobookshelf
+            href: https://audiobookshelf.nickknows.net
+            description: Audio Book Server
+            icon: audiobookshelf.png
+            widget:
+              type: audiobookshelf
+              url: https://audiobookshelf.nickknows.net
+              key: YOUR_PLEX_TOKEN
+          
+
   kubernetes.yaml: |
     mode: cluster
     
