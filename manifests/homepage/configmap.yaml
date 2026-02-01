@@ -17,12 +17,12 @@ data:
               key: YOUR_ARGOCD_TOKEN
     - Media:
         - Plex:
-            href: http://gingmachine.local:32400/web
+            href: http://192.168.4.45:32400/web
             description: Media Server
             icon: plex.png
             widget:
               type: plex
-              url: http://gingmachine.local:32400
+              url: http://192.168.4.45:32400
               key: {{HOMEPAGE_VAR_PLEX_TOKEN}}
         - Audiobookshelf:
             href: https://audiobookshelf.nickknows.net
