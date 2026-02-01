@@ -23,7 +23,7 @@ data:
             widget:
               type: plex
               url: http://gingmachine.local:32400
-              key: YOUR_PLEX_TOKEN
+              key: {{HOMEPAGE_VAR_PLEX_TOKEN}}
         - Audiobookshelf:
             href: https://audiobookshelf.nickknows.net
             description: Audio Book Server

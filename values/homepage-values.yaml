@@ -32,3 +32,9 @@ volumes:
   - name: homepage-config
     configMap:
       name: homepage-config
+extraEnv:
+  - name: PLEX_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: homepage-plex-token
+        key: PLEX_TOKEN
