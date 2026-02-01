@@ -12,7 +12,7 @@ spec:
     name: homepage-plex-token
     creationPolicy: Owner
   data:
-    - secretKey: PLEX_TOKEN
+    - secretKey: HOMEPAGE_VAR_PLEX_TOKEN
       remoteRef:
         key: homepage/plex
         property: token
