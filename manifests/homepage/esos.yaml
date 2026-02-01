@@ -6,7 +6,7 @@ metadata:
 spec:
   refreshInterval: 1h
   secretStoreRef:
-    name: vault-backend  # Your OpenBao SecretStore name
+    name: openbao-backend  # Your OpenBao SecretStore name
     kind: SecretStore
   target:
     name: homepage-plex-token
