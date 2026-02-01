@@ -6,6 +6,15 @@ metadata:
 data:
   services.yaml: |
     ---
+    - Infratructure:
+        - Argo CD:
+            href: https://argocd.nickknows.net
+            description: GitOps Continuous Delivery
+            icon: argocd.png
+            widget:
+              type: argocd
+              url: https://argocd.nickknows.net
+              key: YOUR_ARGOCD_TOKEN
     - Media:
         - Plex:
             href: http://gingmachine.local:32400/web
