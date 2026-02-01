@@ -16,3 +16,7 @@ spec:
       remoteRef:
         key: homepage/plex
         property: token
+    - secretKey: ABS_TOKEN
+      remoteRef:
+        key: homepage/audiobookshelf
+        property: token

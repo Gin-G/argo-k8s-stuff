@@ -31,7 +31,7 @@ data:
             widget:
               type: audiobookshelf
               url: https://audiobookshelf.nickknows.net
-              key: YOUR_PLEX_TOKEN
+              key: {{HOMEPAGE_VAR_ABS_TOKEN}}
           
   kubernetes.yaml: |
     mode: cluster

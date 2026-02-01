@@ -38,3 +38,8 @@ extraEnv:
       secretKeyRef:
         name: homepage-plex-token
         key: PLEX_TOKEN
+  - name: HOMEPAGE_VAR_ABS_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: homepage-plex-token
+        key: ABS_TOKEN
