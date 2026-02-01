@@ -14,7 +14,7 @@ data:
             widget:
               type: argocd
               url: https://argocd.nickknows.net
-              key: YOUR_ARGOCD_TOKEN
+              key: {{HOMEPAGE_VAR_ARGO_TOKEN}}
     - Media:
         - Plex:
             href: http://192.168.4.45:32400/web

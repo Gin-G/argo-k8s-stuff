@@ -43,3 +43,8 @@ extraEnv:
       secretKeyRef:
         name: homepage-plex-token
         key: ABS_TOKEN
+  - name: HOMEPAGE_VAR_ARGOCD_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: homepage-plex-token
+        key: ARGOCD_TOKEN

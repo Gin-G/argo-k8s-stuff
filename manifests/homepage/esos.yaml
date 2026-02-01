@@ -20,3 +20,7 @@ spec:
       remoteRef:
         key: homepage/audiobookshelf
         property: token
+    - secretKey: ARGOCD_TOKEN
+      remoteRef:
+        key: homepage/argocd
+        property: token
