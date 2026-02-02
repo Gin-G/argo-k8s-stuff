@@ -1,0 +1,31 @@
+{{- if .Values.immich.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich
+  namespace: argo
+spec:
+  destination:
+    namespace: immich
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: oci://ghcr.io/immich-app/immich-charts
+      chart: immich
+      targetRevision: {{ (index .Values "immich" "targetRevision") }}
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/immich-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/immich/
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
