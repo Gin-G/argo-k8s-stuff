@@ -6,7 +6,7 @@ metadata:
 spec:
   instances: 1
 
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.7
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.4.3
 
   postgresql:
     shared_preload_libraries:
@@ -32,7 +32,6 @@ spec:
         name: immich-db-credentials
       postInitApplicationSQL:
         - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-        - CREATE EXTENSION IF NOT EXISTS "pgvecto.rs" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
 
   storage:
