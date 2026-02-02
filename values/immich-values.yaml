@@ -26,6 +26,13 @@ immich:
   persistence:
     library:
       existingClaim: immich-library
+    external-library:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/ssd1/Pictures
+      globalMounts:
+        - path: /mnt/external/pictures
+          readOnly: true
 
 machine-learning:
   enabled: true
