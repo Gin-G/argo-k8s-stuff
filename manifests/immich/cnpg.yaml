@@ -29,7 +29,6 @@ spec:
       secret:
         name: immich-db-credentials
       postInitApplicationSQL:
-        - CREATE EXTENSION IF NOT EXISTS vectors CASCADE;
         - CREATE EXTENSION IF NOT EXISTS cube CASCADE;
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
 
