@@ -43,7 +43,7 @@ server:
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
         cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
         external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-      ingressClassName: nginx
+      className: nginx
       hosts:
         - host: photos.nickknows.net
           paths:
