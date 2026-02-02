@@ -62,3 +62,17 @@ persistence:
     globalMounts:
       - path: /mnt/external/pictures
         readOnly: true
+  home-movies:
+    enabled: true
+    type: hostPath
+    hostPath: "/mnt/ssd1/Home Movies"
+    globalMounts:
+      - path: /mnt/external/home-movies
+        readOnly: true
+  GoPro:
+    enabled: true
+    type: hostPath
+    hostPath: "/mnt/ssd1/GoPro"
+    globalMounts:
+      - path: /mnt/external/gopro
+        readOnly: true
