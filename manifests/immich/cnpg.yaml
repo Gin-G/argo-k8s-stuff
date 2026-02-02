@@ -32,7 +32,6 @@ spec:
         name: immich-db-credentials
       postInitApplicationSQL:
         - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-        - CREATE EXTENSION IF NOT EXISTS "pgvecto.rs" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;
 
   storage:
