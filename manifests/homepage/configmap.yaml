@@ -57,3 +57,22 @@ data:
           cpu: true
           memory: true
           showLabel: true
+
+  bookmarks.yaml: |
+    - Developer:
+      - Github:
+          - abbr: GH
+            href: https://github.com/Gin-G
+      - Website:
+          - abbr: WS
+            href: https://nickknows.net
+
+    - Social:
+        - Reddit:
+            - icon: reddit.png
+              href: https://www.reddit.com/user/nickco7/
+
+    - Entertainment:
+        - YouTube:
+            - abbr: YT
+              href: https://www.youtube.com/@Nick-Knows
