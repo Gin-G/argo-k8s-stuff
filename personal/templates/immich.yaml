@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   sources:
-    - repoURL: oci://ghcr.io/immich-app/immich-charts
+    - repoURL: oci://ghcr.io/immich-app/immich-charts/immich
       chart: immich
       targetRevision: {{ (index .Values "immich" "targetRevision") }}
       helm:
