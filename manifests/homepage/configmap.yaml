@@ -16,14 +16,6 @@ data:
               url: https://argocd.nickknows.net
               key: {{HOMEPAGE_VAR_ARGOCD_TOKEN}}
     - Media:
-        - Plex:
-            href: http://192.168.4.45:32400/web
-            description: Media Server
-            icon: plex.png
-            widget:
-              type: plex
-              url: http://192.168.4.45:32400
-              key: {{HOMEPAGE_VAR_PLEX_TOKEN}}
         - Audiobookshelf:
             href: https://audiobookshelf.nickknows.net
             description: Audio Book Server
@@ -32,6 +24,23 @@ data:
               type: audiobookshelf
               url: https://audiobookshelf.nickknows.net
               key: {{HOMEPAGE_VAR_ABS_TOKEN}}
+        - Immich:
+            href: https://photos.nickknows.net
+            description: Photo and Video Management
+            icon: immich.png
+            widget:
+              type: immich
+              url: https://photos.nickknows.net
+              key: {{HOMEPAGE_VAR_IMMICH_TOKEN}}
+              version: 2
+        - Plex:
+            href: http://192.168.4.45:32400/web
+            description: Media Server
+            icon: plex.png
+            widget:
+              type: plex
+              url: http://192.168.4.45:32400
+              key: {{HOMEPAGE_VAR_PLEX_TOKEN}}
           
   kubernetes.yaml: |
     mode: cluster

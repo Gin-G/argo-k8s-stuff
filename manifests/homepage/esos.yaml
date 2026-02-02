@@ -24,3 +24,7 @@ spec:
       remoteRef:
         key: homepage/argocd
         property: token
+    - secretKey: IMMICH_TOKEN
+      remoteRef:
+        key: homepage/immich
+        property: token

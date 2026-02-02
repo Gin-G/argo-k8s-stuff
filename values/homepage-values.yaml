@@ -48,3 +48,8 @@ extraEnv:
       secretKeyRef:
         name: homepage-plex-token
         key: ARGOCD_TOKEN
+  - name: HOMEPAGE_VAR_IMMICH_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: homepage-plex-token
+        key: IMMICH_TOKEN
