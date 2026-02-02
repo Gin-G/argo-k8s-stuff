@@ -69,7 +69,7 @@ persistence:
     globalMounts:
       - path: /mnt/external/home-movies
         readOnly: true
-  GoPro:
+  gopro:
     enabled: true
     type: hostPath
     hostPath: "/mnt/ssd1/GoPro"
