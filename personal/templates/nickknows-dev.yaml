@@ -1,0 +1,25 @@
+{{- if (index .Values "nick-knows-dev" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nickknows
+  namespace: argo
+spec:
+  destination:
+    namespace: nickknows
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    helm:
+      valueFiles: 
+        - values.yaml
+    path: helm_knows/
+    repoURL: {{ (index .Values "nick-knows-dev" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "nick-knows-dev" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
