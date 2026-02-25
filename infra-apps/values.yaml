@@ -55,7 +55,7 @@ harbor:
   enable: false
   targetRevision: 1.16.0
 nvidia:
-  enable: false
+  enable: true
   targetRevision: 0.17.0
   operatorRevision: v24.9.2
 rancher:
