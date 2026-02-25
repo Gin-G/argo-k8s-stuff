@@ -19,6 +19,12 @@ spec:
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
+  ignoreDifferences:
+    - kind: Secret
+      name: prometheus-grafana
+      namespace: prometheus
+      jsonPointers:
+        - /data
   syncPolicy:
     automated:
       prune: true
