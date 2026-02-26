@@ -24,7 +24,9 @@ spec:
       kind: CustomResourceDefinition
       jsonPointers:
         - /status
+        - /spec/conversion
         - /metadata/annotations
+        - /metadata/generation
   syncPolicy:
     automated:
       prune: true
