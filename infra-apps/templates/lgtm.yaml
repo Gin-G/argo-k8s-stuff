@@ -33,6 +33,11 @@ spec:
       namespace: lgtm
       jsonPointers:
         - /data
+    - kind: Deployment
+      name: lgtm-grafana
+      namespace: lgtm
+      jsonPointers:
+        - /spec/template/metadata/annotations/checksum~1secret
   syncPolicy:
     automated:
       prune: true
