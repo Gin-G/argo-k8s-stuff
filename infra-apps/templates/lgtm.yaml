@@ -37,7 +37,7 @@ spec:
       name: lgtm-grafana
       namespace: lgtm
       jsonPointers:
-        - /spec/template/metadata/annotations/checksum~1secret
+        - /spec/template/metadata/annotations
   syncPolicy:
     automated:
       prune: true
