@@ -25,6 +25,7 @@ spec:
       jsonPointers:
         - /status
         - /spec/conversion
+        - /spec/preserveUnknownFields
         - /metadata/annotations
         - /metadata/generation
   syncPolicy:
@@ -34,4 +35,5 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - RespectIgnoreDifferences=true
 {{- end }}
