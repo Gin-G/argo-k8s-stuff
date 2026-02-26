@@ -25,6 +25,11 @@ spec:
       namespace: prometheus
       jsonPointers:
         - /data
+    - kind: Deployment
+      name: prometheus-grafana
+      namespace: prometheus
+      jsonPointers:
+        - /spec/template/metadata/annotations/checksum~1secret
   syncPolicy:
     automated:
       prune: true
