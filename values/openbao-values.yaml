@@ -378,20 +378,6 @@ server:
         name: openbao-secret
         key: openbao-host
 
-  # Resource requests, limits, etc. for the server cluster placement. This
-  # should map directly to the value of the resources field for a PodSpec.
-  # By default no direct resource request is made.
-
-  image:
-    # -- image registry to use for server image
-    registry: "quay.io"
-    # -- image repo to use for server image
-    repository: "openbao/openbao"
-    # -- image tag to use for server image
-    tag: "2.2.0-beta20250213"
-    # -- image pull policy to use for server image. if tag is "latest", set to "Always"
-    pullPolicy: IfNotPresent
-
   # Configure the Update Strategy Type for the StatefulSet
   # See https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
   updateStrategyType: "OnDelete"
