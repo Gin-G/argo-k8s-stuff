@@ -318,18 +318,15 @@ extraEnv: {}
 #   ALLOWED_NETWORKS: "0.0.0.0/0"
 
 # -- Optionally specify additional volume mounts for the PMS and init containers.
-extraVolumeMounts: []
-# extraVolumeMounts:
-#   - name: dev-dri
-#     mountPath: /dev/dri
+extraVolumes:
+  - name: plex-media
+    nfs:
+      server: 192.168.4.45
+      path: /mnt/ssd1
 
-# -- Optionally specify additional volumes for the pod.
-extraVolumes: []
-# extraVolumes:
-#   - name: dev-dri
-#     hostPath:
-#       path: /dev/dri
-#       type: Directory
+extraVolumeMounts:
+  - name: plex-media
+    mountPath: /media
 
 extraContainers: []
 # extraContainers:
