@@ -36,10 +36,10 @@ ingress:
 
   # -- Optional TLS configuration to provide valid https connections
   # using an existing SSL certificate
-  tls: []
-      - hosts:
-        - plex.nickknows.net
-        secretName: plex-tls
+  tls: 
+    - hosts:
+      - plex.nickknows.net
+      secretName: plex-tls
 
   # -- Custom annotations to put on the ingress resource
   annotations: {
