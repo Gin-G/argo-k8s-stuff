@@ -82,8 +82,8 @@ pms:
   # with the correct secretKeyRef configuration
   # Clashes with providing PLEX_CLAIM via `extraEnv` so only provide one or the other!
   claimSecret:
-    name: ""
-    key: ""
+    name: plex-claim
+    key: claimToken
 
   # Enabling this will add nvidia.com/gpu: 1 to limits, and will set
   # environment for the nvidia operator

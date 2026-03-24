@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: plex-claim
+  namespace: plex
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: openbao-backend
+    kind: SecretStore
+  target:
+    name: plex-claim
+  data:
+  - secretKey: claimToken
+    remoteRef:
+      key: plex
+      property: claim-token
