@@ -38,7 +38,7 @@ ingress:
   # using an existing SSL certificate
   tls: 
     - hosts:
-      - plex.nickknows.net
+        - plex.nickknows.net
       secretName: plex-tls
 
   # -- Custom annotations to put on the ingress resource
