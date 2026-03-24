@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   sources:
-    - chart: plex/plex-media-server
+    - chart: plex-media-server
       repoURL: {{ (index .Values "plex" "source" "repoURL") }}
       targetRevision: {{ (index .Values "plex" "source" "targetRevision") }}
       helm:
