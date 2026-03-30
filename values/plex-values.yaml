@@ -304,7 +304,7 @@ priorityClassName: ""
 commonLabels: {}
 
 extraEnv:
-  PLEX_PUBLIC_ADDRESS: "plex.nickknows.net:443"
+  ADVERTISE_IP: "https://plex.nickknows.net:443"
 # extraEnv:
 # This claim is optional, and is only used for the first startup of PMS
 # The claim is obtained from https://www.plex.tv/claim/ is is only valid for a few minutes
