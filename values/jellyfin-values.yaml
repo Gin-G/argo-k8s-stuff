@@ -222,7 +222,7 @@ volumes:
 # -- Additional volume mounts for the Jellyfin container.
 volumeMounts: 
   - name: jellyfin-media
-    mountPath: /media
+    mountPath: /jf-media
 
 # -- Node selector for pod scheduling.
 nodeSelector: {}
