@@ -213,17 +213,16 @@ readinessProbe:
   # periodSeconds: 10
 
 # -- Additional volumes to mount in the Jellyfin pod.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+  - name: jellyfin-media
+    nfs:
+      server: 192.168.4.45
+      path: /mnt/ssd1
 
 # -- Additional volume mounts for the Jellyfin container.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts: 
+  - name: jellyfin-media
+    mountPath: /media
 
 # -- Node selector for pod scheduling.
 nodeSelector: {}
