@@ -10,7 +10,7 @@ audiobookshelf:
     repoURL: https://charts.christianhuth.de
     targetRevision: 1.7.0
 plex:
-  enable: true
+  enable: false
   source: 
     repoURL: https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages
     targetRevision: 1.5.0
