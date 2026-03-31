@@ -14,6 +14,11 @@ plex:
   source: 
     repoURL: https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages
     targetRevision: 1.5.0
+jellyfin:
+  enable: true
+  source: 
+    repoURL: https://jellyfin.github.io/jellyfin-helm
+    targetRevision: 2.7.0
 "nick-knows":
   enable: true
   source:

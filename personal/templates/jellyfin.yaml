@@ -1,0 +1,28 @@
+{{- if (index .Values "jellyfin" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jellyfin
+  namespace: argo
+spec:
+  destination:
+    namespace: jellyfin
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - chart: jellyfin
+      repoURL: {{ (index .Values "jellyfin" "source" "repoURL") }}
+      targetRevision: {{ (index .Values "jellyfin" "source" "targetRevision") }}
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/jellyfin-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
