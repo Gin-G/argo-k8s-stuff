@@ -180,6 +180,7 @@ startupProbe:
   initialDelaySeconds: 0
   periodSeconds: 10
   failureThreshold: 30
+  tcpSocket: null
   # With these defaults, Jellyfin has up to 5 minutes (30 * 10s) to start.
   # Adjust failureThreshold if you have very large media libraries or slow storage.
 
@@ -191,6 +192,7 @@ livenessProbe:
     path: /health
     port: http
   initialDelaySeconds: 10
+  tcpSocket: null
   # successThreshold: 1
   # failureThreshold: 3
   # timeoutSeconds: 1
@@ -204,6 +206,7 @@ readinessProbe:
     path: /health
     port: http
   initialDelaySeconds: 10
+  tcpSocket: null
   # successThreshold: 1
   # failureThreshold: 3
   # timeoutSeconds: 1
