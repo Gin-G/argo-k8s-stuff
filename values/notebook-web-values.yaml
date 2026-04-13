@@ -1,5 +1,6 @@
 ingress:
   enabled: true
+  ingressClassName: nginx
   host: "notebooks.nickknows.net"
   annotations: {
       nginx.ingress.kubernetes.io/ssl-redirect: "true",
@@ -11,3 +12,24 @@ ingress:
     - secretName: notebooks-tls
       hosts:
         - notebooks.nickknows.net
+notebooks:
+  - name: "Climate Data Analysis"
+    repo: "https://github.com/org/notebooks.git"
+    ref: "main"
+    path: "climate/analysis.ipynb"
+    description: "Exploratory analysis of global surface temperature datasets"
+    tags: ["python", "climate", "pandas"]
+    resources:
+      limits:
+        cpu: "2"
+        memory: "4Gi"
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+
+  - name: "Machine Learning Basics"
+    repo: "https://github.com/org/notebooks.git"
+    ref: "main"
+    path: "ml/basics.ipynb"
+    description: "Introduction to scikit-learn: classification, regression, and evaluation"
+    tags: ["python", "machine-learning", "scikit-learn"]
