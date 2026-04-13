@@ -1,0 +1,13 @@
+ingress:
+  enabled: true
+  host: "notebooks.nickknows.net"
+  annotations: {
+      nginx.ingress.kubernetes.io/ssl-redirect: "true",
+      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
+      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
+      kubernetes.io/ingress-class: nginx,
+      external-dns.alpha.kubernetes.io/target: "8.44.158.127"}
+  tls:
+    - secretName: notebooks-tls
+      hosts:
+        - notebooks.nickknows.net

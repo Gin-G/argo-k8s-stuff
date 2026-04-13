@@ -24,6 +24,11 @@ jellyfin:
   source:
     repoURL: https://github.com/Gin-G/NickKnows
     targetRevision: main
+"notebook-web":
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/notebook-web
+    targetRevision: main
 "nick-knows-dev":
   enable: true
   source:
