@@ -17,6 +17,7 @@ notebooks:
     repo: "https://github.com/ProjectPythia/cesm-lens-aws-cookbook.git"
     ref: "main"
     path: "notebooks"
+    envFile: "environment.yml"  # explicit conda env; omit to auto-discover
     description: "Exploratory analysis of global surface temperature datasets"
     tags: ["python", "climate", "pandas"]
     resources:
@@ -31,5 +32,6 @@ notebooks:
     repo: "https://github.com/Unidata/supervised-ml-readiness.git"
     ref: "main"
     path: "02_MachineLearningApplications/MachineLearningApplications.ipynb"
+    envFile: "environment.yml"  # explicit conda env; omit to auto-discover
     description: "Introduction to scikit-learn: classification, regression, and evaluation"
     tags: ["python", "machine-learning", "scikit-learn"]
