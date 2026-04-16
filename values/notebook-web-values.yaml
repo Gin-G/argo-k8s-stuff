@@ -35,3 +35,11 @@ notebooks:
     envFile: "environment.yml"  # explicit conda env; omit to auto-discover
     description: "Introduction to scikit-learn: classification, regression, and evaluation"
     tags: ["python", "machine-learning", "scikit-learn"]
+
+  - name: "GDEX OSDF Examples"
+    repo: https://github.com/NCAR/osdf-examples.git
+    ref: "main"
+    path: notebooks
+    envFile: ""
+    description: "Examples on accessing GDEX datasets via OSDF"
+    tags: ["python", "data-access"]
