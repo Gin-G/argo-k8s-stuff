@@ -43,3 +43,9 @@ notebooks:
     envFile: ""
     description: "Examples on accessing GDEX datasets via OSDF"
     tags: ["python", "data-access"]
+
+build:
+  enabled: true
+  registry: harbor.nickknows.net/notebooks/sessions
+  pushSecretName: harbor-notebooks-push
+  # buildkitServiceName: ""  # auto: <release>-buildkit-service
