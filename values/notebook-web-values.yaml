@@ -46,6 +46,12 @@ notebooks:
 
 build:
   enabled: true
-  registry: harbor.nickknows.net/notebooks/sessions
-  pushSecretName: harbor-notebooks-push
-  # buildkitServiceName: ""  # auto: <release>-buildkit-service
+  registry: ghcr.io/gin-g/notebook-web/sessions
+  # docker-registry secret with a GitHub PAT (write:packages scope).
+  # Create via External Secrets syncing from OpenBao, or manually:
+  #   kubectl create secret docker-registry ghcr-push \
+  #     --docker-server=ghcr.io \
+  #     --docker-username=gin-g \
+  #     --docker-password=<PAT> \
+  #     -n notebook-web
+  pushSecretName: ghcr-push
