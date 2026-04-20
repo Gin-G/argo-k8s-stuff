@@ -47,11 +47,5 @@ notebooks:
 build:
   enabled: true
   registry: ghcr.io/gin-g/notebook-web/sessions
-  # docker-registry secret with a GitHub PAT (write:packages scope).
-  # Create via External Secrets syncing from OpenBao, or manually:
-  #   kubectl create secret docker-registry ghcr-push \
-  #     --docker-server=ghcr.io \
-  #     --docker-username=gin-g \
-  #     --docker-password=<PAT> \
-  #     -n notebook-web
-  pushSecretName: ghcr-push
+  pushSecretName: ghcr-api   # ExternalSecret → OpenBao ghcr/ → key: api (PAT with write:packages)
+  pullSecretName: ""          # leave empty if ghcr.io packages are set to public
