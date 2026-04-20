@@ -37,7 +37,7 @@ notebooks:
     tags: ["python", "machine-learning", "scikit-learn"]
 
   - name: "GDEX OSDF Examples"
-    repo: https://github.com/NCAR/osdf-examples.git
+    repo: https://github.com/NicholasCote/osdf-examples-ncote.git
     ref: "main"
     path: notebooks
     envFile: ""
