@@ -1,0 +1,18 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: ghcr-api
+  namespace: notebook-web
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: openbao-backend
+    kind: SecretStore
+  target:
+    name: ghcr-api
+    creationPolicy: Owner
+  data:
+    - secretKey: api
+      remoteRef:
+        key: ghcr/
+        property: api
