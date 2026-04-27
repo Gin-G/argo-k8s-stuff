@@ -6,3 +6,5 @@ env:
       secretKeyRef:
         name: cloudflare-api
         key: cloudflare-api
+extraArgs:
+  - --cloudflare-proxied
