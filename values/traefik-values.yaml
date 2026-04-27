@@ -5,11 +5,7 @@ deployment:
     rollingUpdate:
       maxUnavailable: 1
 
-ports:
-  web:
-    hostPort: 80
-  websecure:
-    hostPort: 443
-
 service:
-  enabled: false
+  enabled: true
+  type: LoadBalancer
+  externalTrafficPolicy: Local
