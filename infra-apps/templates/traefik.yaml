@@ -9,10 +9,17 @@ spec:
     namespace: traefik
     server: {{ .Values.spec.destination.server }}
   project: default
-  source:
-    repoURL: https://traefik.github.io/charts
-    chart: traefik
-    targetRevision: {{ (index .Values "traefik" "targetRevision") }}
+  sources:
+    - repoURL: https://traefik.github.io/charts
+      chart: traefik
+      helm:
+        valueFiles: 
+          - $sourceRepo/values/traefik-values.yaml
+        releaseName: traefik
+      targetRevision: {{ (index .Values "traefik" "targetRevision") }}
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
   syncPolicy:
     automated:
       prune: true
