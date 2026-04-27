@@ -44,7 +44,7 @@ rook-ceph:
   targetRevision: v1.19.0
 traefik:
   enable: true
-  targetRevision: 38.0.8
+  targetRevision: 39.0.8
 "argo-workflows":
   enable: false
   targetRevision: 0.42.5
