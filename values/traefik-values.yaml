@@ -5,6 +5,10 @@ deployment:
     rollingUpdate:
       maxUnavailable: 1
 
+providers:
+  kubernetesIngress:
+    ingressClass: nginx
+
 service:
   enabled: true
   type: LoadBalancer
