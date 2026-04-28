@@ -7,10 +7,7 @@ deployment:
 
 providers:
   kubernetesIngress:
-    enabled: true
-  kubernetesIngressNGINX:
-    enabled: true
-    ingressClass: "nginx"
+    ingressClass: nginx
 
 service:
   enabled: true
