@@ -1,14 +1,8 @@
-deployment:
-  kind: DaemonSet
-  updateStrategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-
 providers:
   kubernetesIngress:
     ingressClass: nginx
-
+  kubernetesIngressNginx:
+    enabled: true
 service:
   enabled: true
   type: LoadBalancer
