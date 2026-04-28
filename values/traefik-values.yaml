@@ -1,6 +1,4 @@
 providers:
-  kubernetesIngress:
-    ingressClass: nginx
   kubernetesIngressNginx:
     enabled: true
 service:
