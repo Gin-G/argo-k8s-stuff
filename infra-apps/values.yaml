@@ -31,7 +31,7 @@ lgtm:
   enable: true
   targetRevision: 3.0.1
 nginx:
-  enable: false
+  enable: true
   targetRevision: 4.14.2
 openbao:
   enable: true
