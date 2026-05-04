@@ -10,7 +10,7 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    path: /helm/
+    path: /helm
     repoURL: {{ (index .Values "hydrow" "source" "repoURL") }}
     targetRevision: {{ (index .Values "hydrow" "source" "targetRevision") }}
   syncPolicy:
