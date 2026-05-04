@@ -62,7 +62,7 @@ defs-svelte:
 hydrow:
   enable: true
   source:
-    repoURL: github.com/Gin-G/hydrow-web.git
+    repoURL: https://github.com/Gin-G/hydrow-web.git
     targetRevision: main
 immich:
   enable: true
