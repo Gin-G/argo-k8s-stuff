@@ -59,6 +59,11 @@ defs-svelte:
   source:
     repoURL:  git@github.com:Gin-G/DeFS.git
     targetRevision: main
+hydrow:
+  enable: true
+  source:
+    repoURL: github.com/Gin-G/hydrow-web.git
+    targetRevision: main
 immich:
   enable: true
   targetRevision: "0.10.3"
