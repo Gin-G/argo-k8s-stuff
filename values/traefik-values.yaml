@@ -5,3 +5,11 @@ service:
   enabled: true
   type: LoadBalancer
   externalTrafficPolicy: Local
+logs:
+  access:
+    enabled: true
+    fields:
+      headers:
+        defaultMode: drop
+        names:
+          X-Forwarded-For: keep
