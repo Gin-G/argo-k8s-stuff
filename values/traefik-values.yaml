@@ -8,8 +8,18 @@ service:
 logs:
   access:
     enabled: true
+    format: json
     fields:
       headers:
         defaultMode: drop
         names:
           X-Forwarded-For: keep
+ports:
+  web:
+    forwardedHeaders:
+      trustedIPs:
+        - 10.0.0.0/8
+  websecure:
+    forwardedHeaders:
+      trustedIPs:
+        - 10.0.0.0/8
