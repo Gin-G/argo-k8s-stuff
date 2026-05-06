@@ -39,6 +39,11 @@ jellyfin:
   source:
     repoURL: https://github.com/Gin-G/NFL-API
     targetRevision: main
+"sharp-edge":
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/sharp-edge
+    targetRevision: main
 codeserver:
   enable: false
   source:

@@ -1,0 +1,22 @@
+{{- if (index .Values "sharp-edge" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sharp-edge
+  namespace: argo
+spec:
+  destination:
+    namespace: sharp-edge
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: helm/sharp-edge
+    repoURL: {{ (index .Values "sharp-edge" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "sharp-edge" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
