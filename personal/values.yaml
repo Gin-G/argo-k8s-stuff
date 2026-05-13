@@ -77,6 +77,11 @@ skitunes:
   source:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: main
+tiskit:
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/tiskit
+    targetRevision: main
 whokan:
   enable: true
   source:

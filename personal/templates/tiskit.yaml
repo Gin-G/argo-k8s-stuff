@@ -1,0 +1,22 @@
+{{- if (index .Values "tiskit" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tiskit
+  namespace: argo
+spec:
+  destination:
+    namespace: tiskit
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: chart/tiskit/
+    repoURL: {{ (index .Values "tiskit" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "tiskit" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
