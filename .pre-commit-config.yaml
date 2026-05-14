@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: check-duplicate-argo-app-names
+        name: Check for duplicate Argo CD Application names
+        entry: python3 scripts/check_duplicate_names.py
+        language: system
+        pass_filenames: false
+        always_run: true
