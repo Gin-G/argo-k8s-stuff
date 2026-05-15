@@ -6,6 +6,8 @@ service:
   type: LoadBalancer
   externalTrafficPolicy: Local
 logs:
+  general:
+    level: DEBUG
   access:
     enabled: true
     format: json
