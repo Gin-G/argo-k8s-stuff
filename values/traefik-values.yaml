@@ -21,11 +21,11 @@ ports:
         - 10.0.0.0/8
     transport:
       respondingTimeouts:
-        read: 30m
+        readTimeout: 30m
   websecure:
     forwardedHeaders:
       trustedIPs:
         - 10.0.0.0/8
     transport:
       respondingTimeouts:
-        read: 30m
+        readTimeout: 30m
