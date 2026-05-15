@@ -7,6 +7,7 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
     external-dns.alpha.kubernetes.io/target: "8.44.158.127"
     nginx.ingress.kubernetes.io/proxy-body-size: "2g"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
   hosts:
     - host: audiobookshelf.nickknows.net
       paths:
