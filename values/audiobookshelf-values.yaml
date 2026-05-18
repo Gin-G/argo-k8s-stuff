@@ -4,6 +4,7 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
     external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+    traefik.ingress.kubernetes.io/router.tls.options: "traefik-no-http2@kubernetescrd"
   hosts:
     - host: audiobookshelf.nickknows.net
       paths:
