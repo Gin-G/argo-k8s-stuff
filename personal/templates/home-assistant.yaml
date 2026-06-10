@@ -1,0 +1,28 @@
+{{- if (index .Values "home-assistant" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-assistant
+  namespace: argo
+spec:
+  destination:
+    namespace: home-assistant
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - chart: home-assistant
+      repoURL: {{ (index .Values "home-assistant" "source" "repoURL") }}
+      targetRevision: {{ (index .Values "home-assistant" "source" "targetRevision") }}
+      helm:
+        valueFiles:
+          - $sourceRepo/values/home-assistant-values.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

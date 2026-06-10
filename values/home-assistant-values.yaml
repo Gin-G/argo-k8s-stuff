@@ -1,0 +1,41 @@
+# hostNetwork so HA can hear mDNS/SSDP multicast for device auto-discovery
+hostNetwork: true
+dnsPolicy: ClusterFirstWithHostNet
+
+# hostNetwork binds 8123 to the node, so pin to one node for a stable IP
+# (webhooks/HomeKit pairings break if the pod moves between nodes)
+nodeSelector:
+  kubernetes.io/hostname: gingworker
+
+# no deploymentStrategy needed: with persistence enabled the chart renders a
+# StatefulSet, which deletes the old pod before creating the new one, so old +
+# new pods never race to bind 8123 on the pinned node
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    external-dns.alpha.kubernetes.io/target: "8.44.158.127"
+  hosts:
+    - host: home.nickknows.net
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: home-assistant-tls
+      hosts:
+        - home.nickknows.net
+
+persistence:
+  enabled: true
+  storageClass: rook-ceph-block
+  accessMode: ReadWriteOnce
+  size: 5Gi
+
+configuration:
+  enabled: true
+  # without trusted_proxies HA returns HTTP 400 for requests proxied through Traefik
+  trusted_proxies:
+    - 10.0.0.0/8
+    - 127.0.0.1

@@ -16,9 +16,14 @@ plex:
     targetRevision: 1.5.0
 jellyfin:
   enable: true
-  source: 
+  source:
     repoURL: https://jellyfin.github.io/jellyfin-helm
     targetRevision: 2.7.0
+home-assistant:
+  enable: true
+  source:
+    repoURL: http://pajikos.github.io/home-assistant-helm-chart/
+    targetRevision: 0.3.58
 "nick-knows":
   enable: true
   source:
