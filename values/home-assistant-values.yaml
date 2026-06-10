@@ -11,6 +11,30 @@ nodeSelector:
 # StatefulSet, which deletes the old pod before creating the new one, so old +
 # new pods never race to bind 8123 on the pinned node
 
+# custom integrations are cloned into an emptyDir on each pod start and
+# mounted over /config/custom_components/<name> (chart's documented pattern,
+# since the stock HA image has no HACS)
+initContainers:
+  - name: init-meross-lan
+    image: alpine/git
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        git clone --depth 1 --branch v5.8.0 https://github.com/krahabb/meross_lan.git /git/meross_lan
+        cp -r /git/meross_lan/custom_components/meross_lan/* /meross_lan
+        chown -R 1000:1000 /meross_lan
+    volumeMounts:
+      - name: custom-components
+        mountPath: /meross_lan
+
+additionalVolumes:
+  - name: custom-components
+    emptyDir: {}
+
+additionalMounts:
+  - mountPath: /config/custom_components/meross_lan
+    name: custom-components
+
 ingress:
   enabled: true
   className: traefik
