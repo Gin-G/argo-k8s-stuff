@@ -30,10 +30,16 @@ initContainers:
 additionalVolumes:
   - name: custom-components
     emptyDir: {}
+  # long-term storage for Nest event clips (PVC from manifests/home-assistant)
+  - name: nest-media
+    persistentVolumeClaim:
+      claimName: home-assistant-media
 
 additionalMounts:
   - mountPath: /config/custom_components/meross_lan
     name: custom-components
+  - mountPath: /media
+    name: nest-media
 
 ingress:
   enabled: true
@@ -59,9 +65,58 @@ persistence:
 
 configuration:
   enabled: true
+  # merge templateConfig into the existing configuration.yaml on every start
+  # (required so the shell_command/automation additions below reach the running
+  # config; the init script backs up the previous file and keeps 10 backups)
+  forceInit: true
   # without trusted_proxies HA returns HTTP 400 for requests proxied through Traefik
   trusted_proxies:
     - 10.0.0.0/8
     - 127.0.0.1
     - 192.168.5.120
     - 192.168.4.57
+  # chart's default templateConfig, plus Nest clip archiving:
+  # the Nest integration caches event clips in /config/.cache/nest/event_media
+  # but prunes them at its own storage limits, so we copy new clips to the
+  # /media PVC every 15 minutes and delete archived clips older than 30 days
+  templateConfig: |-
+    # Loads default set of integrations. Do not remove.
+    default_config:
+
+    {{- if .Values.serviceMonitor.enabled }}
+    prometheus:
+    {{- end }}
+
+    {{- if or .Values.ingress.enabled .Values.ingress.external }}
+    http:
+      use_x_forwarded_for: true
+      trusted_proxies:
+        {{- range .Values.configuration.trusted_proxies }}
+        - {{ . }}
+        {{- end }}
+    {{- end}}
+    # Load frontend themes from the themes folder
+    frontend:
+      themes: !include_dir_merge_named themes
+
+    automation: !include automations.yaml
+    script: !include scripts.yaml
+    scene: !include scenes.yaml
+
+    shell_command:
+      archive_nest_clips: mkdir -p /media/nest && cp -rn /config/.cache/nest/event_media/. /media/nest/ || true
+      cleanup_nest_clips: find /media/nest -type f -mtime +30 -delete
+
+    automation nest_clip_archive:
+      - alias: Archive Nest event clips to /media
+        trigger:
+          - platform: time_pattern
+            minutes: "/15"
+        action:
+          - service: shell_command.archive_nest_clips
+      - alias: Delete archived Nest clips older than 30 days
+        trigger:
+          - platform: time
+            at: "03:30:00"
+        action:
+          - service: shell_command.cleanup_nest_clips
