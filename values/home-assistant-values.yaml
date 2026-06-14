@@ -24,11 +24,24 @@ initContainers:
         cp -r /git/meross_lan/custom_components/meross_lan/* /meross_lan
         chown -R 1000:1000 /meross_lan
     volumeMounts:
-      - name: custom-components
+      - name: custom-components-meross
         mountPath: /meross_lan
+  - name: init-hubspace
+    image: alpine/git
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        git clone --depth 1 --branch v6.0.1 https://github.com/jdeath/Hubspace-Homeassistant.git /git/hubspace
+        cp -r /git/hubspace/custom_components/hubspace/* /hubspace
+        chown -R 1000:1000 /hubspace
+    volumeMounts:
+      - name: custom-components-hubspace
+        mountPath: /hubspace
 
 additionalVolumes:
-  - name: custom-components
+  - name: custom-components-meross
+    emptyDir: {}
+  - name: custom-components-hubspace
     emptyDir: {}
   # long-term storage for Nest event clips (PVC from manifests/home-assistant)
   - name: nest-media
@@ -37,7 +50,9 @@ additionalVolumes:
 
 additionalMounts:
   - mountPath: /config/custom_components/meross_lan
-    name: custom-components
+    name: custom-components-meross
+  - mountPath: /config/custom_components/hubspace
+    name: custom-components-hubspace
   - mountPath: /media
     name: nest-media
 
