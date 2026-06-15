@@ -1,0 +1,89 @@
+# Matter controller for Home Assistant's Matter integration.
+# HA itself is only a websocket client; it needs this separate server (the
+# equivalent of the "Matter Server" add-on on HA OS, which we don't have on
+# bare Home Assistant Container). HA connects at ws://localhost:5580/ws —
+# that resolves because both this pod and the HA pod run hostNetwork on
+# gingworker and therefore share the node's network namespace.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: matter-server-data
+  namespace: home-assistant
+spec:
+  storageClassName: rook-ceph-block
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matter-server
+  namespace: home-assistant
+  labels:
+    app: matter-server
+spec:
+  replicas: 1
+  # RWO PVC + single Matter fabric controller: never run two at once
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: matter-server
+  template:
+    metadata:
+      labels:
+        app: matter-server
+    spec:
+      # same node as HA so localhost:5580 works, and on the 192.168.4.x
+      # segment with the smart devices for Matter's IPv6 mDNS discovery
+      nodeSelector:
+        kubernetes.io/hostname: gingworker
+      # Matter relies on host-managed networking: IPv6 link-local + mDNS to
+      # discover and talk to devices on the LAN. ClusterFirstWithHostNet keeps
+      # in-cluster DNS working while on the host network.
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: matter-server
+          # pinned to match how the other HA integrations are pinned; the HA
+          # Matter client negotiates a schema version, so bump this in step
+          # with HA core upgrades (chart appVersion) if connection breaks
+          image: ghcr.io/matter-js/python-matter-server:8.1.2
+          # default args are correct for IP/Wi-Fi devices: storage /data,
+          # listen 0.0.0.0:5580, no --bluetooth-adapter (no BLE commissioning,
+          # the Lennox thermostat is already on Wi-Fi and pairs over IP)
+          ports:
+            - name: ws
+              containerPort: 5580
+          securityContext:
+            # matches the docker docs' --security-opt apparmor=unconfined;
+            # the default profile can block the raw network access Matter needs
+            appArmorProfile:
+              type: Unconfined
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          readinessProbe:
+            tcpSocket:
+              port: 5580
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 5580
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: matter-server-data
