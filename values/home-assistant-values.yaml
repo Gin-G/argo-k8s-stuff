@@ -37,11 +37,24 @@ initContainers:
     volumeMounts:
       - name: custom-components-hubspace
         mountPath: /hubspace
+  - name: init-ha-hatch
+    image: alpine/git
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        git clone --depth 1 --branch v1.30.0 https://github.com/dahlb/ha_hatch.git /git/ha_hatch
+        cp -r /git/ha_hatch/custom_components/ha_hatch/* /ha_hatch
+        chown -R 1000:1000 /ha_hatch
+    volumeMounts:
+      - name: custom-components-ha-hatch
+        mountPath: /ha_hatch
 
 additionalVolumes:
   - name: custom-components-meross
     emptyDir: {}
   - name: custom-components-hubspace
+    emptyDir: {}
+  - name: custom-components-ha-hatch
     emptyDir: {}
   # long-term storage for Nest event clips (PVC from manifests/home-assistant)
   - name: nest-media
@@ -53,6 +66,8 @@ additionalMounts:
     name: custom-components-meross
   - mountPath: /config/custom_components/hubspace
     name: custom-components-hubspace
+  - mountPath: /config/custom_components/ha_hatch
+    name: custom-components-ha-hatch
   - mountPath: /media
     name: nest-media
 
