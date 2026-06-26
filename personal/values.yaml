@@ -77,6 +77,11 @@ hydrow:
 immich:
   enable: true
   targetRevision: "0.10.3"
+ideabrd:
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/ideabrd.git
+    targetRevision: main
 skitunes:
   enable: true
   source:
