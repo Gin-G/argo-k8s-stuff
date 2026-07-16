@@ -1,0 +1,22 @@
+{{- if (index .Values "trouttemps" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: trouttemps
+  namespace: argo
+spec:
+  destination:
+    namespace: trouttemps
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: helm_trout/
+    repoURL: {{ (index .Values "trouttemps" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "trouttemps" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
