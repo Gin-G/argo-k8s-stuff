@@ -35,7 +35,7 @@ home-assistant:
     repoURL: https://github.com/Gin-G/notebook-web
     targetRevision: main
 "nick-knows-dev":
-  enable: true
+  enable: false
   source:
     repoURL: https://github.com/Gin-G/NickKnows
     targetRevision: dev
