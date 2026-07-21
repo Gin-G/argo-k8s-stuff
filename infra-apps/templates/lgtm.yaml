@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: lgtm
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: lgtm

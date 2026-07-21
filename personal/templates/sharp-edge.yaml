@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: sharp-edge
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: sharp-edge

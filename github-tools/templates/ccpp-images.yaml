@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: gh-arc-ccpp-images
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: arc-systems

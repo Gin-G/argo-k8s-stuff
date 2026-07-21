@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: audiobookshelf
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: audiobookshelf

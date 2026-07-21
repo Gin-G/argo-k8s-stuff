@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: whokan
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: whokan

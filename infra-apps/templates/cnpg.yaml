@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: cnpg
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: cnpg

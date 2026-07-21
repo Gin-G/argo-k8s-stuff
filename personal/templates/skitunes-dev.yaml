@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: skitunes-dev
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: skitunes

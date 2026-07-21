@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: defs-dev-contracts
   namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: defs-svelte
