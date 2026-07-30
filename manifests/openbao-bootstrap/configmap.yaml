@@ -1,0 +1,72 @@
+---
+# The script run by the bootstrap Job. Mirrors scripts/openbao-k8s-auth-setup.sh,
+# but runs in-cluster so the whole setup can be driven from git without kubectl
+# access. Every step is idempotent - re-running is a no-op.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openbao-k8s-auth-bootstrap
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  setup.sh: |
+    #!/usr/bin/env sh
+    set -eu
+
+    KV_MOUNT="${KV_MOUNT:-kv}"
+    POLICY_NAME="${POLICY_NAME:-external-secrets-read}"
+    ROLE_NAME="${ROLE_NAME:-external-secrets}"
+    ESO_NAMESPACE="${ESO_NAMESPACE:-external-secrets}"
+    ESO_SA="${ESO_SA:-openbao-auth}"
+    TOKEN_TTL="${TOKEN_TTL:-1h}"
+
+    if [ -z "${BAO_TOKEN:-}" ]; then
+      echo "BAO_TOKEN is empty. The referenced secret/key holds no token." >&2
+      exit 1
+    fi
+
+    echo "==> Waiting for OpenBao at ${BAO_ADDR} to be unsealed"
+    i=0
+    while [ "$i" -lt 30 ]; do
+      if bao status >/dev/null 2>&1; then
+        break
+      fi
+      i=$((i + 1))
+      echo "    not ready yet (attempt ${i}/30)"
+      sleep 10
+    done
+    bao status
+
+    echo "==> Enabling the kubernetes auth method (if not already enabled)"
+    if bao auth list -format=json | grep -q '"kubernetes/"'; then
+      echo "    already enabled, skipping"
+    else
+      bao auth enable kubernetes
+    fi
+
+    echo "==> Configuring auth/kubernetes"
+    # OpenBao runs in-cluster with authDelegator enabled, so it reviews tokens
+    # using its own service account token and the in-cluster CA. Leaving
+    # kubernetes_ca_cert and token_reviewer_jwt unset makes it read both from
+    # /var/run/secrets at request time, which survives token and CA rotation.
+    bao write auth/kubernetes/config \
+      kubernetes_host="https://kubernetes.default.svc.cluster.local:443"
+
+    echo "==> Writing policy ${POLICY_NAME}"
+    # Piped rather than a heredoc: the script lives in a YAML block scalar, and
+    # an indented heredoc terminator would not close the document.
+    printf 'path "%s/data/*" {\n  capabilities = ["read"]\n}\n\npath "%s/metadata/*" {\n  capabilities = ["read", "list"]\n}\n' \
+      "${KV_MOUNT}" "${KV_MOUNT}" \
+      | bao policy write "${POLICY_NAME}" -
+
+    echo "==> Writing role auth/kubernetes/role/${ROLE_NAME}"
+    bao write "auth/kubernetes/role/${ROLE_NAME}" \
+      bound_service_account_names="${ESO_SA}" \
+      bound_service_account_namespaces="${ESO_NAMESPACE}" \
+      token_policies="${POLICY_NAME}" \
+      token_ttl="${TOKEN_TTL}"
+
+    echo
+    echo "Done. ClusterSecretStore 'openbao-k8s-backend' can now authenticate."

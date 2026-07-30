@@ -2,7 +2,7 @@
 
 This directory is synced by the `external-secrets` Argo application
 (`infra-apps/templates/external-secrets.yaml`) and provides a single
-`ClusterSecretStore` named `openbao-backend` that authenticates to OpenBao with
+`ClusterSecretStore` named `openbao-k8s-backend` that authenticates to OpenBao with
 the **Kubernetes auth method** instead of a static token.
 
 ## Why
@@ -17,6 +17,10 @@ every new namespace:
 
 That is three manual steps per app, and the tokens never rotate.
 
+It is named `openbao-k8s-backend` rather than `openbao-backend` so it runs
+alongside the existing token-based stores instead of replacing them - apps move
+over one at a time, on your schedule.
+
 With this `ClusterSecretStore`, adding a new app is **one file** - the
 `ExternalSecret` itself. No token, no namespace secret, no `SecretStore`.
 ESO mints a short-lived ServiceAccount token via the TokenRequest API, OpenBao
@@ -28,13 +32,19 @@ expires on its own.
 `server.authDelegator.enabled` is already `true` in `values/openbao-values.yaml`,
 so OpenBao's ServiceAccount can perform `TokenReview`. The remaining OpenBao-side
 configuration is not managed by Argo (it lives inside OpenBao's own state), so
-run it once against an unsealed OpenBao:
+run it once against an unsealed OpenBao. There are two ways to do that.
+
+**With cluster access**, from a machine that can reach the API server:
 
 ```sh
 BAO_TOKEN=<root-or-admin-token> ./scripts/openbao-k8s-auth-setup.sh
 ```
 
-That script enables `auth/kubernetes`, points it at the in-cluster API server,
+**Without cluster access**, entirely through git: enable the `openbao-bootstrap`
+Application in `infra-apps/values.yaml` and let Argo run the same steps as an
+in-cluster Job. See `manifests/openbao-bootstrap/README.md`.
+
+Either way it enables `auth/kubernetes`, points it at the in-cluster API server,
 writes an `external-secrets-read` policy scoped to `kv/data/*` + `kv/metadata/*`,
 and creates the role `external-secrets` bound to the `openbao-auth`
 ServiceAccount in the `external-secrets` namespace.
@@ -52,8 +62,8 @@ metadata:
 spec:
   refreshInterval: 1h
   secretStoreRef:
-    name: openbao-backend
-    kind: ClusterSecretStore   # <- the only change from the old pattern
+    name: openbao-k8s-backend
+    kind: ClusterSecretStore
   target:
     name: my-app-secrets
     creationPolicy: Owner
@@ -69,8 +79,9 @@ spec:
 The existing per-namespace `SecretStore`s still work and are untouched. To move
 an app over:
 
-1. Change `kind: SecretStore` to `kind: ClusterSecretStore` in the app's
-   `ExternalSecret` (the name `openbao-backend` stays the same).
+1. In the app's `ExternalSecret`, change `secretStoreRef` from
+   `name: openbao-backend` / `kind: SecretStore` to
+   `name: openbao-k8s-backend` / `kind: ClusterSecretStore`.
 2. Confirm the secret still materialises:
    `kubectl get externalsecret -n <ns>` should report `SecretSynced`.
 3. Delete the app's `manifests/<app>/*secretstore.yaml` and the manual

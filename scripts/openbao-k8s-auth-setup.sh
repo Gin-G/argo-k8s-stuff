@@ -75,6 +75,6 @@ bao write "auth/kubernetes/role/${ROLE_NAME}" \
   token_ttl="${TOKEN_TTL}"
 
 echo
-echo "Done. The ClusterSecretStore 'openbao-backend' can now authenticate."
+echo "Done. The ClusterSecretStore 'openbao-k8s-backend' can now authenticate."
 echo "Verify with:"
-echo "  kubectl get clustersecretstore openbao-backend"
+echo "  kubectl get clustersecretstore openbao-k8s-backend"

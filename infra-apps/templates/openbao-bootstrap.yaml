@@ -1,0 +1,25 @@
+{{- if (index .Values "openbao-bootstrap" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openbao-bootstrap
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    # The namespace holding the admin token secret the Job reads.
+    namespace: {{ (index .Values "openbao-bootstrap" "namespace") }}
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/openbao-bootstrap
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

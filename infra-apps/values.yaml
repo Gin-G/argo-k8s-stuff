@@ -36,6 +36,15 @@ nginx:
 openbao:
   enable: true
   targetRevision: 0.25.6
+"openbao-bootstrap":
+  # One-shot Job that configures the Kubernetes auth method in OpenBao.
+  # Flip to true once `namespace` below holds an openbao-credentials secret
+  # whose OPENBAO_TOKEN can write sys/policy and auth/. Set back to false
+  # after it succeeds. See manifests/openbao-bootstrap/README.md.
+  enable: false
+  # Namespace the Job runs in - must already contain the openbao-credentials
+  # secret, so point this at one of the namespaces that has it.
+  namespace: openbao
 prometheus:
   enable: true
   targetRevision: 81.3.1
