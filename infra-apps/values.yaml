@@ -38,13 +38,12 @@ openbao:
   targetRevision: 0.25.6
 "openbao-bootstrap":
   # One-shot Job that configures the Kubernetes auth method in OpenBao.
-  # Flip to true once `namespace` below holds an openbao-credentials secret
-  # whose OPENBAO_TOKEN can write sys/policy and auth/. Set back to false
-  # after it succeeds. See manifests/openbao-bootstrap/README.md.
-  enable: false
+  # Set back to false once it has succeeded - re-running is harmless, but
+  # there is no reason to keep it around. See manifests/openbao-bootstrap/README.md.
+  enable: true
   # Namespace the Job runs in - must already contain the openbao-credentials
-  # secret, so point this at one of the namespaces that has it.
-  namespace: openbao
+  # secret whose OPENBAO_TOKEN can write sys/policy and auth/.
+  namespace: nickknows
 prometheus:
   enable: true
   targetRevision: 81.3.1
