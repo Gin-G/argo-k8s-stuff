@@ -38,9 +38,10 @@ openbao:
   targetRevision: 0.25.6
 "openbao-bootstrap":
   # One-shot Job that configures the Kubernetes auth method in OpenBao.
-  # Set back to false once it has succeeded - re-running is harmless, but
-  # there is no reason to keep it around. See manifests/openbao-bootstrap/README.md.
-  enable: true
+  # Ran successfully on 2026-07-30; auth/kubernetes, the external-secrets-read
+  # policy and the external-secrets role are all in place. Flip back to true to
+  # re-run - the script is idempotent. See manifests/openbao-bootstrap/README.md.
+  enable: false
   # Namespace the Job runs in - must already contain the openbao-credentials
   # secret whose OPENBAO_TOKEN can write sys/policy and auth/.
   namespace: nickknows
