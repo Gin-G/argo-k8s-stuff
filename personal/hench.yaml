@@ -1,0 +1,23 @@
+{{- if .Values.hench.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hench
+  namespace: argo
+spec:
+  destination:
+    namespace: hench
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: helm/hench
+    repoURL: https://github.com/Gin-G/hench
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  {{- end }}
