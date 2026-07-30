@@ -1,0 +1,77 @@
+---
+# Runs the Kubernetes auth setup against OpenBao from inside the cluster.
+#
+# Deliberately an Argo sync hook rather than a plain resource: Job specs are
+# immutable, so a hook with BeforeHookCreation delete gets recreated on every
+# sync instead of failing to update.
+#
+# No namespace is set - the Job lands in whatever namespace the
+# openbao-bootstrap Application targets, which is where it will look for the
+# admin token secret.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: openbao-k8s-auth-bootstrap
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  backoffLimit: 3
+  # Clean up on its own if the Application is left enabled.
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      name: openbao-k8s-auth-bootstrap
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: bootstrap
+          image: quay.io/openbao/openbao:2.2.0-beta20250213
+          command: ["/bin/sh", "/scripts/setup.sh"]
+          env:
+            - name: BAO_ADDR
+              value: http://openbao.openbao.svc.cluster.local:8200
+            - name: BAO_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  # An OpenBao token allowed to write sys/policy and auth/.
+                  # Same secret name/key convention as the per-namespace stores.
+                  name: openbao-credentials
+                  key: OPENBAO_TOKEN
+            # Must match manifests/external-secrets/openbao-clustersecretstore.yaml
+            - name: KV_MOUNT
+              value: kv
+            - name: POLICY_NAME
+              value: external-secrets-read
+            - name: ROLE_NAME
+              value: external-secrets
+            - name: ESO_NAMESPACE
+              value: external-secrets
+            - name: ESO_SA
+              value: openbao-auth
+            - name: TOKEN_TTL
+              value: 1h
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 100
+        runAsGroup: 1000
+      volumes:
+        - name: scripts
+          configMap:
+            name: openbao-k8s-auth-bootstrap
+            defaultMode: 0555
