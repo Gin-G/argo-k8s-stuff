@@ -19,6 +19,8 @@ jellyfin:
   source:
     repoURL: https://jellyfin.github.io/jellyfin-helm
     targetRevision: 2.7.0
+hench:
+  enable: true
 home-assistant:
   enable: true
   source:
