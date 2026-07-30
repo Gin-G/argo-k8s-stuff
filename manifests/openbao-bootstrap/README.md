@@ -21,10 +21,9 @@ its own namespace:
 | Namespace | whatever `openbao-bootstrap.namespace` is set to in `infra-apps/values.yaml` |
 
 That is the same name and key already used by the per-namespace SecretStores, so
-**point `namespace` at a namespace that already holds one** - `homepage`,
-`cert-manager`, `immich`, `plex`, `notebook-web`, `externaldns`, `skitunes`,
-`personadao` and `arc-systems` all do today. Nothing needs to be created by
-hand.
+**point `namespace` at a namespace that already holds one**. It is currently set
+to `nickknows`, whose token has the write access described below. Nothing needs
+to be created by hand.
 
 The catch: that token must be allowed to write `sys/policy/*` and `auth/*`. The
 tokens handed to the SecretStores may be read-only. If the Job fails with a
@@ -38,7 +37,7 @@ with cluster access instead.
    ```yaml
    "openbao-bootstrap":
      enable: true
-     namespace: homepage   # or any namespace holding openbao-credentials
+     namespace: nickknows   # or any namespace holding openbao-credentials
    ```
 
 2. Commit and push. Argo creates the `openbao-bootstrap` Application, which runs
@@ -66,6 +65,17 @@ The Job is not attached to the `openbao` Application on purpose. A failed sync
 hook marks its Application degraded, and degrading the OpenBao app itself over a
 bootstrap step would be a bad trade. Isolated in its own Application, a failure
 is visible and contained.
+
+## Not clobbering the injector
+
+`server.injector.authPath` in `values/openbao-values.yaml` is `auth/kubernetes` -
+the same mount this configures. If `auth/kubernetes/config` already exists, the
+script prints it and leaves it alone rather than overwriting settings the agent
+injector may depend on. Set `FORCE_CONFIG=true` on the Job to overwrite
+deliberately.
+
+The policy and role are always written; they are additive and specific to
+External Secrets.
 
 ## What it configures
 

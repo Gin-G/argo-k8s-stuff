@@ -49,12 +49,21 @@ else
 fi
 
 echo "==> Configuring auth/kubernetes"
+# The agent injector points at this same mount (server.injector.authPath), so an
+# existing config may already be in use. Overwriting it could break agent-based
+# logins, so leave it alone unless FORCE_CONFIG=true.
+#
 # OpenBao runs in-cluster with authDelegator enabled, so it reviews tokens using
 # its own service account token and the in-cluster CA. Leaving kubernetes_ca_cert
 # and token_reviewer_jwt unset makes it read both from /var/run/secrets at
 # request time, which survives token and CA rotation.
-bao write auth/kubernetes/config \
-  kubernetes_host="https://kubernetes.default.svc.cluster.local:443"
+if bao read auth/kubernetes/config >/dev/null 2>&1 && [[ "${FORCE_CONFIG:-false}" != "true" ]]; then
+  echo "    already configured, leaving as-is (FORCE_CONFIG=true to overwrite):"
+  bao read auth/kubernetes/config
+else
+  bao write auth/kubernetes/config \
+    kubernetes_host="https://kubernetes.default.svc.cluster.local:443"
+fi
 
 echo "==> Writing policy ${POLICY_NAME}"
 bao policy write "${POLICY_NAME}" - <<EOF
@@ -73,6 +82,9 @@ bao write "auth/kubernetes/role/${ROLE_NAME}" \
   bound_service_account_namespaces="${ESO_NAMESPACE}" \
   token_policies="${POLICY_NAME}" \
   token_ttl="${TOKEN_TTL}"
+
+echo "==> Verifying role auth/kubernetes/role/${ROLE_NAME}"
+bao read "auth/kubernetes/role/${ROLE_NAME}"
 
 echo
 echo "Done. The ClusterSecretStore 'openbao-k8s-backend' can now authenticate."
