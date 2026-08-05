@@ -89,6 +89,11 @@ ideabrd:
   source:
     repoURL: https://github.com/Gin-G/ideabrd.git
     targetRevision: main
+whoyagot:
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/whoyagot.git
+    targetRevision: main
 skitunes:
   enable: true
   source:

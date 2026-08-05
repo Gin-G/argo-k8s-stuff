@@ -1,0 +1,22 @@
+{{- if (index .Values "whoyagot" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: whoyagot
+  namespace: argo
+spec:
+  destination:
+    namespace: whoyagot
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: helm/whoyagot/
+    repoURL: {{ (index .Values "whoyagot" "source" "repoURL") }}
+    targetRevision: {{ (index .Values "whoyagot" "source" "targetRevision") }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
