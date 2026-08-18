@@ -15,6 +15,27 @@ prometheus:
       hosts:
         - prometheus.nickknows.net
   prometheusSpec:
+    # Keep Prometheus off gingworker (4 vCPU / 7.6 GB) -- it was the largest
+    # consumer there (~1.3 GB, unbounded) on a node already at 94% mem requests.
+    # Hard rule: never gingworker. Soft preference: gingmachine (283 GB RAM).
+    # Left schedulable on ging-laptop so a gingmachine outage doesn't strand it.
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: NotIn
+                  values:
+                    - gingworker
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - gingmachine
     remoteWrite:
       - url: http://lgtm-mimir-distributor.lgtm.svc.cluster.local:8080/api/v1/push
         headers:
