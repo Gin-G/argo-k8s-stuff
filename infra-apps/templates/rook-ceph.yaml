@@ -16,6 +16,162 @@ spec:
         values: |
           crds:
             enabled: true
+          # CSI requests right-sized 2026-08-18. The chart defaults over-request
+          # badly: on gingworker the four CSI pods reserved 3328Mi while using
+          # 258Mi, which consumed the node's scheduler budget and blocked the
+          # remaining CNPG databases from being given requests at all.
+          #
+          # Measured 5h peak working set per container:
+          #   nodeplugin  csi-rbdplugin     109Mi   (req was 512Mi)
+          #   nodeplugin  csi-cephfsplugin   69Mi   (req was 512Mi)
+          #   nodeplugin  driver-registrar   22Mi   (req was 128Mi)
+          #   ctrlplugin  csi-rbdplugin      36Mi   (req was 512Mi)
+          #   ctrlplugin  csi-cephfsplugin   37Mi   (req was 512Mi)
+          #   ctrlplugin  sidecars        65-70Mi   (req 128Mi -- left alone)
+          #
+          # ONLY requests are lowered; every limit is byte-for-byte the chart
+          # default, so nothing can OOMKill that would not have before. The
+          # node plugins keep a larger request than the controller plugins
+          # because they do the actual volume mount work. csi-omap-generator
+          # and liveness-prometheus are not deployed here (CSI_ENABLE_OMAP_
+          # GENERATOR=false) but are kept at defaults so the lists stay complete.
+          csi:
+            csiRBDProvisionerResource: |
+              - name : csi-provisioner
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-resizer
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-attacher
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-snapshotter
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-rbdplugin
+                resource:
+                  requests:
+                    memory: 128Mi
+                  limits:
+                    memory: 1Gi
+              - name : csi-omap-generator
+                resource:
+                  requests:
+                    memory: 512Mi
+                    cpu: 250m
+                  limits:
+                    memory: 1Gi
+              - name : liveness-prometheus
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+            csiRBDPluginResource: |
+              - name : driver-registrar
+                resource:
+                  requests:
+                    memory: 64Mi
+                    cpu: 25m
+                  limits:
+                    memory: 256Mi
+              - name : csi-rbdplugin
+                resource:
+                  requests:
+                    memory: 256Mi
+                    cpu: 100m
+                  limits:
+                    memory: 1Gi
+              - name : liveness-prometheus
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+            csiCephFSProvisionerResource: |
+              - name : csi-provisioner
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-resizer
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-attacher
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-snapshotter
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+              - name : csi-cephfsplugin
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 100m
+                  limits:
+                    memory: 1Gi
+              - name : liveness-prometheus
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
+            csiCephFSPluginResource: |
+              - name : driver-registrar
+                resource:
+                  requests:
+                    memory: 64Mi
+                    cpu: 25m
+                  limits:
+                    memory: 256Mi
+              - name : csi-cephfsplugin
+                resource:
+                  requests:
+                    memory: 256Mi
+                    cpu: 100m
+                  limits:
+                    memory: 1Gi
+              - name : liveness-prometheus
+                resource:
+                  requests:
+                    memory: 128Mi
+                    cpu: 50m
+                  limits:
+                    memory: 256Mi
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       path: manifests/rook-ceph
