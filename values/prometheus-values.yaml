@@ -15,6 +15,24 @@ prometheus:
       hosts:
         - prometheus.nickknows.net
   prometheusSpec:
+    # Sized from observed behaviour on 2026-08-18, not guesswork:
+    #   ~186.8k active head series (stable, not growing)
+    #   steady-state working set ~1.1-1.4Gi
+    #   peak working set 1881Mi over 6h  <- the 2h compaction spike
+    # request 2Gi sits just above the real peak so the scheduler reserves
+    # honestly (it previously requested nothing while burning 1.3Gi).
+    # limit 4Gi is ~2.1x peak: headroom for WAL replay on restart, query
+    # bursts and series growth. Deliberately generous -- the TSDB is
+    # emptyDir, so an OOMKill loses all history and can start a crash loop.
+    # CPU limit is loose on purpose (observed 80-216m): CPU throttling
+    # delays scrapes and rule evaluation, which is worse than the overcommit.
+    resources:
+      requests:
+        cpu: 250m
+        memory: 2Gi
+      limits:
+        cpu: "2"
+        memory: 4Gi
     # Keep Prometheus off gingworker (4 vCPU / 7.6 GB) -- it was the largest
     # consumer there (~1.3 GB, unbounded) on a node already at 94% mem requests.
     # Hard rule: never gingworker. Soft preference: gingmachine (283 GB RAM).
@@ -46,3 +64,13 @@ prometheusOperator:
   admissionWebhooks:
     certManager:
       enabled: true
+  # Applies to every config-reloader sidecar the operator injects (Prometheus
+  # and Alertmanager). Observed usage: 11Mi / ~0m, so this is pure guardrail.
+  prometheusConfigReloader:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50Mi
+      limits:
+        cpu: 200m
+        memory: 128Mi
