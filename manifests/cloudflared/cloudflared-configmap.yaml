@@ -61,6 +61,18 @@ data:
         originRequest:
           originServerName: argocd.nickknows.net
 
+      # --- OpenBao -----------------------------------------------------------
+      # Behind Cloudflare Access. The UI is the only reason this is published;
+      # External Secrets is unaffected either way, because all 15 SecretStores
+      # and the ClusterSecretStore reach OpenBao at
+      # http://openbao.openbao.svc.cluster.local:8200 -- in-cluster traffic that
+      # never touches Cloudflare. Nothing in the cluster references the public
+      # hostname at all.
+      - hostname: openbao.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: openbao.nickknows.net
+
       # Anything not routed above gets a 404 from the tunnel instead of being
       # forwarded, so a stray DNS record can't quietly proxy somewhere.
       - service: http_status:404
