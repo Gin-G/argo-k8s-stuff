@@ -1,17 +1,11 @@
 dashboard:
+  # Dashboard still runs; it just is not published. Like Prometheus, it served
+  # unauthenticated to the internet -- anyone could read the deployment topology
+  # of every rollout in the cluster. Its API returned 501, so it was read-only,
+  # but the exposure was free reconnaissance for no benefit.
+  #
+  # Reach it when needed with:
+  #   kubectl port-forward -n argo svc/argo-rollouts-dashboard 3100:3100
   enabled: true
   ingress:
-    enabled: true
-    annotations: {
-      nginx.ingress.kubernetes.io/ssl-redirect: "true",
-      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
-      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
-      kubernetes.io/ingress-class: nginx,
-      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-    }
-    ingressClassName: "nginx"
-    hosts: ["argorollouts.nickknows.net"]
-    tls:
-    - secretName: argorollouts.nickknows.net-tls
-      hosts:
-        - argorollouts.nickknows.net
+    enabled: false
