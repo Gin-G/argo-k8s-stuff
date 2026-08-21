@@ -1,0 +1,29 @@
+# The tunnel credentials file that `cloudflared tunnel create` writes. It is a
+# long-lived credential, so it lives in OpenBao and never in git.
+#
+# Seed it once with:
+#   bao kv put kv/cloudflared/tunnel \
+#     credentials.json=@$HOME/.cloudflared/<TUNNEL_ID>.json
+#
+# Uses the ClusterSecretStore rather than a namespaced SecretStore: that one
+# authenticates to OpenBao with a Kubernetes ServiceAccount, so a brand new
+# namespace works immediately. The older namespaced pattern needs an
+# `openbao-credentials` token Secret copied in by hand first, which would have
+# to exist before this ever synced.
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: cloudflared-credentials
+  namespace: cloudflared
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: openbao-k8s-backend
+    kind: ClusterSecretStore
+  target:
+    name: cloudflared-credentials
+  data:
+  - secretKey: credentials.json
+    remoteRef:
+      key: cloudflared/tunnel
+      property: credentials.json

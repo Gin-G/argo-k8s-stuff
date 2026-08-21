@@ -13,6 +13,12 @@ spec:
 "cert-manager":
   enable: true
   targetRevision: 1.20.2
+cloudflared:
+  # Plain manifests, so no chart version to track.
+  # Credentials are in OpenBao at kv/cloudflared/tunnel and the UUID is set in
+  # manifests/cloudflared/cloudflared-configmap.yaml, so this is safe to run.
+  # The tunnel carries no traffic until a hostname's DNS is a CNAME to it.
+  enable: true
 cnpg:
   enable: true
   targetRevision: 0.27.0

@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-config
+  namespace: cloudflared
+data:
+  # Locally-managed tunnel: the routing table lives here in git rather than in
+  # the Cloudflare dashboard, so adding a hostname is a PR like everything else.
+  #
+  # Traffic path:
+  #   internet -> Cloudflare edge -> this pod -> Traefik -> the app's Service
+  #
+  # Traefik stays in the path on purpose. Every existing Ingress, middleware and
+  # cert-manager Certificate keeps working untouched; only how bytes arrive at
+  # Traefik changes. Rolling a hostname back is a DNS flip, nothing more.
+  config.yaml: |
+    # Tunnel UUID from `cloudflared tunnel create homelab`. Not a secret -- the
+    # credentials.json it pairs with is, and that comes from OpenBao.
+    tunnel: 75c20a42-2dd1-4297-8a51-3aefbcb3f004
+    credentials-file: /etc/cloudflared/creds/credentials.json
+
+    metrics: 0.0.0.0:2000
+    # Image tag is pinned in the Deployment; let Argo do upgrades, not the binary.
+    no-autoupdate: true
+
+    # Keep a warm pool of connections to Traefik so the first request after an
+    # idle period doesn't pay TLS setup.
+    originRequest:
+      keepAliveConnections: 10
+      keepAliveTimeout: 90s
+      connectTimeout: 30s
+
+    ingress:
+      # --- PILOT: trout-temps only -------------------------------------------
+      # Everything else still reaches Traefik over the :443 port-forward until
+      # this one is proven, then hostnames move across one at a time.
+      - hostname: trout-temps.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          # Traefik picks its cert from SNI. Sending the real hostname means the
+          # Let's Encrypt cert for that name is served and genuinely verified,
+          # so this hop is not trust-on-first-use.
+          originServerName: trout-temps.nickknows.net
+          # If this ever fails with an x509 error -- most likely because the
+          # Certificate has not been issued for a newly added hostname yet --
+          # set `noTLSVerify: true` here to confirm that TLS is the cause, then
+          # fix the cert rather than leaving verification off.
+
+      # Anything not routed above gets a 404 from the tunnel instead of being
+      # forwarded, so a stray DNS record can't quietly proxy somewhere.
+      - service: http_status:404

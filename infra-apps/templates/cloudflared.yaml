@@ -1,0 +1,26 @@
+{{- if (index .Values "cloudflared" "enable") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflared
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: cloudflared
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  # Plain manifests: Cloudflare publishes no official chart for cloudflared, and
+  # the whole app is a Deployment plus its config, so a chart would be overhead.
+  source:
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    path: manifests/cloudflared
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
