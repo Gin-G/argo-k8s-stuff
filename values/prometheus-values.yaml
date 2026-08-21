@@ -1,19 +1,14 @@
 prometheus:
+  # No ingress on purpose. The Prometheus UI has no authentication of its own,
+  # so publishing it put the full query API on the internet -- /api/v1 answered
+  # anyone, exposing ~2,173 metric names as an inventory of the whole cluster.
+  #
+  # Nothing depended on it: Grafana reaches Mimir and Prometheus over in-cluster
+  # service DNS, never the public hostname. Day-to-day querying happens in
+  # Grafana anyway, and for the rare direct look:
+  #   kubectl port-forward -n prometheus svc/prometheus-kube-prometheus-prometheus 9090:9090
   ingress:
-    enabled: true
-    annotations: {
-      nginx.ingress.kubernetes.io/ssl-redirect: "true",
-      nginx.ingress.kubernetes.io/ssl-passthrough: "false",
-      cert-manager.io/cluster-issuer: "letsencrypt-cloudflare",
-      kubernetes.io/ingress-class: nginx,
-      external-dns.alpha.kubernetes.io/target: "8.44.158.127"
-    }
-    ingressClassName: "nginx"
-    hosts: ["prometheus.nickknows.net"]
-    tls:
-    - secretName: prometheus.nickknows.net-tls
-      hosts:
-        - prometheus.nickknows.net
+    enabled: false
   prometheusSpec:
     # Sized from observed behaviour on 2026-08-18, not guesswork:
     #   ~186.8k active head series (stable, not growing)
