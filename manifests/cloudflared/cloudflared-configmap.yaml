@@ -46,6 +46,21 @@ data:
           # set `noTLSVerify: true` here to confirm that TLS is the cause, then
           # fix the cert rather than leaving verification off.
 
+      # --- ArgoCD ------------------------------------------------------------
+      # Its Ingress is ingressClassName: nginx with ssl-passthrough annotations,
+      # but no nginx controller runs in this cluster -- Traefik serves it, and
+      # argocd-server itself runs with server.insecure: true (plain HTTP on
+      # 8080, TLS terminated by Traefik). So the annotations are vestigial and
+      # this routes to Traefik exactly like every other host.
+      #
+      # Cloudflare Access sits in front of this hostname. Access authenticates
+      # at the edge, before the tunnel, so ArgoCD's own login is a second
+      # factor rather than the only one.
+      - hostname: argocd.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: argocd.nickknows.net
+
       # Anything not routed above gets a 404 from the tunnel instead of being
       # forwarded, so a stray DNS record can't quietly proxy somewhere.
       - service: http_status:404
