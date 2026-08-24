@@ -73,6 +73,105 @@ data:
         originRequest:
           originServerName: openbao.nickknows.net
 
+      # --- Public sites ------------------------------------------------------
+      # No Access in front: these are meant to be reachable by anyone. The
+      # tunnel is here to get the house off the public internet, not to gate
+      # them.
+      - hostname: api.defs.bet
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: api.defs.bet
+
+      - hostname: v1.defs.bet
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: v1.defs.bet
+
+      - hostname: www.ratetheslopes.com
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: www.ratetheslopes.com
+
+      - hostname: nfl-api.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: nfl-api.nickknows.net
+
+      - hostname: skitunes.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: skitunes.nickknows.net
+
+      - hostname: skitunes-dev.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: skitunes-dev.nickknows.net
+
+      - hostname: whokan.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: whokan.nickknows.net
+
+      - hostname: whoyagot.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: whoyagot.nickknows.net
+
+      - hostname: sharp-edge.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: sharp-edge.nickknows.net
+
+      - hostname: ideabrd.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: ideabrd.nickknows.net
+
+      - hostname: tiskit.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: tiskit.nickknows.net
+
+      - hostname: hydrow.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: hydrow.nickknows.net
+
+      - hostname: hench.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: hench.nickknows.net
+
+      - hostname: notebooks.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: notebooks.nickknows.net
+
+      # --- Infra, behind Cloudflare Access -----------------------------------
+      # Same treatment as argocd and openbao: Access authenticates at the edge,
+      # so each app's own login is a second factor rather than the only one.
+      # home-assistant relies on websockets, which the tunnel proxies fine.
+      # flower already has basic auth; Access is belt and braces.
+      - hostname: grafana.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: grafana.nickknows.net
+
+      - hostname: homepage.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: homepage.nickknows.net
+
+      - hostname: home.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: home.nickknows.net
+
+      - hostname: flower.defs.bet
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: flower.defs.bet
+
       # Anything not routed above gets a 404 from the tunnel instead of being
       # forwarded, so a stray DNS record can't quietly proxy somewhere.
       - service: http_status:404
