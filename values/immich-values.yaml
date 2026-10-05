@@ -3,7 +3,7 @@ controllers:
     containers:
       main:
         image:
-          tag: v2.5.2
+          tag: v3.2.4
         env:
           DB_HOSTNAME: immich-database-rw
           DB_PORT: "5432"

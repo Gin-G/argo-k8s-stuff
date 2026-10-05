@@ -83,7 +83,7 @@ hydrow:
     targetRevision: main
 immich:
   enable: true
-  targetRevision: "0.10.3"
+  targetRevision: "0.13.2"
 ideabrd:
   enable: true
   source:
