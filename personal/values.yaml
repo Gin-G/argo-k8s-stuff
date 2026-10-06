@@ -119,6 +119,11 @@ skitunes-dev:
   source:
     repoURL: https://github.com/Gin-G/SkiTunes
     targetRevision: db-switch
+mvderby:
+  enable: true
+  source:
+    repoURL: https://github.com/Gin-G/mvderby.git
+    targetRevision: main
 dbtest:
   enable: false
   source:

@@ -147,6 +147,11 @@ data:
         originRequest:
           originServerName: notebooks.nickknows.net
 
+      - hostname: mvderby.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: mvderby.nickknows.net
+
       # --- Infra, behind Cloudflare Access -----------------------------------
       # Same treatment as argocd and openbao: Access authenticates at the edge,
       # so each app's own login is a second factor rather than the only one.
