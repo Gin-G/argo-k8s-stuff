@@ -1,0 +1,19 @@
+# PUBLIC half of the pool's offline recovery key (research-pool ADR-0012).
+# It is not a secret. The private half is used only to revoke the hub's signing
+# keys at every site if the hub is ever compromised: keep it off the cluster.
+#
+# Generate it on your own machine (until `research-pool recovery-key init`
+# exists), and paste recovery.pub below:
+#   mkdir -p ~/research-pool-recovery && cd ~/research-pool-recovery
+#   openssl genpkey -algorithm ed25519 -aes256 -out recovery.key   # prompts for a passphrase
+#   openssl pkey -in recovery.key -pubout -out recovery.pub
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: research-pool-recovery
+  namespace: research-pool
+data:
+  recovery.pub: |
+    -----BEGIN PUBLIC KEY-----
+    MCowBQYDK2VwAyEAjY74rFay832t49Cq6a9qsU0kZvsbiw6adMDDgW3X1Tc=
+    -----END PUBLIC KEY-----

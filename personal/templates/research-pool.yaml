@@ -1,0 +1,57 @@
+{{- if (index .Values "research-pool" "enable") }}
+# Prerequisites the chart reads but doesn't create: the OIDC client Secret,
+# the recovery public key, and Argo's OCI repository entry for Harbor.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: research-pool-prereqs
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: research-pool
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    path: manifests/research-pool
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+# The hub itself: the released chart from Harbor, values from this repo.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: research-pool
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: research-pool
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: {{ (index .Values "research-pool" "source" "repoURL") }}
+      chart: research-pool
+      targetRevision: {{ (index .Values "research-pool" "source" "targetRevision") | quote }}
+      helm:
+        releaseName: research-pool
+        valueFiles:
+          - $sourceRepo/values/research-pool-hub.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

@@ -1,0 +1,59 @@
+# Research Pool hub (role: hub) -- short public test, then disabled.
+# Chart: oci://hub.k8s.ucar.edu/ncote/research-pool (version in personal/values.yaml).
+# Based on the chart's examples/hub-own-config.yaml.
+#
+# Prerequisites, all in manifests/research-pool/ (the research-pool-prereqs app):
+#   - Secret research-pool-oidc            client-id / client-secret, from OpenBao kv/research-pool/oidc
+#   - ConfigMap research-pool-recovery     recovery.pub, the PUBLIC half of the offline recovery key
+#   - Argo CD repository Secret            lets Argo pull the chart from Harbor over OCI
+#
+# The hub and agent images are pinned by digest in the released chart's own
+# defaults, so nothing is set under `images:` here. The Harbor project is
+# public: no pull secret.
+
+role: hub
+
+global:
+  clusterName: homelab
+  baseDomain: nickknows.net
+  # Host names default to pool.<baseDomain> and pool-agents.<baseDomain>, one
+  # level deep so Cloudflare's Universal SSL certificate covers them at the edge.
+
+engine:
+  hub:
+    publicURL: https://pool.nickknows.net
+    # Google `sub` values. Empty is allowed: sign in, open My sites, copy the
+    # value it shows here, and let Argo sync. Seeding applies while there are
+    # no operators yet.
+    bootstrapOperators: []
+    enrollment:
+      invitationTTL: 72h
+    signing:
+      recoveryPublicKeyRef: { name: research-pool-recovery, key: recovery.pub }
+    database:
+      # A CloudNativePG Cluster from the chart, run by the cnpg operator already
+      # in this cluster. Its data goes away when the app is disabled (pruned).
+      mode: bundled
+      bundled:
+        size: 2Gi
+        storageClass: rook-ceph-block
+
+researchPool:
+  auth:
+    provider: oidc
+    issuer: https://accounts.google.com
+    existingSecret: research-pool-oidc
+
+platform:
+  ingress:
+    mode: ingress
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-cloudflare
+      # Both host names (pool., pool-agents.) become CNAMEs to the tunnel.
+      external-dns.alpha.kubernetes.io/target: 75c20a42-2dd1-4297-8a51-3aefbcb3f004.cfargotunnel.com
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    tls:
+      # Issued by cert-manager's ingress-shim from the annotation above; one
+      # certificate covering both host names.
+      existingSecret: research-pool-tls

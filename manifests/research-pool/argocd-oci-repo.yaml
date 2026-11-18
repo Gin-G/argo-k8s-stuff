@@ -1,0 +1,16 @@
+# Lets Argo CD pull Helm charts from Harbor's ncote project over OCI. The
+# project is public, so there are no credentials here, only enableOCI.
+# It lives in the prereqs app, not the chart app: the chart app can't render
+# until this exists, so it can't create it itself.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: repo-harbor-ncote-oci
+  namespace: argo
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  name: harbor-ncote
+  type: helm
+  url: hub.k8s.ucar.edu/ncote
+  enableOCI: "true"

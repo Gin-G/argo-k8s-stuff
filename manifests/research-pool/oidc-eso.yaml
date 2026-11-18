@@ -1,0 +1,34 @@
+# Google OAuth client for the hub's sign-in.
+#
+# Create it at console.cloud.google.com -> APIs & Services:
+#   - OAuth consent screen: External, publishing status "Testing". Only the
+#     test users listed there can sign in, which is the allowlist the hub
+#     itself doesn't have. Add yourself and each remote site admin.
+#     Scopes: openid, email, profile (all non-sensitive; no verification).
+#   - Credentials -> OAuth client ID -> Web application
+#       Authorized redirect URI: https://pool.nickknows.net/auth/callback
+#
+# Then store it in OpenBao:
+#   bao kv put kv/research-pool/oidc client-id=... client-secret=...
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: research-pool-oidc
+  namespace: research-pool
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: openbao-k8s-backend
+    kind: ClusterSecretStore
+  target:
+    name: research-pool-oidc
+    creationPolicy: Owner
+  data:
+    - secretKey: client-id
+      remoteRef:
+        key: research-pool/oidc
+        property: client-id
+    - secretKey: client-secret
+      remoteRef:
+        key: research-pool/oidc
+        property: client-secret

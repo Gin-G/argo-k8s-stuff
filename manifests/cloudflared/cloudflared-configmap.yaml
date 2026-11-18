@@ -152,6 +152,20 @@ data:
         originRequest:
           originServerName: mvderby.nickknows.net
 
+      # --- Research Pool hub (short test) -----------------------------------
+      # No Access: the hub runs its own Google sign-in, and site agents (plain
+      # HTTPS API clients) could never complete an Access login. pool. is the
+      # console; pool-agents. is the agent API (enrollment, DPoP-signed).
+      - hostname: pool.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: pool.nickknows.net
+
+      - hostname: pool-agents.nickknows.net
+        service: https://traefik.traefik.svc.cluster.local:443
+        originRequest:
+          originServerName: pool-agents.nickknows.net
+
       # --- Infra, behind Cloudflare Access -----------------------------------
       # Same treatment as argocd and openbao: Access authenticates at the edge,
       # so each app's own login is a second factor rather than the only one.

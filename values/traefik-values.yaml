@@ -14,6 +14,9 @@ logs:
         defaultMode: drop
         names:
           X-Forwarded-For: keep
+          # Set by Cloudflare's edge to the real client IP. Logged next to XFF
+          # to see what each hop does to the source address.
+          Cf-Connecting-Ip: keep
 ports:
   web:
     forwardedHeaders:
