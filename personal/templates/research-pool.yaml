@@ -1,6 +1,7 @@
 {{- if (index .Values "research-pool" "enable") }}
 # Prerequisites the chart reads but doesn't create: the OIDC client Secret,
-# the recovery public key, and Argo's OCI repository entry for Harbor.
+# the recovery public key, the identity map, and Argo's OCI repository entry
+# for Harbor.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -24,7 +25,8 @@ spec:
     syncOptions:
       - CreateNamespace=true
 ---
-# The hub itself: the released chart from Harbor, values from this repo.
+# Hub and this cluster's site in one release (role hub+site): the released
+# chart from Harbor, values from this repo.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -44,47 +46,10 @@ spec:
       helm:
         releaseName: research-pool
         valueFiles:
-          - $sourceRepo/values/research-pool-hub.yaml
+          - $sourceRepo/values/research-pool.yaml
     - repoURL: {{ .Values.spec.source.repoURL }}
       targetRevision: {{ .Values.spec.source.targetRevision }}
       ref: sourceRepo
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-{{- end }}
-{{- if and (index .Values "research-pool" "enable") (index .Values "research-pool" "site" "enable") }}
----
-# This cluster as a site of its own hub, joined like any remote site. Same
-# chart version as the hub; the identity map comes from manifests/research-pool-site.
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: research-pool-site
-  namespace: argo
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: research-pool-site
-    server: {{ .Values.spec.destination.server }}
-  project: default
-  sources:
-    - repoURL: {{ (index .Values "research-pool" "source" "repoURL") }}
-      chart: research-pool
-      targetRevision: {{ (index .Values "research-pool" "source" "targetRevision") | quote }}
-      helm:
-        releaseName: research-pool-site
-        valueFiles:
-          - $sourceRepo/values/research-pool-site.yaml
-    - repoURL: {{ .Values.spec.source.repoURL }}
-      targetRevision: {{ .Values.spec.source.targetRevision }}
-      ref: sourceRepo
-    - repoURL: {{ .Values.spec.source.repoURL }}
-      targetRevision: {{ .Values.spec.source.targetRevision }}
-      path: manifests/research-pool-site
   syncPolicy:
     automated:
       prune: true

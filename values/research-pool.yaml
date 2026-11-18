@@ -1,17 +1,23 @@
-# Research Pool hub (role: hub) -- short public test, then disabled.
+# Research Pool, role hub+site: the hub, plus this cluster as its first site,
+# in one release -- short public test, then disabled.
 # Chart: oci://hub.k8s.ucar.edu/ncote/research-pool (version in personal/values.yaml).
-# Based on the chart's examples/hub-own-config.yaml.
 #
 # Prerequisites, all in manifests/research-pool/ (the research-pool-prereqs app):
 #   - Secret research-pool-oidc            client-id / client-secret, from OpenBao kv/research-pool/oidc
 #   - ConfigMap research-pool-recovery     recovery.pub, the PUBLIC half of the offline recovery key
+#   - ConfigMap research-pool-identity-map Google sub -> POSIX identity for this site
 #   - Argo CD repository Secret            lets Argo pull the chart from Harbor over OCI
+#
+# Joining this cluster (ADR-0015, chart >= 0.1.0-rc.2): engine.site.localJoin
+# is on by default for hub+site, so there's no invitation and no code. Sign in
+# as an operator and approve the join request marked "this hub's own cluster".
+# Remote sites still use invitation -> code -> approval (ADR-0014).
 #
 # The hub and agent images are pinned by digest in the released chart's own
 # defaults, so nothing is set under `images:` here. The Harbor project is
 # public: no pull secret.
 
-role: hub
+role: hub+site
 
 global:
   clusterName: homelab
@@ -37,12 +43,23 @@ engine:
       bundled:
         size: 2Gi
         storageClass: rook-ceph-block
+  site:
+    name: homelab
+    # The agent reaches its own hub the way a remote site does: through the
+    # tunnel and Traefik, not an in-cluster shortcut.
+    hubURL: https://pool-agents.nickknows.net
 
 researchPool:
   auth:
     provider: oidc
     issuer: https://accounts.google.com
     existingSecret: research-pool-oidc
+  identityMapping:
+    provider: static
+    static:
+      ref: { kind: ConfigMap, name: research-pool-identity-map, key: map.yaml }
+  # No datasets yet: enrollment is what's under test.
+  datasets: []
 
 platform:
   ingress:
@@ -57,3 +74,14 @@ platform:
       # Issued by cert-manager's ingress-shim from the annotation above; one
       # certificate covering both host names.
       existingSecret: research-pool-tls
+  scheduling:
+    # Off ging-laptop: its kubelet isn't reachable from the API server, so
+    # logs and exec there fail with a 502. (The CNPG database pod isn't
+    # covered by these; the chart has no scheduling values for it.)
+    hub:
+      nodeSelector:
+        kubernetes.io/hostname: gingworker
+    # Agent and its preflight Job.
+    agent:
+      nodeSelector:
+        kubernetes.io/hostname: gingworker
