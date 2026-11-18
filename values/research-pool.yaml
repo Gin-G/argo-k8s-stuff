@@ -34,6 +34,11 @@ engine:
       - "111747131414504260066"   # Nick (Google)
     enrollment:
       invitationTTL: 72h
+    tunnel:
+      # rc.4 (ADR-0016): on, this adds a *.nickknows.net ingress host, which
+      # means wildcard DNS to the tunnel and a wildcard certificate for the
+      # whole personal domain. Sessions aren't under test, so it stays off.
+      enabled: false
     signing:
       recoveryPublicKeyRef: { name: research-pool-recovery, key: recovery.pub }
     database:
