@@ -55,3 +55,40 @@ spec:
     syncOptions:
       - CreateNamespace=true
 {{- end }}
+{{- if and (index .Values "research-pool" "enable") (index .Values "research-pool" "site" "enable") }}
+---
+# This cluster as a site of its own hub, joined like any remote site. Same
+# chart version as the hub; the identity map comes from manifests/research-pool-site.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: research-pool-site
+  namespace: argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: research-pool-site
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    - repoURL: {{ (index .Values "research-pool" "source" "repoURL") }}
+      chart: research-pool
+      targetRevision: {{ (index .Values "research-pool" "source" "targetRevision") | quote }}
+      helm:
+        releaseName: research-pool-site
+        valueFiles:
+          - $sourceRepo/values/research-pool-site.yaml
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      ref: sourceRepo
+    - repoURL: {{ .Values.spec.source.repoURL }}
+      targetRevision: {{ .Values.spec.source.targetRevision }}
+      path: manifests/research-pool-site
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}

@@ -131,6 +131,9 @@ mvderby:
   source:
     repoURL: hub.k8s.ucar.edu/ncote      # Harbor OCI; see manifests/research-pool/argocd-oci-repo.yaml
     targetRevision: "0.1.0-rc.1"
+  site:
+    # This cluster as a site of the hub (values/research-pool-site.yaml).
+    enable: true
 dbtest:
   enable: false
   source:

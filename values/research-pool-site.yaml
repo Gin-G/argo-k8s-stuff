@@ -1,0 +1,47 @@
+# Research Pool site (role: site): this cluster joins the homelab hub the same
+# way a remote site does, through pool-agents.nickknows.net (tunnel + Traefik),
+# not an in-cluster shortcut. Same chart and version as the hub (personal/values.yaml).
+#
+# Join: the agent logs a code ->
+#   kubectl -n research-pool-site logs deploy/research-pool-site-agent | grep code
+# confirm it at https://pool.nickknows.net/join, then approve the request.
+
+role: site
+
+# The hub release (research-pool) already installs all five CRDs; two Argo
+# apps owning them would fight. Note: disabling the hub removes them too.
+crds:
+  install: false
+
+global:
+  clusterName: homelab
+
+# From the invitation for site "homelab" (My sites).
+engine:
+  site:
+    name: homelab
+    hubURL: https://pool-agents.nickknows.net
+    hubTrust:
+      # RFC 7638 thumbprint of the recovery public key in
+      # manifests/research-pool/recovery-key.yaml.
+      recoveryKeyFingerprint: 7ANbz3Simm0wJ7lrq3mqLIL6tAejeKp3xwVef5UAs8Y
+
+researchPool:
+  identityMapping:
+    provider: static
+    static:
+      ref: { kind: ConfigMap, name: research-pool-identity-map, key: map.yaml }
+  # No datasets yet: enrollment is what's under test.
+  datasets: []
+
+platform:
+  ingress:
+    # Sessions aren't built yet; the tunnel mode needs no wildcard DNS/TLS here.
+    mode: hubTunnel
+  scheduling:
+    # Agent and preflight Job. ging-laptop's kubelet isn't reachable from the
+    # API server (logs/exec return 502), and the join code is only in the
+    # agent's log.
+    agent:
+      nodeSelector:
+        kubernetes.io/hostname: gingworker

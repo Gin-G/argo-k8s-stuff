@@ -1,0 +1,26 @@
+# Static identity map for the homelab site: pool identity (Google `sub`) ->
+# POSIX identity used in sessions. Format: research-pool examples/identity-map.yaml.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: research-pool-identity-map
+  namespace: research-pool-site
+data:
+  map.yaml: |
+    apiVersion: research-pool.io/v1alpha1
+    kind: StaticIdentityMap
+    version: "2026-11-18.1"          # bump on every change
+    uidFloor: 1000
+    users:
+      - sub: "111747131414504260066"   # Nick (Google)
+        username: nick
+        uid: 20001
+        gid: 20001
+      - sub: "preflight"               # preflight-only identity; never usable for sessions
+        preflight: true
+        username: rp-preflight
+        uid: 20999
+        gid: 20999
+    groups:
+      - { name: nick,         gid: 20001 }
+      - { name: rp-preflight, gid: 20999 }
