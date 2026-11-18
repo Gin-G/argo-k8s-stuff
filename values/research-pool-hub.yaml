@@ -22,10 +22,10 @@ global:
 engine:
   hub:
     publicURL: https://pool.nickknows.net
-    # Google `sub` values. Empty is allowed: sign in, open My sites, copy the
-    # value it shows here, and let Argo sync. Seeding applies while there are
-    # no operators yet.
-    bootstrapOperators: []
+    # Google `sub` values. Seeding applies only while the hub has no operators;
+    # after that, operators are added from the console.
+    bootstrapOperators:
+      - "111747131414504260066"   # Nick (Google)
     enrollment:
       invitationTTL: 72h
     signing:
