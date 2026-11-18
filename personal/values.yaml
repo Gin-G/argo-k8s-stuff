@@ -127,7 +127,7 @@ mvderby:
 "research-pool":
   # Short public hub test; flip to false to remove it (the hub's database goes
   # with it). Needs the Google client in OpenBao at kv/research-pool/oidc.
-  enable: true
+  enable: false
   source:
     repoURL: hub.k8s.ucar.edu/ncote      # Harbor OCI; see manifests/research-pool/argocd-oci-repo.yaml
     targetRevision: "0.1.0-rc.1"
