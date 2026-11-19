@@ -1,0 +1,47 @@
+# Traefik routes for the hub's two fixed hosts. These replace the chart's
+# Ingress, which is parked on an IngressClass nothing serves (see
+# values/research-pool.yaml):
+#
+# With engine.hub.tunnel.enabled, the chart puts a *.nickknows.net rule in the
+# same Ingress. Traefik turns that into
+# HostRegexp(`^[a-zA-Z0-9-]+\.nickknows\.net$`), and its default priority is
+# the rule's length, so it would outrank every Host() rule on this Traefik
+# (both the traefik and nginx classes) and take their traffic. One Ingress
+# carries one set of annotations, so the chart's routes can't be ranked apart
+# either.
+#
+# Session hosts (s-<id>.nickknows.net) don't come through Traefik at all:
+# cloudflared sends *.nickknows.net straight to the hub's public Service
+# (manifests/cloudflared/cloudflared-configmap.yaml).
+#
+# Mirrors the chart's Ingress for 0.1.0-rc.4. Check it against
+# `helm template` when the chart's paths change.
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: research-pool-hub
+  namespace: research-pool
+spec:
+  entryPoints: [websecure]
+  routes:
+    # Product services: the launch page and the sessions API.
+    - kind: Rule
+      match: Host(`pool.nickknows.net`) && (PathPrefix(`/app`) || PathPrefix(`/api`))
+      services:
+        - name: research-pool-services
+          port: http
+    # Console, sign-in, join pages.
+    - kind: Rule
+      match: Host(`pool.nickknows.net`)
+      services:
+        - name: research-pool-hub-public
+          port: http
+    # Agent listener: enrollment, work orders, the agent tunnel.
+    - kind: Rule
+      match: Host(`pool-agents.nickknows.net`) && PathPrefix(`/engine/v1/`)
+      services:
+        - name: research-pool-hub-agent
+          port: http
+  tls:
+    # Issued by cert-manager from the chart's (parked) Ingress annotations.
+    secretName: research-pool-tls
