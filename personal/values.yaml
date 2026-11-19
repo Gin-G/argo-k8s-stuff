@@ -130,7 +130,7 @@ mvderby:
   enable: true
   source:
     repoURL: hub.k8s.ucar.edu/ncote      # Harbor OCI; see manifests/research-pool/argocd-oci-repo.yaml
-    targetRevision: "0.1.0-rc.4"
+    targetRevision: "0.1.0-rc.5"
 dbtest:
   enable: false
   source:
