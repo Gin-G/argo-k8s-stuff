@@ -125,9 +125,12 @@ mvderby:
     repoURL: https://github.com/Gin-G/mvderby.git
     targetRevision: main
 "research-pool":
-  # Short public hub test; flip to false to remove it (the hub's database goes
-  # with it). Needs the Google client in OpenBao at kv/research-pool/oidc.
-  enable: true
+  # Short public hub test, ended 2026-11-19. To run it again, set true, and
+  # put back the cloudflared routes for pool., pool-agents. and
+  # *.nickknows.net (removed in the same commit as this change). The hub's
+  # database is gone; it starts empty. Needs the Google client in OpenBao at
+  # kv/research-pool/oidc.
+  enable: false
   source:
     repoURL: hub.k8s.ucar.edu/ncote      # Harbor OCI; see manifests/research-pool/argocd-oci-repo.yaml
     targetRevision: "0.1.0-rc.5"
