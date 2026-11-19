@@ -35,10 +35,13 @@ engine:
     enrollment:
       invitationTTL: 72h
     tunnel:
-      # rc.4 (ADR-0016): on, this adds a *.nickknows.net ingress host, which
-      # means wildcard DNS to the tunnel and a wildcard certificate for the
-      # whole personal domain. Sessions aren't under test, so it stays off.
-      enabled: false
+      # Sessions (ADR-0016) need this: it gives the hub its session host
+      # pattern, s-<id>.nickknows.net (sessionHostTemplate's default). Off, the
+      # hub has no session hosts and launch links come out without a domain.
+      # It also adds *.nickknows.net to the chart's Ingress, so DNS gets a
+      # wildcard record to the tunnel; see platform.ingress below for why that
+      # Ingress isn't routed.
+      enabled: true
     signing:
       recoveryPublicKeyRef: { name: research-pool-recovery, key: recovery.pub }
     database:
@@ -69,7 +72,15 @@ researchPool:
 platform:
   ingress:
     mode: ingress
-    className: traefik
+    # Parked: no IngressClass by this name exists, so neither Traefik provider
+    # routes this Ingress. external-dns and cert-manager still read it (DNS for
+    # pool., pool-agents., *.nickknows.net, and the certificates).
+    #   - Its *.nickknows.net rule would outrank every Host() rule on this
+    #     Traefik (priority = rule length), so it can't go to Traefik.
+    #   - pool. and pool-agents. are routed by
+    #     manifests/research-pool/ingressroute.yaml instead.
+    #   - Session hosts go from cloudflared straight to the hub's Service.
+    className: research-pool-unrouted
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-cloudflare
       # Both host names (pool., pool-agents.) become CNAMEs to the tunnel.
@@ -79,6 +90,11 @@ platform:
       # Issued by cert-manager's ingress-shim from the annotation above; one
       # certificate covering both host names.
       existingSecret: research-pool-tls
+      # Its own certificate for the *.nickknows.net entry, so cert-manager
+      # doesn't see two TLS entries sharing one Secret. Nothing serves it
+      # today: session traffic reaches the hub over plain HTTP from
+      # cloudflared, and Cloudflare's edge certificate covers the browser side.
+      sessionsExistingSecret: research-pool-sessions-tls
   scheduling:
     # Off ging-laptop: its kubelet isn't reachable from the API server, so
     # logs and exec there fail with a 502. (The CNPG database pod isn't

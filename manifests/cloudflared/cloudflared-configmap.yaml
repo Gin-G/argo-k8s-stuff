@@ -191,6 +191,21 @@ data:
         originRequest:
           originServerName: flower.defs.bet
 
+      # Research Pool session hosts (s-<id>.nickknows.net, ADR-0016). The hub
+      # proxies each one to its site over the agent tunnel; it answers only
+      # hosts in its own session pattern.
+      #   - Every explicit hostname above still matches first, including the
+      #     ones behind Cloudflare Access.
+      #   - This rule goes straight to the hub's Service, never to Traefik.
+      #     Through Traefik, a LAN-only name with no public DNS record of its
+      #     own would become publicly reachable through its Ingress, now that
+      #     DNS has a *.nickknows.net wildcard.
+      #   - Plain HTTP inside the cluster; Cloudflare's edge certificate covers
+      #     the browser side.
+      # Remove it together with research-pool.
+      - hostname: "*.nickknows.net"
+        service: http://research-pool-hub-public.research-pool.svc.cluster.local:80
+
       # Anything not routed above gets a 404 from the tunnel instead of being
       # forwarded, so a stray DNS record can't quietly proxy somewhere.
       - service: http_status:404
